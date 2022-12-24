@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Home from '@/views/Home.vue';
+import About from '@/views/About.vue';
 import Inicio from '@/views/Inicio.vue';
 import Atractivos from '@/views/Atractivos.vue';
 import Atractivo from '@/views/Atractivo.vue';
@@ -17,6 +19,28 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/admin',
+    name: 'about',
+    component: About,
+    children: [
+      { path: "/", name: "inicio", component: Inicio },
+      { path: "/atractivos", name: "atractivos", component: Atractivos },
+      { path: "/atractivo/:id", name: "atractivo", component: Atractivo },
+      { path: "/resenas", name: "resenas", component: Resenas },
+      { path: "/hospedajes", name: "hospedajes", component: Hospedajes },
+      { path: "/hospedaje/:id", name: "hospedaje", component: Hospedaje },
+      { path: "/eventos", name: "eventos", component: Eventos },
+      { path: "/evento/:id", name: "evento", component: Evento },
+      { path: "/noticias", name: "noticias", component: Noticias },
+      { path: "/noticia/:id", name: "noticia", component: Noticia },
+    ]
+  },
+  /*{
+    path: '/admin',
     name: 'inicio',
     component: Inicio
   },
@@ -72,7 +96,7 @@ const routes = [
     path: '/pruebas',
     name: 'Pruebas',
     component: Pruebas
-  },
+  },*/ 
 ]
 
 const router = new VueRouter({
