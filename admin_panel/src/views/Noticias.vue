@@ -32,9 +32,10 @@
       :search="search"
       class="mt-7"
     >
-    <template v-slot:[`item.informacion`]="{ index }">
+    <template v-slot:[`item.contenido`]="{ index }">
       <span>{{index + 1}}</span>
     </template>
+    
     <template v-slot:[`item.id`]="{ item }">
         <v-btn
         class="mx-1"
@@ -82,12 +83,12 @@ export default {
           {
             text: '#',
             align: 'start',
-            value: 'informacion',
+            value: 'contenido',
           },
           { text: 'Titulo', value: 'titulo' },
           { text: 'Fecha de Publicación', value: 'fecha_publicacion' },
           { text: 'Categoria', value: 'categoria' },
-          { text: 'Creado por', value: 'id_user' },
+          { text: 'Creado por', value: 'autor' },
           { text: 'Acciones', value: 'id' },
         ],
         noticias_list:[],
@@ -102,11 +103,20 @@ export default {
       NoticiaService.getNoticias()
       .then(response => {
         this.noticias_list = response.data;
+        this.noticias_list.forEach(element=>{
+            element.fecha_publicacion = this.convierteFecha(element.fecha_publicacion);
+        })
       })
       .catch(error => console.log(error))
       .finally(() => console.log('concluyó la petición'))
      },
-
+     convierteFecha(fecha){
+       let date = new Date(fecha);
+       let dia = date.getDate();
+       let mes = date.getMonth() + 1;
+       let anio = date.getFullYear();
+       return `${dia}-${mes}-${anio}`;
+    },
      editarNoticia(id){
         this.$router.replace('noticia/'+id);
      },

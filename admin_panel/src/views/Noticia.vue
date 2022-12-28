@@ -3,136 +3,85 @@
     <v-card class="pa-10">
     <v-container>
     <v-card-title>
-    <v-icon>mdi-bank</v-icon>
-    <span class="ms-2">{{edicion}} Atractivo</span>
+    <v-icon>mdi-newspaper-variant-multiple</v-icon>
+    <span class="ms-2">{{estado_noticia}} Noticia</span>
     </v-card-title>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
-        <v-card-title>Datos Principales</v-card-title>
-        <v-col cols="12 pa-0">
+        <v-card-title>Información</v-card-title>
+        <v-col cols="12" class="pa-0">
           <v-text-field
-            v-model="atractivo.nombre"
+            v-model="noticia.titulo"
             :rules="nameRules"
-            label="Nombre"
+            label="Titulo"
             required
             outlined
           ></v-text-field>
         </v-col>
-        <v-row>
-          <v-col cols="6" class="px-3 py-0">
+        <v-col cols="12" class="pa-0">
+          <v-text-field
+            v-model="noticia.entrada"
+            label="Entrada"
+            required
+            outlined
+          ></v-text-field>
+        </v-col>
+         <v-col cols="12" class="pa-0">
+          <v-text-field
+            v-model="noticia.autor"
+            label="Autor"
+            required
+            outlined
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" class="px-0 pt-0 pb-5">
+            <v-card-title>Contenido</v-card-title>
+            <vue-editor v-model="noticia.contenido" />
+        </v-col>
+
+      </v-col>
+      <v-col cols="4" class="pa-5">
+          <v-card-title class="py-0">
+            Imagen
+          </v-card-title>
+          <v-col cols="12">
+            <ImgPrincipal/>
+          </v-col>
+           <v-col cols="12" class="px-3 pt-7">
             <v-text-field
-              v-model="atractivo.ubicacion"
+              v-model="noticia.fecha_publicacion"
               :rules="nameRules"
-              label="Ubicación"
+              label="Fecha de Publicación"
               required
+              type="date"
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="12" class="px-3 pt-0">
             <v-select
-              v-model="atractivo.comunidad"
-              :items="comunidades"
-              label="Comunidad"
+              v-model="noticia.categoria"
+              :items="categorias"
+              label="Categoria"
               required
               outlined
             ></v-select>
           </v-col>
-        </v-row>
-        <v-col cols="12" class="py-0">
-          <v-text-field
-            v-model="atractivo.como_llegar"
-            :rules="nameRules"
-            label="Cómo Llegar"
-            required
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-row>
-          <v-col cols="6" class="py-0 px-3">
-            <v-select
-            v-model="atractivo.categoria"
-            :items="categorias"
-            label="Categoria"
-            required
-            outlined
-        ></v-select>
-        </v-col>
-          <v-col cols="6" class="py-0 px-3">
-            <v-text-field
-              v-model="atractivo.temporada_ideal"
-              :rules="nameRules"
-              label="Temporada Ideal"
-              required
-              outlined
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-col cols="12" class="px-0 py-0">
-            <v-textarea
-            name="informacion"
-            label="Información del Atractivo"
-            :value=atractivo.informacion
-            outlined
-            height=310
-          ></v-textarea>
-        </v-col>
-      </v-col>
-      <v-col cols="4" class="pa-5">
-          <v-card-title class="py-0">
-            Imagenes
-          </v-card-title>
-          <v-col cols="12">
-            <v-card-title class="py-0">
-                Imagen Principal
-            </v-card-title>
-            <ImgPrincipal/>
-          </v-col>
           <v-divider></v-divider>
-          <v-col cols="12" class="text-center">
-            <v-card-title class="py-0">
-               Galería de Imagenes
-            </v-card-title>
-            <vue-upload-multiple-image
-            @upload-success="uploadImageSuccess"
-            @before-remove="beforeRemove"
-            @edit-image="editImage"
-            :data-images="images"
-            idUpload="myIdUpload"
-            editUpload="myIdEdit"
-            >
-            </vue-upload-multiple-image>
-          </v-col>
       </v-col>
-    </v-row>
-    <v-divider></v-divider>
-    <v-row class="mb-7">
-    <v-card-title>
-      <v-icon>mdi-umbrella-beach-outline</v-icon>
-      <span class="ms-2">Artículos a llevar</span>
-    </v-card-title>
-
-     <v-flex xs12 md12 class="greyBorder">
-            <div class="mr-4 ml-4">
-              <v-layout row wrap>
-                    <v-flex v-for="(category,index) in articulos" :key="articulos[index].text" xs4>
-                      <v-checkbox light :label="category.text" v-model="category.selected">
-                      </v-checkbox>
-                    </v-flex>
-              </v-layout>
-            </div>
-      </v-flex>
     </v-row>
     <v-divider></v-divider>
     <v-col cols="12" class="text-right">
-      <v-btn tile color="primary" class="mx-1">
+      <v-btn tile color="primary" class="mx-1" @click="guardar">
         <v-icon>mdi-content-save</v-icon>
         <span>Guardar</span>
       </v-btn>
-      <v-btn tile color="secondary" class="mx-1">
+      <router-link to="/noticias" class="underline-none">
+        <v-btn tile color="secondary" class="mx-1">
         <v-icon>mdi-arrow-left-circle</v-icon>
-        <span>Cancelar</span>
-      </v-btn>
+          <span>Cancelar</span>
+        </v-btn>
+      </router-link>
     </v-col>
     </v-container>
   </v-card>
@@ -141,53 +90,60 @@
 <script>
 //import axios from 'axios';
 import ItemService from '@/services/ItemService';
+import NoticiaService from '@/services/NoticiaService';
 import VueUploadMultipleImage from 'vue-upload-multiple-image';
+import { VueEditor } from "vue2-editor";
 
 import ImgPrincipal from '@/components/ImgPrincipal.vue'
 
 export default {
-  name: 'Atractivo', 
+  name: 'Noticia', 
   components: {
     VueUploadMultipleImage,
-    ImgPrincipal
+    ImgPrincipal,
+    VueEditor
   }, 
   data(){
     return{
       search: '',
-      edicion:'Nuevo',
-      images:[],
-      atractivo:{
-        nombre:'',
-        informacion:'',
-        ubicacion:'',
-        como_llegar:'',
-        comunidad:'',
-        temporada_ideal:'',
-        img_principal:''
+      estado_noticia:'Nueva',
+      id_noticia:0,
+      noticia:{
+        autor:'',
+        entrada:'',
+        titulo:'',
+        contenido:'',
+        img:'',
+        fecha_publicacion:'',
+        categoria:'',
       },
-      comunidades:[
-        'Copacabana',
-        'Isla del Sol',
-        'Kasani',
-        'Locka'
-      ],
-      categorias:[
-        {val:1, text:'Atractivos Históricos'},
-        {val:2, text:'Atractivos Contemporáneos'},
-        {val:3, text:'Biogeograficos'},
-        {val:4, text:'Geomorfológicos'}
-      ],
-      articulos:ItemService.listArticulos(),
+      categorias:ItemService.listCategoriasNoticia(),
       nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
+        v => !!v || 'Campo requerido',
       ],
     }
   },
   mounted(){
-    
+    this.id_noticia = this.$route.params.id;
+      if(this.id_noticia != 0){
+      this.estado_noticia = 'Editar';
+      this.getNoticia();
+    }
   },
   methods:{
+    getNoticia(){
+      NoticiaService.getNoticia(this.id_noticia).then(response=>{
+        this.noticia = response.data;
+        this.noticia.fecha_publicacion = this.convierteFecha(this.noticia.fecha_publicacion);
+      })
+    },
+    convierteFecha(fecha){
+       let date = new Date(fecha);
+       let dia = date.getDate();
+       let mes = date.getMonth() + 1;
+       let anio = date.getFullYear();
+       return `${anio}-${mes}-${dia}`;
+    },
       notification(title, icon){
           this.$swal.fire({
           position: 'top-end',
@@ -213,12 +169,22 @@ export default {
     },
     editImage (formData, index, fileList) {
       console.log('edit data', formData, index, fileList)
+    },
+    guardar(){
+      this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
+    },
+    editaNoticia(){
+      NoticiaService.editaNoticia(this.noticia).then(()=>{
+        this.notification("La Noticia fue editada de manera exitosa", "success");
+        this.$router.replace('/noticias');
+      })
+    },
+    guardaNoticia(){
+      NoticiaService.saveNoticia(this.noticia).then(()=>{
+        this.notification("La noticia fue creada de manera exitosa", 'success');
+        this.$router.replace('/noticias');
+      })
     }
-    //  getArticulos(){
-    //   ArticuloService.getArticulos().
-    //   then(response=>this.articulos=response.data)
-    //   .catch(error=> console.log(error))
-    //  }
   }
 }
 </script>
@@ -226,5 +192,9 @@ export default {
   v-col{
     padding:0;
   }
+  .underline-none{
+    text-decoration: none;
+  }
+
 </style>
 

@@ -11,13 +11,19 @@
       "type": "number",
       "required": true
     },
-    "img_principal": {
+    "autor": {
+      "type": "string"
+    },
+    "img": {
       "type": "string"
     },
     "titulo": {
       "type": "string"
     },
-    "informacion": {
+    "entrada": {
+      "type": "string"
+    },
+    "contenido": {
       "type": "string"
     },
     "fecha_publicacion": {

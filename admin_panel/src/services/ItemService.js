@@ -217,7 +217,19 @@ export default {
             {value:2, text:'2 Estrellas'},
             {value:3, text:'3 Estrellas'},
             {value:4, text:'4 Estrellas'},
-            {value:5, text:'5 Estrellas'},
+            {value:5, text:'5 Estrellas'}
           ]
+    }, 
+    listCategoriasNoticia(){
+        return [
+            'Política',
+            'Deportiva',
+            'Económica',
+            'Cultural',
+            'Social',
+            'Farándula',
+            'Científica',
+            'Servicio Público'
+          ];
     }
 }

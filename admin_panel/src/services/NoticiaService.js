@@ -6,5 +6,14 @@ export default {
     },
     eliminarNoticia(id){
         return Api().delete(`/noticias/${id}`);
+    },
+    saveNoticia(item){
+        return Api().post('/noticias', item);
+    }, 
+    getNoticia(id){
+        return Api().get(`/noticias/${id}`);
+    },
+    editaNoticia(item){
+        return Api().put(`/noticias/${item.id}`, item);
     }
 }
