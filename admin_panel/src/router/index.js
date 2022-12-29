@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
+import HomeNoticias from '@/views/HomeNoticias.vue';
+import HomeHospedajes from '@/views/HomeHospedajes.vue';
 import About from '@/views/About.vue';
 import Inicio from '@/views/Inicio.vue';
 import Atractivos from '@/views/Atractivos.vue';
@@ -21,6 +23,16 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/SiteNoticias',
+    name: 'homeNoticias',
+    component: HomeNoticias
+  },
+  {
+    path: '/SiteHospedajes',
+    name: 'homeHospedajes',
+    component: HomeHospedajes
   },
   {
     path: '/admin',

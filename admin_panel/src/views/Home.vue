@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <v-app-bar color="white" elevate-on-scroll absolute scroll-target="#scrolling-body" app>
+		<v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
 		<v-toolbar-title class="font-weight-light">
 			<v-img
 				src="../assets/logo_copa.png"
@@ -9,22 +10,65 @@
 			<!--span>COPACABANA ES TU DESTINO</span-->
 		</v-toolbar-title>
 		<v-spacer></v-spacer>
-		<v-btn text>
-			inicio
-		</v-btn>
-		<v-btn text href="#div_atractivos">
-			atractivos turísticos
-		</v-btn>
-		<v-btn text href="#div_hospedajes">
-			hospedajes
-		</v-btn>
-		<v-btn text>
-			eventos programados
-		</v-btn>
-		<v-btn text href="#div_noticias">
-			noticias
-		</v-btn>
+		<div class="d-none d-sm-none d-md-flex">
+			<router-link class="underline-none" to="/" v-slot="{ navigate }">
+				<v-btn text @click="navigate">
+					inicio
+				</v-btn>
+			</router-link>
+			<v-btn text href="#div_atractivos">
+				atractivos turísticos
+			</v-btn>
+			<v-btn text href="#div_hospedajes">
+				hospedajes
+			</v-btn>
+			<v-btn text>
+				eventos programados
+			</v-btn>
+			<v-btn text href="#div_noticias">
+				noticias
+			</v-btn>	
+		</div>
 	</v-app-bar>
+	<v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-blue--text text--accent-4"
+        >
+			<router-link class="underline-none" to="/" v-slot="{ navigate }">
+				<v-list-item @click="navigate" >
+					<v-list-item-title>INICIO</v-list-item-title>
+				</v-list-item>
+			</router-link>
+          <v-list-item>
+            <v-list-item-title>INICIO</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item href="#div_atractivos">
+            <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item href="#div_hospedajes">
+            <v-list-item-title>HOSPEDAJES</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>EVENTOS PROGRAMADOS</v-list-item-title>
+          </v-list-item>
+		  <v-list-item href="#div_noticias">
+            <v-list-item-title>NOTICIAS</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 	<v-main>
 		<v-sheet id="scrolling-body" class="overflow-y-auto" :max-height="altura_ini_p">
 			<v-carousel cycle hide-delimiter-background show-arrows-on-hover :height="altura_ini_p">
@@ -56,9 +100,7 @@
 								</div>
 								<br><br>
 								<p class="text-">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. At, nisi error maiores deserunt voluptate fuga consequatur qui magnam velit explicabo ea, nostrum sapiente temporibus, hic ad laudantium nobis voluptas doloremque.
-								<br>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem modi porro facilis consectetur mollitia natus, odio quas deleniti. Quam, adipisci dicta! Consequuntur animi tempora architecto eaque aspernatur facilis laboriosam fugiat!
+									Copacabana, en la actualidad, es considerada como uno de los más importantes destinos turísticos de Bolivia, por su exuberante belleza natural, sus atractivos  de  tipo  arqueológico,  cultural  y  por  el  estilo  de  vida  de  su  población,  que mantiene  aún  costumbres  auténticas  no  afectadas  por  el  consumismo  y  por  los  nuevos hábitos del mundo occidental.
 								</p>
 							</div>
 						</v-col>
@@ -81,7 +123,7 @@
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-col cols="6" sm="4" md="3">
+						<v-col cols="12" sm="4" md="3">
 							<div class="wow fadeInLeft grid">
 								<figure class="effect-sadie">
 									<img height="260" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/67/d7/35/aerial-view-of-cerro.jpg?w=1200&h=-1&s=1" alt="img02">
@@ -96,7 +138,7 @@
 								</figure>
 							</div>
 						</v-col>
-						<v-col cols="6" sm="4" md="3">
+						<v-col cols="12" sm="4" md="3">
 							<div class="wow fadeInLeft grid">
 								<figure class="effect-sadie">
 									<img height="260" src="https://live.staticflickr.com/6099/6284904269_ea2148a6c9_b.jpg" alt="img02">
@@ -111,7 +153,7 @@
 								</figure>
 							</div>
 						</v-col>
-						<v-col cols="6" sm="4" md="3">
+						<v-col cols="12" sm="4" md="3">
 							<div class="wow fadeInLeft grid">
 								<figure class="effect-sadie">
 									<img height="260" src="https://i.ytimg.com/vi/jNHknd65uwA/maxresdefault.jpg" alt="img02">
@@ -126,7 +168,7 @@
 								</figure>
 							</div>
 						</v-col>
-						<v-col cols="6" sm="4" md="3">
+						<v-col cols="12" sm="4" md="3">
 							<div class="wow fadeInLeft grid">
 								<figure class="effect-sadie">
 									<img height="260" src="https://boliviaturistica.com/wp-content/uploads/2018/08/Isla-del-Sol-Bolivia-1024x535.jpg" alt="img02">
@@ -139,6 +181,75 @@
 										<a href="#">View more</a>
 									</figcaption>
 								</figure>
+							</div>
+						</v-col>
+					</v-row>
+					<v-row>
+						<v-col cols="12" sm="4" md="3">
+							<div class="wow fadeInLeft grid">
+								<figure class="effect-sadie">
+									<img height="260" src="https://compassesandquests.com/wp-content/uploads/2019/09/0809-2019-01070182194409208622-1-1024x768.jpeg" alt="img02">
+									<figcaption>
+										<h2>Horca del inca
+										<span></span>
+										</h2>
+										<p>En este lugar se mezcla la historia antigua 
+										<br>con el mundo moderno.</p>
+										<a href="#">View more</a>
+									</figcaption> 
+								</figure>
+							</div>
+						</v-col>
+						<v-col cols="12" sm="4" md="3">
+							<div class="wow fadeInLeft grid">
+								<figure class="effect-sadie">
+									<img height="260" src="https://mediaim.expedia.com/destination/2/389c7083e722eac862ef317a66149abc.jpg" alt="img02">
+									<figcaption>
+										<h2>Isla de la luna
+										<span></span>
+										</h2>
+										<p>En este lugar se mezcla la historia antigua 
+										<br>con el mundo moderno.</p>
+										<a href="#">View more</a>
+									</figcaption>
+								</figure>
+							</div>
+						</v-col>
+						<v-col cols="12" sm="4" md="3">
+							<div class="wow fadeInLeft grid">
+								<figure class="effect-sadie">
+									<img height="260" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFCcQijE84j5NY7w_veBOpolW6MBoWBxJtur3YShXYJzDPGlT-1XEZa_Z3t0h6ucOcu4A&usqp=CAU" alt="img02">
+									<figcaption>
+										<h2>Playas
+										<span></span>
+										</h2>
+										<p>En este lugar se mezcla la historia antigua 
+										<br>con el mundo moderno.</p>
+										<a href="#">View more</a>
+									</figcaption>
+								</figure>
+							</div>
+						</v-col>
+						<v-col cols="12" sm="4" md="3">
+							<div class="wow fadeInLeft grid">
+								<figure class="effect-sadie">
+									<img height="260" src="https://1.bp.blogspot.com/-EjPqQbVCCyo/XeKOwek-mMI/AAAAAAAAwjA/_3XVs6DarYktEYKIF8do4sRywaZo_kj2ACLcBGAsYHQ/s1600/20190606_154846%2528cortada%2529.jpg" alt="img02">
+									<figcaption>
+										<h2>Isla del sol
+										<span></span>
+										</h2>
+										<p>En este lugar se mezcla la historia antigua 
+										<br>con el mundo moderno.</p>
+										<a href="#">View more</a>
+									</figcaption>
+								</figure>
+							</div>
+						</v-col>
+					</v-row>
+					<v-row>
+						<v-col cols="12">
+							<div class="text-center">
+								<v-btn outlined color="blue" rounded large>Ver Mas</v-btn>
 							</div>
 						</v-col>
 					</v-row>
@@ -261,7 +372,9 @@
 							<v-col cols="4" md="4">
 								<div class="text-right">
 									<br>
-									<v-btn large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+									<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+										<v-btn @click="navigate" large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+									</router-link>
 								</div>
 							</v-col>
 						</v-row>
@@ -345,7 +458,9 @@
 							<v-col cols="4" md="4">
 								<div class="text-right">
 									<br>
-									<v-btn large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+									<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+										<v-btn @click="navigate" large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+									</router-link>
 								</div>
 							</v-col>
 						</v-row>
@@ -542,6 +657,7 @@ export default {
     return{
       bg:'transparent',
       altura_ini_p:500,
+	  drawer:false,
       icons: [
         'mdi-facebook',
         'mdi-twitter',
