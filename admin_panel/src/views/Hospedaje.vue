@@ -98,7 +98,8 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
-            <ImgPrincipal/>
+             <v-img v-if="estado_img==0" :src="hospedaje.img_principal"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="hospedaje.img_principal=$event" />
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -242,6 +243,7 @@ export default {
     return{
       search: '',
       edicion:'Nuevo',
+      estado_img:0,
       images:[],
       id_hospedaje:0,
       hospedaje:{

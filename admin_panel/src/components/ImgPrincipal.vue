@@ -1,16 +1,17 @@
 <template>
   <div>
-    <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"> </div>
- 
+    <div v-if="estado_img==1" class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"> </div>
     <input ref="fileInput" type="file" @input="pickFile">
   </div>
 </template>
  
 <script>
 export default {
+  name:'ImgPrincipal',
   data() {
       return {
-        previewImage: null
+        previewImage: null,
+        estado_img:0
       };
     },
   methods: {
@@ -24,7 +25,10 @@ export default {
           let reader = new FileReader
           reader.onload = e => {
             this.previewImage = e.target.result;
-            console.log(this.previewImage);
+            //console.log(this.previewImage);
+            this.$emit('imagen', this.previewImage);
+            this.estado_img = 1;
+            this.$emit('estado', this.estado_img);
           }
           reader.readAsDataURL(file[0])
           this.$emit('input', file[0])

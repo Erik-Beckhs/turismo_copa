@@ -109,7 +109,8 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
-            <ImgPrincipal/>
+            <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" />
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -186,6 +187,7 @@ export default {
   data(){
     return{
       search: '',
+      estado_img:0,
       edicion:'Nuevo',
       images:[],
       id_atractivo:'',

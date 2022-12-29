@@ -46,7 +46,8 @@
             Imagen
           </v-card-title>
           <v-col cols="12">
-            <ImgPrincipal/>
+            <v-img v-if="estado_img==0" :src="noticia.img"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>
           </v-col>
            <v-col cols="12" class="px-3 pt-7">
             <v-text-field
@@ -106,6 +107,7 @@ export default {
   data(){
     return{
       search: '',
+      estado_img:0,
       estado_noticia:'Nueva',
       id_noticia:0,
       noticia:{
@@ -153,8 +155,9 @@ export default {
           timer: 1500
         })
      },
-      uploadImageSuccess(formData, index, fileList) {
+    uploadImageSuccess(formData, index, fileList) {
       console.log('data', formData, index, fileList)
+      //console.log(formData);
       // Upload image api
       // axios.post('http://your-url-upload', formData).then(response => {
       //   console.log(response)
@@ -171,6 +174,7 @@ export default {
       console.log('edit data', formData, index, fileList)
     },
     guardar(){
+      //console.log(this.imagen);
       this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
     },
     editaNoticia(){
