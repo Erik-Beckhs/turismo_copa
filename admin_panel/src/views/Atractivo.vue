@@ -109,7 +109,8 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
-            <ImgPrincipal/>
+            <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" />
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -186,6 +187,7 @@ export default {
   data(){
     return{
       search: '',
+      estado_img:0,
       edicion:'Nuevo',
       images:[],
       id_atractivo:'',
@@ -216,24 +218,30 @@ export default {
     this.id_atractivo = this.$route.params.id;
       if(this.id_atractivo != 0){
       this.edicion = 'Editar';
-      AtractivoService.getAtractivo(this.id_atractivo).then(response=>{
+      this.getAtractivo(this.id_atractivo);
+    }
+  },
+  methods:{
+    getAtractivo(id){
+        AtractivoService.getAtractivo(id).then(response=>{
         this.atractivo = response.data;
-        AtractivoService.getArticulosAtractivo(this.id_atractivo).then(response=>{
+        AtractivoService.getArticulosAtractivo(id).then(response=>{
           if(response.data.length > 0){
-            var articulos_response = response.data;
-            this.articulos.forEach(element=>{
-              articulos_response.forEach(res=>{
+            //var articulos_response = response.data;
+            this.load_articulos(response.data);
+          }
+        }).catch(error=>console.log(error));
+      })
+    },
+    load_articulos(articulos){
+      this.articulos.forEach(element=>{
+              articulos.forEach(res=>{
                 if(res.articulo == element.articulo){
                   element.selected = true;
                 }
               })
-            })
-          }
-        }).catch(error=>console.log(error));
       })
-    }
-  },
-  methods:{
+    },
       notification(title, icon){
           this.$swal.fire({
           position: 'top-end',

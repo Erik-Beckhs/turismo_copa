@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-12-2022 a las 03:16:22
+-- Tiempo de generación: 28-12-2022 a las 02:38:33
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -129,7 +129,10 @@ INSERT INTO `atractivo_articulo` (`id`, `id_atractivo`, `articulo`) VALUES
 (46, 12, 'Botiquin'),
 (47, 7, 'Agua'),
 (48, 7, 'Cedula de Identidad'),
-(49, 7, 'Almohada de viaje');
+(49, 7, 'Almohada de viaje'),
+(50, 13, 'Ropa Ligera'),
+(51, 13, 'Botiquin'),
+(52, 13, 'Cámara de Fotos');
 
 -- --------------------------------------------------------
 
@@ -159,7 +162,8 @@ CREATE TABLE `hospedaje` (
 --
 
 INSERT INTO `hospedaje` (`id`, `nombre`, `titular`, `precio_max`, `precio_min`, `categoria`, `direccion`, `pagina_web`, `telefono`, `cel_whatsapp`, `facebook`, `informacion`, `img_principal`, `tipo`) VALUES
-(4, 'La Cupula', 'Dennis Espejo', '500.00', '100.00', '3', 'Av. Michel Perez Esq. San Antonio', NULL, '28622523', NULL, NULL, '', '', 'Hotel');
+(5, 'Mala Vida', 'Bartolome Gutierrez', '100.00', '5.00', '2', 'Calle Avaroa', 'aaaaaa', '234214', 'sssssssssd', 'dddddddddd', '<p><strong>informacion en negrita..........</strong></p>', 'string', 'Hotel'),
+(6, 'Hotel Estelar', 'asdsad', '50.00', '10.00', '4', 'av costanera', 'asf', '456132', 'asd', '', '<p><strong>primera linea negrita</strong></p><p><br></p><p><em>segunda linea un espacio y cursiva</em></p>', '', 'Hostal');
 
 -- --------------------------------------------------------
 
@@ -175,6 +179,25 @@ CREATE TABLE `hosped_servicio` (
   `icono` varchar(80) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `hosped_servicio`
+--
+
+INSERT INTO `hosped_servicio` (`id`, `id_hospedaje`, `servicio`, `tipo_servicio`, `icono`) VALUES
+(1, 6, 'Sala de Eventos', 'propiedad', 'mdi-star'),
+(2, 6, 'Wi-Fi', 'propiedad', 'mdi-star'),
+(3, 6, 'Senderismo', 'propiedad', 'mdi-star'),
+(4, 6, 'Balcon Privado', 'habitacion', 'mdi-star'),
+(5, 6, 'Vista al lago', 'habitacion', 'mdi-star'),
+(6, 6, 'Libros, DVD, música para niños', 'habitacion', 'mdi-star'),
+(7, 6, 'Habitación para no fumadores', 'habitacion', 'mdi-star'),
+(11, 5, 'Garaje', 'propiedad', 'mdi-star'),
+(12, 5, 'Wi-Fi', 'propiedad', 'mdi-star'),
+(13, 5, 'Senderismo', 'propiedad', 'mdi-star'),
+(14, 5, 'Desayuno gratis', 'propiedad', 'mdi-star'),
+(15, 5, 'Habitacion Familiar', 'habitacion', 'mdi-star'),
+(16, 5, 'Libros, DVD, música para niños', 'habitacion', 'mdi-star');
+
 -- --------------------------------------------------------
 
 --
@@ -187,6 +210,17 @@ CREATE TABLE `hosped_thabitacion` (
   `tipo_habitacion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `icono` varchar(80) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `hosped_thabitacion`
+--
+
+INSERT INTO `hosped_thabitacion` (`id`, `id_hospedaje`, `tipo_habitacion`, `icono`) VALUES
+(1, 6, 'Individual', 'mdi-bed'),
+(2, 6, 'Queen', 'mdi-bed'),
+(7, 5, 'Quad', 'mdi-bed'),
+(8, 5, 'Individual', 'mdi-bed'),
+(9, 5, 'Twin', 'mdi-bed');
 
 -- --------------------------------------------------------
 
@@ -211,20 +245,23 @@ CREATE TABLE `multimedia` (
 
 CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `titulo` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `informacion` longtext COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `img_principal` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `fecha_publicacion` date DEFAULT NULL,
-  `categoria` varchar(300) COLLATE utf8_spanish2_ci DEFAULT NULL
+  `autor` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `titulo` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `contenido` longtext COLLATE utf8_spanish2_ci NOT NULL,
+  `img` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha_publicacion` date NOT NULL,
+  `categoria` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `entrada` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `noticia`
 --
 
-INSERT INTO `noticia` (`id`, `id_user`, `titulo`, `informacion`, `img_principal`, `fecha_publicacion`, `categoria`) VALUES
-(1, NULL, 'string', 'string', 'string', '2022-12-13', 'string');
+INSERT INTO `noticia` (`id`, `autor`, `titulo`, `contenido`, `img`, `fecha_publicacion`, `categoria`, `entrada`) VALUES
+(2, 'string', 'string', 'string', 'string', '2022-12-26', 'string', NULL),
+(4, 'asdsad', 'asdasd', '<p>asdasdasd</p>', '', '2022-12-01', 'Cultural', 'asdsad'),
+(5, 'autor 2', 'noticia 2', '<p><strong><u>esta  es la noticia mas importante</u></strong></p>', '', '2022-12-30', 'Política', 'entrada 2');
 
 -- --------------------------------------------------------
 
@@ -352,8 +389,7 @@ ALTER TABLE `multimedia`
 -- Indices de la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_iu` (`id_user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `resena`
@@ -400,25 +436,25 @@ ALTER TABLE `atractivo`
 -- AUTO_INCREMENT de la tabla `atractivo_articulo`
 --
 ALTER TABLE `atractivo_articulo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `hospedaje`
 --
 ALTER TABLE `hospedaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `hosped_servicio`
 --
 ALTER TABLE `hosped_servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `hosped_thabitacion`
 --
 ALTER TABLE `hosped_thabitacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `multimedia`
@@ -430,7 +466,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT de la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `resena`
@@ -477,12 +513,6 @@ ALTER TABLE `hosped_servicio`
 --
 ALTER TABLE `hosped_thabitacion`
   ADD CONSTRAINT `fk_ih` FOREIGN KEY (`id_hospedaje`) REFERENCES `hospedaje` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `noticia`
---
-ALTER TABLE `noticia`
-  ADD CONSTRAINT `fk_iu` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
