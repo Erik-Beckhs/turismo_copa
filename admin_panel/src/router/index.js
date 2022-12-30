@@ -5,6 +5,7 @@ import HomeNoticias from '@/views/HomeNoticias.vue';
 import HomeHospedajes from '@/views/HomeHospedajes.vue';
 import About from '@/views/About.vue';
 import Inicio from '@/views/Inicio.vue';
+import Login from '@/views/Login.vue';
 import Atractivos from '@/views/Atractivos.vue';
 import Atractivo from '@/views/Atractivo.vue';
 import Resenas from '@/views/Resenas.vue';
@@ -36,6 +37,11 @@ const routes = [
   },
   {
     path: '/admin',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/main',
     name: 'about',
     component: About,
     children: [
