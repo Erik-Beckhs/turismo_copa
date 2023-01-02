@@ -1,8 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Site from '@/views/Site.vue';
 import Home from '@/views/Home.vue';
 import HomeNoticias from '@/views/HomeNoticias.vue';
+import HomeNoticia from '@/views/HomeNoticia.vue';
 import HomeHospedajes from '@/views/HomeHospedajes.vue';
+import HomeHospedaje from '@/views/HomeHospedaje.vue';
+import HomeAtractivo from '@/views/HomeAtractivo.vue';
+import HomeAtractivos from '@/views/HomeAtractivos.vue';
 import About from '@/views/About.vue';
 import Inicio from '@/views/Inicio.vue';
 import Login from '@/views/Login.vue';
@@ -22,18 +27,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/SiteNoticias',
-    name: 'homeNoticias',
-    component: HomeNoticias
-  },
-  {
-    path: '/SiteHospedajes',
-    name: 'homeHospedajes',
-    component: HomeHospedajes
+    name: 'site',
+    component: Site,
+    children: [
+      { path: "/", name: "home", component: Home},
+      { path: "/HomeAtractivo", name: "homeAtractivo", component: HomeAtractivo},
+      { path: "/HomeAtractivos", name: "homeAtractivos", component: HomeAtractivos},
+      { path: "/SiteNoticia", name: "homeNoticia", component: HomeNoticia},
+      { path: "/SiteNoticias", name: "homeNoticias", component: HomeNoticias},
+      { path: '/SiteHospedajes', name: 'homeHospedajes', component: HomeHospedajes},
+      { path: '/SiteHospedaje', name: 'homeHospedaje', component: HomeHospedaje},
+    ]
   },
   {
     path: '/admin',
@@ -57,64 +61,6 @@ const routes = [
       { path: "/noticia/:id", name: "noticia", component: Noticia },
     ]
   },
-  /*{
-    path: '/admin',
-    name: 'inicio',
-    component: Inicio
-  },
-  {
-    path: '/atractivos',
-    name: 'atractivos',
-    component: Atractivos
-  },
-  {
-    path: '/atractivo/:id',
-    name: 'atractivo',
-    component: Atractivo
-  },
-  {
-    path: '/resenas',
-    name: 'resenas',
-    component: Resenas
-  },
-  {
-    path: '/hospedajes',
-    name: 'hospedajes',
-    component: Hospedajes
-  },
-
-  {
-    path: '/hospedaje/:id',
-    name: 'hospedaje',
-    component: Hospedaje
-  },
-  {
-    path: '/eventos',
-    name: 'eventos',
-    component: Eventos
-  },
-
-  {
-    path: '/evento/:id',
-    name: 'evento',
-    component: Evento
-  },
-  {
-    path: '/noticias',
-    name: 'noticias',
-    component: Noticias
-  },
-
-  {
-    path: '/noticia/:id',
-    name: 'noticia',
-    component: Noticia
-  },
-  {
-    path: '/pruebas',
-    name: 'Pruebas',
-    component: Pruebas
-  },*/ 
 ]
 
 const router = new VueRouter({
