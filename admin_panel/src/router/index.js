@@ -9,7 +9,7 @@ import Login from '@/views/Login.vue';
 import Atractivos from '@/views/Atractivos.vue';
 import Atractivo from '@/views/Atractivo.vue';
 import Resenas from '@/views/Resenas.vue';
-import Pruebas from '@/views/Pruebas.vue';
+import Perfil from '@/views/Perfil.vue';
 import Hospedajes from '@/views/Hospedajes.vue';
 import Hospedaje from '@/views/Hospedaje.vue';
 import Eventos from '@/views/Eventos.vue';
@@ -55,6 +55,7 @@ const routes = [
       { path: "/evento/:id", name: "evento", component: Evento },
       { path: "/noticias", name: "noticias", component: Noticias },
       { path: "/noticia/:id", name: "noticia", component: Noticia },
+      { path: "/perfil", name: "perfil", component: Perfil },
     ]
   },
   /*{

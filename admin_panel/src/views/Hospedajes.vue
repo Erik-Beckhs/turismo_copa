@@ -1,5 +1,5 @@
 <template>
-  <div class="hospedajes">
+  <div class="hospedajes mx-15 my-7">
     <v-card class="pa-5">
     <v-container>
       <v-card-title>

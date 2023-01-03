@@ -1,5 +1,5 @@
 <template>
-  <div class="atractivos">
+  <div class="atractivos mx-15 my-7">
     <v-card class="pa-5">
     <v-container>
       <v-card-title>
