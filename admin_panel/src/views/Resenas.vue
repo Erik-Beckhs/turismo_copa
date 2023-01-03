@@ -1,8 +1,21 @@
 <template>
-  <div class="resenas">
-    <v-card class="pa-5" v-if="resenas_new.length>0">
+  <div class="resenas px-15 pt-10">
+    <v-card class="px-5 py-3" v-if="resenas_new.length>0">
     <v-container>
-          <v-card-title>Reseñas pendientes de Aprobación</v-card-title>
+          <v-card-title>
+          <v-icon>
+          mdi-alert-circle-outline
+          </v-icon>
+          <span class="ms-2">Reseñas pendientes de Aprobación</span>
+          </v-card-title>
+          <v-alert
+          outlined
+          type="warning"
+          prominent
+          border="left"
+        >
+        Las reseñas presentes en la siguiente tabla, requieren de aprobación, sin la misma, no podrán ser visualizadas en la página principal
+        </v-alert>
     <v-data-table
       :headers="headers"
       :items="resenas_new"
@@ -11,23 +24,35 @@
       <span>{{index + 1}}</span>
     </template>
      <template v-slot:[`item.estado`]="{ item }">
+     <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
         class="mx-1"
         fab
         dark
         small
         @click="verResena(item)"
+         v-bind="attrs"
+          v-on="on"
         color="primary"
         >
         <v-icon dark>
             mdi-eye
         </v-icon>
         </v-btn>
+      </template>
+      <span>Ver Reseña</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
         class="mx-1"
         fab
         dark
         small
+         v-bind="attrs"
+          v-on="on"
         @click="aprobarResena(item.id)"
         color="success"
         >
@@ -35,6 +60,12 @@
             mdi-check
         </v-icon>
         </v-btn>
+      </template>
+      <span>Aprobar Reseña</span>
+    </v-tooltip>
+
+      <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
         class="mx-1"
         fab
@@ -42,11 +73,17 @@
         small
         @click="eliminarResena(item.id, 1)"
         color="red"
+        v-bind="attrs"
+          v-on="on"
         >
         <v-icon dark>
             mdi-delete
         </v-icon>
         </v-btn>
+      </template>
+      <span>Eliminar Reseña</span>
+    </v-tooltip>
+    
      </template>
     </v-data-table>
     </v-container>
@@ -54,8 +91,14 @@
 
   <v-card class="pa-5 mt-5">
     <v-container>
-        <v-card-title>Lista de Reseñas</v-card-title>
     <v-card-title>
+       <v-icon>
+         mdi-playlist-check
+       </v-icon>
+       <span class="ms-2">Lista de Reseñas</span>
+    </v-card-title>
+    <v-col cols="6">
+      <v-card-title>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -64,6 +107,7 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+    </v-col>
     <v-data-table
       :headers="headers"
       :items="resenas_old"
@@ -73,18 +117,28 @@
       <span>{{index + 1}}</span>
     </template>
         <template v-slot:[`item.estado`]="{ item }">
-        <v-btn
-        class="mx-1"
-        fab
-        dark
-        small
-        @click="verResena(item)"
-        color="primary"
-        >
-        <v-icon dark>
-            mdi-eye
-        </v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+            class="mx-1"
+            fab
+            dark
+            small
+            @click="verResena(item)"
+            v-bind="attrs"
+              v-on="on"
+            color="primary"
+            >
+            <v-icon dark>
+                mdi-eye
+            </v-icon>
+            </v-btn>
+          </template>
+          <span>Ver Reseña</span>
+        </v-tooltip>
+
+      <v-tooltip top>
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
         class="mx-1"
         fab
@@ -92,11 +146,16 @@
         small
         @click="eliminarResena(item.id, 2)"
         color="red"
+        v-bind="attrs"
+          v-on="on"
         >
         <v-icon dark>
             mdi-delete
         </v-icon>
         </v-btn>
+      </template>
+      <span>Eliminar Reseña</span>
+    </v-tooltip>
      </template>
     </v-data-table>
     </v-container>
@@ -116,10 +175,10 @@
     <v-card-title>{{resena.titulo}}</v-card-title>
 
     <v-card-text>
-      <div class="grey--text ms-4">
+      <div class="grey--text">
          {{resena.autor}}
         </div>
-      <div class="my-4 text-subtitle-1">
+      <div class="text-subtitle-1">
         {{resena.fecha_publicacion}}
       </div>
 
@@ -159,9 +218,9 @@ export default {
             align: 'start',
             value: 'id',
           },
-          { text: 'Fecha', value: 'fecha_publicacion' },
+          { text: 'Fecha de Publicación', value: 'fecha_publicacion' },
           { text: 'Autor', value: 'autor' },
-          { text: 'Titulo', value: 'titulo' },
+          { text: 'Título', value: 'titulo' },
           { text: 'Contenido', value: 'descripcion' },
           { text: 'Acciones', value: 'estado' },
         ],

@@ -1,6 +1,6 @@
 <template>
   <div class="noticias">
-    <v-card class="pa-5">
+    <v-card class="pa-5 mx-15 my-7">
     <v-container>
       <v-card-title>
       <v-icon>mdi-newspaper-variant-multiple</v-icon>
@@ -103,6 +103,7 @@ export default {
       NoticiaService.getNoticias()
       .then(response => {
         this.noticias_list = response.data;
+        console.log(this.noticias_list);
         this.noticias_list.forEach(element=>{
             element.fecha_publicacion = this.convierteFecha(element.fecha_publicacion);
         })

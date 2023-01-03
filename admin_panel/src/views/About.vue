@@ -2,7 +2,7 @@
   <div>
     <Sidebar :drawer="drawer" />
       <Topbar @drawerEvent="drawer = !drawer" />
-      <v-main style="background: #ededed">
+      <v-main>
         <v-sheet class="overflow-y-auto" :max-height="altura_ini_p">
           <v-container fluid>
             <router-view></router-view>
@@ -23,7 +23,15 @@ export default {
   }),
   mounted(){	
 		this.altura_ini_p=(window.innerHeight)-64;
+    this.verificaToken();
   },
-  methods: {},
+  methods: {
+    verificaToken(){
+      let token = localStorage.getItem('token');
+      if (!token){
+        this.$router.replace('/admin');
+      }
+    }
+  },
 };
 </script>
