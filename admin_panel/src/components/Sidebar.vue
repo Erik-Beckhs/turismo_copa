@@ -1,10 +1,11 @@
 <template>
   <v-navigation-drawer v-model="drawer" app color="blue lighten-1">
     <v-img
-      height="140"
+      width="120"
       class="pa-4"
-      src="../assets/logo_copa.png"
-    >
+      src="@/assets/img/escudo_trazo.png"
+      style="margin:15px auto !important;"
+    />
       <!--<div class="text-center">
         <v-avatar class="mb-4" color="grey darken-1" size="64">
           <v-img
@@ -14,8 +15,11 @@
         </v-avatar>
         <h2 class="white--text">ADMIN</h2>
       </div>-->
-    </v-img>
-    <v-divider></v-divider>
+    <p class="text-center font-weight-bold white--text">
+        Gobierno Autónomo Municipal de Copacabana
+    </p>
+
+    <v-divider class="grey lighten-1"></v-divider>
     <v-list>
       <v-list-item v-for="[icon, text, ruta] in links" :key="icon" link class="ms-3">
         <router-link class="underline-none" :to="ruta">
