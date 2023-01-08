@@ -6,11 +6,14 @@
     <v-icon>mdi-bed</v-icon>
     <span class="ms-2">{{edicion}} Hospedaje</span>
     </v-card-title>
+    <v-card-subtitle class="grey--text">
+      A continuación ingrese información general del hospedaje, además de los tipos de habitación y los servicios que ofrece.
+    </v-card-subtitle>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
-        <v-card-title>Información Principal</v-card-title>
-        <v-col cols="12 pa-0">
+        <v-card-title>Datos del Hospedaje</v-card-title>
+        <v-col cols="12" class="pa-0">
           <v-text-field
             v-model="hospedaje.nombre"
             :rules="nameRules"
@@ -32,9 +35,7 @@
           <v-col cols="6" class="px-3 py-0">
                 <v-text-field
               v-model="hospedaje.telefono"
-              :rules="nameRules"
               label="Telefono"
-              required
               outlined
             ></v-text-field>
           </v-col>
@@ -76,7 +77,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-col cols="12" class="py-0">
+        <v-col cols="12" class="pa-0">
           <v-text-field
             v-model="hospedaje.titular"
             label="Responsable"
@@ -98,6 +99,7 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
+            <v-img v-show="estado_img==0 && hospedaje.img_principal==''" src="@/assets/not_found.png" />
              <v-img v-if="estado_img==0" :src="hospedaje.img_principal"/>
             <ImgPrincipal @estado="estado_img=$event" @imagen="hospedaje.img_principal=$event" />
           </v-col>
@@ -125,84 +127,87 @@
                    <v-col cols="4" class="py-0">
           <v-text-field
             v-model="hospedaje.pagina_web"
-            :rules="nameRules"
             label="Pagina Web"
-            required
             outlined
+            prepend-inner-icon="mdi-web"
           ></v-text-field>
         </v-col>
          <v-col cols="4" class="py-0">
           <v-text-field
             v-model="hospedaje.cel_whatsapp"
-            :rules="nameRules"
             label="Whatsapp"
-            required
             outlined
+            prepend-inner-icon="mdi-whatsapp"
           ></v-text-field>
         </v-col>
          <v-col cols="4" class="py-0">
           <v-text-field
             v-model="hospedaje.facebook"
-            :rules="nameRules"
             label="Facebook"
-            required
             outlined
+            prepend-inner-icon="mdi-facebook"
           ></v-text-field>
         </v-col>
     </v-row>
     <v-divider></v-divider>
-    <v-row class="mb-3">
-    <v-card-title>
+    <v-row class="my-2">
+    <v-card-title class="mb-4">
       <v-icon>mdi-bed</v-icon>
       <span class="ms-2">Tipos de Habitación</span>
     </v-card-title>
 
-     <v-flex xs12 md12 class="greyBorder">
-            <div class="mr-4 ml-4">
+     <v-container class="ps-15">
+        <v-flex xs12 md12 class="greyBorder">
+            <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs4>
-                      <v-checkbox light :label="category.tipo_habitacion" v-model="category.selected">
+                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs3>
+                      <v-checkbox light :label="category.tipo_habitacion" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
               </v-layout>
             </div>
       </v-flex>
+     </v-container>
       </v-row>
       <v-divider></v-divider>
-    <v-row class="mb-3">
-    <v-card-title>
-      <v-icon>mdi-bed</v-icon>
+    <v-row class="my-2">
+    <v-card-title class="mb-4">
+      <v-icon>mdi-coffee</v-icon>
       <span class="ms-2">Servicios de la Propiedad</span>
     </v-card-title>
 
-     <v-flex xs12 md12 class="greyBorder">
+     <v-container class="ps-15">
+      <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs4>
-                      <v-checkbox light :label="category.servicio" v-model="category.selected">
+                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs3>
+                      <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
               </v-layout>
             </div>
       </v-flex>
+     </v-container>
       </v-row>
       <v-divider></v-divider>
-    <v-row class="mb-3">
-    <v-card-title>
-      <v-icon>mdi-bed</v-icon>
+    <v-row class="my-2">
+    <v-card-title class="mb-4">
+      <v-icon>mdi-book-music</v-icon>
       <span class="ms-2">Servicios a la Habitación</span>
     </v-card-title>
 
-     <v-flex xs12 md12 class="greyBorder">
+     <v-container class="ps-15">
+        <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
                     <v-flex v-for="(category,index) in servicios_habitacion" :key="servicios_habitacion[index].servicio" xs4>
-                      <v-checkbox light :label="category.servicio" v-model="category.selected">
+                      <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
               </v-layout>
             </div>
       </v-flex>
+     </v-container>
     </v-row>
     <v-divider></v-divider>
     <v-col cols="12" class="text-right mt-5">

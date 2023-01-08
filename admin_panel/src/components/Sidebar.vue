@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       links: [
-        ["mdi-home", "Inicio", '/'],
+        ["mdi-home", "Inicio", '/main'],
         ["mdi-book-open", "Reseñas", '/resenas'],
         ["mdi-bank", "Atractivos Turísticos", '/atractivos'],
         ["mdi-bed", "Hospedaje", '/hospedajes'],

@@ -6,6 +6,9 @@
     <v-icon>mdi-newspaper-variant-multiple</v-icon>
     <span class="ms-2">{{estado_noticia}} Noticia</span>
     </v-card-title>
+    <v-card-subtitle class="grey--text">
+      A continuación ingrese información de la noticia, su imagen principal y la categoría a la que pertenece.
+    </v-card-subtitle>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
@@ -46,10 +49,11 @@
             Imagen
           </v-card-title>
           <v-col cols="12">
+            <v-img v-show="estado_img==0 && noticia.img==''" src="@/assets/not_found.png" />
             <v-img v-if="estado_img==0" :src="noticia.img"/>
             <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>
           </v-col>
-           <v-col cols="12" class="px-3 pt-7">
+           <v-col cols="12" class="px-3 pt-5 pb-0">
             <v-text-field
               v-model="noticia.fecha_publicacion"
               :rules="nameRules"
@@ -59,7 +63,7 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="12" class="px-3 pt-0">
+          <v-col cols="12" class="px-3 py-0">
             <v-select
               v-model="noticia.categoria"
               :items="categorias"
@@ -128,9 +132,12 @@ export default {
   mounted(){
     this.id_noticia = this.$route.params.id;
       if(this.id_noticia != 0){
-      this.estado_noticia = 'Editar';
-      this.getNoticia();
-    }
+        this.estado_noticia = 'Editar';
+        this.getNoticia();
+      }
+      else{
+        this.noticia.fecha_publicacion = this.Today();
+      }
   },
   methods:{
     getNoticia(){
@@ -174,7 +181,7 @@ export default {
       console.log('edit data', formData, index, fileList)
     },
     guardar(){
-      //console.log(this.imagen);
+      //console.log(this.noticia);
       this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
     },
     editaNoticia(){
@@ -188,6 +195,13 @@ export default {
         this.notification("La noticia fue creada de manera exitosa", 'success');
         this.$router.replace('/noticias');
       })
+    },
+    Today(){
+      const fecha = new Date();
+      let dia = ('0'+fecha.getDate()).slice(-2);
+      let mes = ('0'+fecha.getMonth()+1).slice(-2);
+      let anio = fecha.getFullYear();
+      return `${anio}-${mes}-${dia}`;
     }
   }
 }
