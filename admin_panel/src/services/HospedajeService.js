@@ -33,5 +33,8 @@ export default {
     },
     deleteAllServices(id){
         return Api().delete(`/hospedajes/${id}/servicios`);
+    }, 
+    countHospedajes(){
+        return Api().get(`/hospedajes/count`);
     }
 }

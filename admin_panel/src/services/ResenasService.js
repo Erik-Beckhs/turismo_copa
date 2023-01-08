@@ -9,5 +9,8 @@ export default {
     },
     aprobarResena(id, estado){
         return Api().patch(`/resenas/${id}`, estado);
+    },
+    countResenas(){
+        return Api().get(`/resenas/count`);
     }
 }

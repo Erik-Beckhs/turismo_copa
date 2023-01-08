@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="estado_img==1" class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"> </div>
-    <input ref="fileInput" type="file" @input="pickFile">
+    <v-row class="my-1">
+    <v-spacer></v-spacer>
+      <label for="selecciona" class="lblSelecciona">Seleccionar Imagen <v-icon color="white">mdi-cloud-upload</v-icon></label>
+      <input ref="fileInput" id="selecciona" class="seleccionaImagen" type="file" @input="pickFile">
+    </v-row>
   </div>
 </template>
  
@@ -40,12 +44,13 @@ export default {
  
 <style>
 .imagePreviewWrapper {
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     display: block;
     cursor: pointer;
     margin: 0 auto 30px;
     background-size: cover;
     background-position: center center;
 }
+
 </style>

@@ -6,10 +6,13 @@
     <v-icon>mdi-bank</v-icon>
       <span class="ms-2">{{edicion}} Atractivo</span>
     </v-card-title>
+    <v-card-subtitle class="grey--text">
+      A continuación ingrese información general del atractivo, además de los artículos recomendados a llevar por el turista.
+    </v-card-subtitle>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
-        <v-card-title>Datos Principales</v-card-title>
+        <v-card-title>Datos del Atractivo</v-card-title>
         <v-col cols="12 pa-0">
           <v-text-field
             v-model="atractivo.nombre"
@@ -47,10 +50,9 @@
             ></v-select>
           </v-col>
         </v-row>
-        <v-col cols="12" class="py-0">
+        <v-col cols="12 pa-0">
           <v-text-field
             v-model="atractivo.como_llegar"
-            :rules="nameRules"
             label="Cómo Llegar"
             required
             outlined
@@ -109,6 +111,7 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
+            <v-img v-show="estado_img==0 && atractivo.img_principal==''" src="@/assets/not_found.png" />
             <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
             <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" />
           </v-col>
@@ -138,9 +141,9 @@
 
      <v-container class="pl-15">
       <v-flex xs12 md12 class="greyBorder">
-            <div class="mr-4 ml-4">
+            <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in articulos" :key="articulos[index].value" xs4>
+                    <v-flex v-for="(category,index) in articulos" :key="articulos[index].value" xs3>
                       <v-checkbox light :label="category.articulo" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>

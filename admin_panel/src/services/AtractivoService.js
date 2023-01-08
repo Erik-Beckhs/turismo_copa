@@ -24,5 +24,8 @@ export default {
     },
     deleteAtractivo(id){
         return Api().delete(`/atractivos/${id}`);
+    },
+    countAtractivos(){
+        return Api().get(`/atractivos/count`);
     }
 }
