@@ -13,8 +13,8 @@
                                     <span class="text-subtitle-2 grey--text">Copacabana</span><br>
                                 </div>        
                             </v-col>
-                            <v-col cols="12" md="4" sm="6">
-                                <router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
+                            <v-col v-for="(item, index) in list_atractivos" cols="12" :md="calcule_col(index)" sm="6" :key="item.id">
+                                <router-link class="underline-none" :to="'/HomeAtractivo/'+item.id" v-slot="{ navigate }">
                                     <v-hover v-slot="{ hover }" open-delay="100">
                                         <v-card
                                         :elevation="hover ? 12 : 2"
@@ -24,13 +24,13 @@
                                             <v-img aspect-ratio="1"
                                                 height="450"
                                                 class="grey lighten-2 white--text align-end"
-                                                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/67/d7/35/aerial-view-of-cerro.jpg?w=1200&h=-1&s=1"
+                                                :src="$Api_url_media+item.img_principal"
                                             >
                                                 <v-container style="padding: 10px 15px 30px 15px;">
                                                     <v-row>
                                                         <v-col cols="12" md="10">
-                                                            <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                            <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
+                                                            <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{item.nombre}}</span><br>
+						                                    <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{item.comunidad}} - {{item.ubicacion}}</span>
                                                         </v-col>
                                                         <v-col cols="12" md="2"></v-col>
                                                     </v-row>
@@ -40,7 +40,7 @@
                                     </v-hover>
 						        </router-link>    
                             </v-col>
-                            <v-col cols="12" md="4" sm="6">
+                            <!-- <v-col cols="12" md="4" sm="6">
                                 <v-hover
                                     v-slot="{ hover }"
                                     open-delay="100"
@@ -174,7 +174,7 @@
                                         </v-img>
                                     </v-card>
                                 </v-hover>
-                            </v-col>
+                            </v-col> -->
                         </v-row>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
@@ -200,6 +200,7 @@
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
 import ViewGallery from '@/components/ViewGallery.vue';
+import SiteServices from '@/services/SiteServices';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'HomeAtractivos',
@@ -248,6 +249,9 @@ export default {
             src: 'https://boliviaturistica.com/wp-content/uploads/2018/08/Copacabana-Bolivia.jpg',
           },
       ],
+      list_atractivos:[],
+      index_mod3:0,
+      index_mod2:0,
     }
   },
   mounted(){	
@@ -257,8 +261,39 @@ export default {
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);	
 		this.scroll_ini();
+        this.get_atractivos();
   },
   methods:{
+    calcule_col(index){
+        let num_col='4'
+        if(index==0 || index==1){
+            num_col= '4';
+        }else{
+            if(((index+1) % 2) ==0){
+                if(this.index_mod2==0){
+                    num_col='4';
+                    this.index_mod2=1;
+                }else{
+                    num_col='8';
+                    this.index_mod2=0;
+                }
+            } else{
+                if(this.index_mod3==0){
+                    num_col='8';
+                    this.index_mod3=1;
+                }else{
+                    num_col='4';
+                    this.index_mod3=0;
+                }
+            }
+        }
+        return num_col;
+    },
+    get_atractivos(){
+		SiteServices.getDataAll('atractivos').then(response=>{
+			this.list_atractivos=response.data;
+		})
+	},
 	scroll_ini(){
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},

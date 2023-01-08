@@ -63,24 +63,23 @@
 				</v-col>
 			</v-row>
 			<v-row>
-				<v-col cols="12" sm="4" md="3">
+				<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
 					<div class="wow fadeInLeft grid">
 						<figure class="effect-sadie">
-							<img height="260" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/67/d7/35/aerial-view-of-cerro.jpg?w=1200&h=-1&s=1" alt="img02">
+							<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
 							<figcaption>
-								<h2>Calvario
+								<h2>{{atr.nombre}}
 								<span></span>
 								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
+								<p>{{atr.descripcion}}</p>
+								<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
 									<a @click="navigate">View more</a>
 								</router-link>
 							</figcaption> 
 						</figure>
 					</div>
 				</v-col>
-				<v-col cols="12" sm="4" md="3">
+				<!-- <v-col cols="12" sm="4" md="3">
 					<div class="wow fadeInLeft grid">
 						<figure class="effect-sadie">
 							<img height="260" src="https://live.staticflickr.com/6099/6284904269_ea2148a6c9_b.jpg" alt="img02">
@@ -124,9 +123,9 @@
 							</figcaption>
 						</figure>
 					</div>
-				</v-col>
+				</v-col> -->
 			</v-row>
-			<v-row>
+			<!-- <v-row>
 				<v-col cols="12" sm="4" md="3">
 					<div class="wow fadeInLeft grid">
 						<figure class="effect-sadie">
@@ -187,7 +186,7 @@
 						</figure>
 					</div>
 				</v-col>
-			</v-row>
+			</v-row> -->
 			<v-row>
 				<v-col cols="12">
 					<div class="text-center">
@@ -583,28 +582,30 @@
 <script>
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
+import SiteServices from '@/services/SiteServices';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'Home',
   data(){
     return{
-      bg:'transparent',
-      altura_ini_p:500,
-	  drawer:false,
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
+      	bg:'transparent',
+      	altura_ini_p:500,
+	  	drawer:false,
+      	icons: [
+			'mdi-facebook',
+			'mdi-twitter',
+			'mdi-linkedin',
+			'mdi-instagram',
         ],
-      items: [
-          {
-            src: 'https://www.incaworldbolivia.com/fotos/0915201694507-Isla-del-sol-Bolivia.jpg',
-          },
-          {
-            src: '../assets/copaini.png',
-          },
-      ],
+      	items: [
+			{
+				src: 'https://www.incaworldbolivia.com/fotos/0915201694507-Isla-del-sol-Bolivia.jpg',
+			},
+			{
+				src: '../assets/copaini.png',
+			},
+		],
+		list_atractivos:[],
     }
   },
   mounted(){	
@@ -612,9 +613,15 @@ export default {
     	window.onscroll = () => {
 			this.changeColor();
 		};
-		setTimeout(() => (this.activa_inicio()), 1000);	
+		setTimeout(() => (this.activa_inicio()), 1000);
+		this.get_atractivos();
   },
   methods:{
+	get_atractivos(){
+		SiteServices.getDataLimit('atractivos', 8).then(response=>{
+			this.list_atractivos=response.data;
+		})
+	},
     activa_inicio(){
       var wow = new WOW({ scrollContainer: "#scrolling-body"});
       wow.init();

@@ -27,7 +27,8 @@
       "type": "string"
     },
     "img_principal": {
-      "type": "string"
+      "type": "string",
+      "required": false
     },
     "comunidad": {
       "type": "string"
