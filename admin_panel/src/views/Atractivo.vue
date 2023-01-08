@@ -109,6 +109,7 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
+            <v-img v-if="view_image_atractivo!=''" :src="view_image_atractivo"/>
             <v-file-input
                 id="file_imagen_principal"
                 label="Cargar Imagen"
@@ -126,8 +127,8 @@
                 </template>
               </v-file-input>
             <!-- <input type="file" ref="img_principal" @input="updateFile"/> -->
-            <!-- <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
-            <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" /> -->
+            
+            <!-- <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" /> -->
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -208,6 +209,7 @@ export default {
       edicion:'Nuevo',
       images:[],
       id_atractivo:'',
+      view_image_atractivo:null,
       atractivo:{
         nombre:'',
         informacion:'',
@@ -215,7 +217,7 @@ export default {
         como_llegar:'',
         comunidad:'',
         jerarquia:'',
-        img_principal:null,
+        img_principal:'',
         tipo:'',
         subtipo:'',
         descripcion:''
@@ -239,30 +241,33 @@ export default {
     }
   },
   methods:{
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
     updateFile(event) {
       if(event!=null){
+        // generamos un nuevo nombre de imagen
         var fileName = event.name;
         var extFile = fileName.split('.').pop();
         this.atractivo.img_principal=(Math.random().toString(16).slice(2)) +'.'+ extFile;
-        console.log(this.atractivo.img_principal);  
+        // para la visualizacion convertimos la imagen
+        const file = event; 
+        this.toBase64(file).then(base64 => {
+          this.view_image_atractivo=base64;
+        });
+      }else{
+        this.view_image_atractivo='';
       }
-      
-      // this.atractivo.img_principal = event.target.files[0];
-      // console.log(this.atractivo.img_principal);
-
-      // const file = event.target.files[0];
-      // this.atractivo.img_principal=new Blob([file]);
-      
-      // const file = event.target.files[0];
-      // const reader = new FileReader();
-      // reader.readAsArrayBuffer(file);
-      // reader.onloadend = () => {
-      //   this.atractivo.img_principal = reader.result;
-      // }
     },
     getAtractivo(id){
         AtractivoService.getAtractivo(id).then(response=>{
         this.atractivo = response.data;
+        this.view_image_atractivo=this.$Api_url_media+this.atractivo.img_principal;
         AtractivoService.getArticulosAtractivo(id).then(response=>{
           if(response.data.length > 0){
             //var articulos_response = response.data;
@@ -317,15 +322,19 @@ export default {
         this.guardaAtractivo(articulos_seleccionados);
       }
     },
+    FormDataImage(id_element, nombre_archivo){
+      const fileinput= document.getElementById(id_element);
+      const formData = new FormData();
+      formData.append('file', fileinput.files[0], nombre_archivo);
+      return formData;
+    },
     guardaAtractivo(articulos){
       console.log(this.atractivo);
-      const fileinput= document.getElementById('file_imagen_principal');
-      const formData = new FormData();
-      formData.append('file', fileinput.files[0], this.atractivo.img_principal);
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.atractivo.img_principal);
       this.atractivo.img_principal="";
       AtractivoService.saveAtractivo(this.atractivo).then(response=>{
         var id_atractivo = response.data.id;
-        this.guardaImagenAtractivo(id_atractivo, formData);
+        this.guardaImagenAtractivo(id_atractivo, dataimagen);
         this.guardaArticulos(articulos, id_atractivo)
         this.notification('El atractivo ha sido registrado de manera correcta', 'success');
         this.$router.replace('/atractivos');
@@ -334,18 +343,22 @@ export default {
     guardaImagenAtractivo(id_atractivo, dataimagen){
       AtractivoService.saveImage(id_atractivo, dataimagen).then(response=>{
         console.log(response.data);
+        this.view_image_atractivo='';
       })
     },
     editaAtractivo(articulos){
-        AtractivoService.editAtractivo(this.id_atractivo, this.atractivo).then((response)=>{
-          if(response){
-            AtractivoService.deleteAllAtractivosArticulo(this.id_atractivo).then(()=>{
-              this.guardaArticulos(articulos, this.id_atractivo)
-              this.notification('El atractivo ha sido modificado de manera correcta', 'success');
-              this.$router.replace('/atractivos');
-            })
-          }
-        })
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.atractivo.img_principal);
+      this.atractivo.img_principal="";
+      AtractivoService.editAtractivo(this.id_atractivo, this.atractivo).then((response)=>{
+        if(response){
+          this.guardaImagenAtractivo(this.id_atractivo, dataimagen);
+          AtractivoService.deleteAllAtractivosArticulo(this.id_atractivo).then(()=>{
+            this.guardaArticulos(articulos, this.id_atractivo)
+            this.notification('El atractivo ha sido modificado de manera correcta', 'success');
+            this.$router.replace('/atractivos');
+          })
+        }
+      })
     },
     guardaArticulos(articulos, id){
       articulos.forEach(element => {
