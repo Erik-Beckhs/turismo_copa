@@ -4,6 +4,13 @@ export default {
     saveAtractivo(atractivo){
         return Api().post(`/atractivos`, atractivo);
     },
+    saveImage(id, dataimage){
+        return Api().post(`/atractivos/${id}/image`, dataimage, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
     saveArticulo(id, articulo){
         return Api().post(`/atractivos/${id}/articulos`, articulo);
     }, 

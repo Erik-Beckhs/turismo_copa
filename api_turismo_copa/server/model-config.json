@@ -66,5 +66,9 @@
   "hosped_thabitacion": {
     "dataSource": "MySQL",
     "public": true
+  },
+  "container": {
+    "dataSource": "storage",
+    "public": true
   }
 }

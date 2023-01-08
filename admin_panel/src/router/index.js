@@ -31,7 +31,7 @@ const routes = [
     component: Site,
     children: [
       { path: "/", name: "home", component: Home},
-      { path: "/HomeAtractivo", name: "homeAtractivo", component: HomeAtractivo},
+      { path: "/HomeAtractivo/:id", name: "homeAtractivo", component: HomeAtractivo},
       { path: "/HomeAtractivos", name: "homeAtractivos", component: HomeAtractivos},
       { path: "/SiteNoticia", name: "homeNoticia", component: HomeNoticia},
       { path: "/SiteNoticias", name: "homeNoticias", component: HomeNoticias},

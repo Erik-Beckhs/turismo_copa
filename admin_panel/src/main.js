@@ -10,7 +10,7 @@ import '@/assets/css/media-hover-effects.css';
 import '@/assets/css/animate.css';
 
 Vue.use(VueSweetalert2);
-
+Vue.prototype.$Api_url_media = 'http://localhost:3000';
 Vue.config.productionTip = false
 
 new Vue({

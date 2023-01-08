@@ -109,8 +109,25 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
-            <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
-            <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" />
+            <v-file-input
+                id="file_imagen_principal"
+                label="Cargar Imagen"
+                prepend-icon="mdi-paperclip"
+                @change="updateFile"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip
+                    small
+                    label
+                    color="primary"
+                  >
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            <!-- <input type="file" ref="img_principal" @input="updateFile"/> -->
+            <!-- <v-img v-if="estado_img==0" :src="atractivo.img_principal"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" /> -->
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -198,7 +215,7 @@ export default {
         como_llegar:'',
         comunidad:'',
         jerarquia:'',
-        img_principal:'',
+        img_principal:null,
         tipo:'',
         subtipo:'',
         descripcion:''
@@ -222,6 +239,27 @@ export default {
     }
   },
   methods:{
+    updateFile(event) {
+      if(event!=null){
+        var fileName = event.name;
+        var extFile = fileName.split('.').pop();
+        this.atractivo.img_principal=(Math.random().toString(16).slice(2)) +'.'+ extFile;
+        console.log(this.atractivo.img_principal);  
+      }
+      
+      // this.atractivo.img_principal = event.target.files[0];
+      // console.log(this.atractivo.img_principal);
+
+      // const file = event.target.files[0];
+      // this.atractivo.img_principal=new Blob([file]);
+      
+      // const file = event.target.files[0];
+      // const reader = new FileReader();
+      // reader.readAsArrayBuffer(file);
+      // reader.onloadend = () => {
+      //   this.atractivo.img_principal = reader.result;
+      // }
+    },
     getAtractivo(id){
         AtractivoService.getAtractivo(id).then(response=>{
         this.atractivo = response.data;
@@ -281,12 +319,22 @@ export default {
     },
     guardaAtractivo(articulos){
       console.log(this.atractivo);
+      const fileinput= document.getElementById('file_imagen_principal');
+      const formData = new FormData();
+      formData.append('file', fileinput.files[0], this.atractivo.img_principal);
+      this.atractivo.img_principal="";
       AtractivoService.saveAtractivo(this.atractivo).then(response=>{
-          var id_atractivo = response.data.id;
-          this.guardaArticulos(articulos, id_atractivo)
-          this.notification('El atractivo ha sido registrado de manera correcta', 'success');
-          this.$router.replace('/atractivos');
-        })
+        var id_atractivo = response.data.id;
+        this.guardaImagenAtractivo(id_atractivo, formData);
+        this.guardaArticulos(articulos, id_atractivo)
+        this.notification('El atractivo ha sido registrado de manera correcta', 'success');
+        this.$router.replace('/atractivos');
+      })
+    },
+    guardaImagenAtractivo(id_atractivo, dataimagen){
+      AtractivoService.saveImage(id_atractivo, dataimagen).then(response=>{
+        console.log(response.data);
+      })
     },
     editaAtractivo(articulos){
         AtractivoService.editAtractivo(this.id_atractivo, this.atractivo).then((response)=>{

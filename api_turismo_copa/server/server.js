@@ -1,23 +1,22 @@
-// Copyright IBM Corp. 2016,2019. All Rights Reserved.
-// Node module: loopback-workspace
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
+// Copyright IBM Corp. 2016. All Rights Reserved.
+// Node module: loopback-example-storage
+// This file is licensed under the Artistic License 2.0.
+// License text available at https://opensource.org/licenses/Artistic-2.0
 
-'use strict';
+var boot = require('loopback-boot');
+var compression =  require('compression');
+var loopback = require('loopback');
 
-const loopback = require('loopback');
-const boot = require('loopback-boot');
-
-const app = module.exports = loopback();
+var app = module.exports = loopback();
 
 app.start = function() {
   // start the web server
   return app.listen(function() {
     app.emit('started');
-    const baseUrl = app.get('url').replace(/\/$/, '');
+    var baseUrl = app.get('url').replace(/\/$/, '');
     console.log('Web server listening at: %s', baseUrl);
     if (app.get('loopback-component-explorer')) {
-      const explorerPath = app.get('loopback-component-explorer').mountPath;
+      var explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
   });

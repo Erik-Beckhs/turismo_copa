@@ -1,12 +1,12 @@
 <template>
 	<div style="background: #F7F7F7;" id="div_atractivo">
-		<v-img :height="altura_ini_p" class="white--text align-end" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/67/d7/35/aerial-view-of-cerro.jpg?w=1200&h=-1&s=1">
+		<v-img :height="altura_ini_p" class="white--text align-end" :src="$Api_url_media+data_atractivo.img_principal">
 			<v-container style="padding: 10px 15px 30px 15px;">
 				<v-row>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
-						<span class="font-weight-black" style="font-size: 3rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Calvario</span><br>
-						<span class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
+						<span class="font-weight-black" style="font-size: 3rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{data_atractivo.nombre}}</span><br>
+						<span class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{data_atractivo.comunidad}} - {{data_atractivo.ubicacion}}</span>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 				</v-row>
@@ -20,7 +20,7 @@
 				<v-row>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
-						<span class="text-h5 font-weight-light">Ubicado al norte del pueblo de Copacabana, detrás de la  Iglesia Colquepata, se encuentra  el  cerro  Calvario,  que  es  uno  de  los  más  visitados,  sobre todo  por peregrinos nacionales. En las faldas del cerro esperan sacerdotes nativos que celebran ceremonias con un sincretismo de fe católica y creencias ancestrales.</span>
+						<span class="text-h5 font-weight-light">{{data_atractivo.descripcion}}</span>
 						<br><br>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
@@ -29,18 +29,13 @@
 						<div class="text-left">
 							<br>
 							<span class="text-h4 font-weight-black" style="color:#0099ff">Descripción</span><br>
-							<span class="text-subtitle-2 grey--text">Cerro Calvario</span><br>
+							<span class="text-subtitle-2 grey--text">{{data_atractivo.nombre}}</span><br>
 						</div>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
-						<p>
-							En épocas precolombinas y hasta la República, la cima del cerro era “huaca” (lugar sagrado), donde se ofrecían rituales y ceremonias a las deidades, realizadas por “Yatiris” (sacerdotes andinos), pidiendo bendiciones para las familias. Actualmente se mantiene el sincretismo religioso con gran esencia espiritual, conviviendo junto a la religiosidad católica.
-En 1946 el Fr. Leonardo Claure mandó a construir el Vía Crucis con la 12 estaciones que recorrió nuestro  señor  Jesucristo  y  los  12  dolores  de  la  virgen  María,  el propósito fue acabar con la religiosidad andina, que llevaba miles de feligreses a la cima en busca de yatiris, a los que la Iglesia Católica calificó como brujos.
-Actualmente,  los   devotos   suben   el   Calvario,   unos   llevando   piedrecillas   que depositan en cada estación para, al final, encender velas en la cima, haciendo memoria  del  vía  crucis  que  sufrió  nuestro  señor  Jesucristo.  Otros, lo  hacen  en busca de Yatiris para recibir sus bendiciones y , en algunos casos, para admirar el increíble panorama del Lago y sus alrededores des de la cima de la montaña.
-
-						</p>
+						<div v-html="data_atractivo.informacion"></div>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 				</v-row>
@@ -49,7 +44,7 @@ Actualmente,  los   devotos   suben   el   Calvario,   unos   llevando   piedrec
 						<div class="text-center">
 							<br>
 							<span class="text-h4 font-weight-black" style="color:#0099ff">Galeria de Imagenes</span><br>
-							<span class="text-subtitle-2 grey--text">Cerro Calvario</span><br>
+							<span class="text-subtitle-2 grey--text">{{data_atractivo.nombre}}</span><br>
 						</div>
 					</v-col>
 					<v-col cols="12" md="1">
@@ -70,6 +65,7 @@ Actualmente,  los   devotos   suben   el   Calvario,   unos   llevando   piedrec
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
 import ViewGallery from '@/components/ViewGallery.vue';
+import SiteServices from '@/services/SiteServices';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'HomeAtractivo',
@@ -118,6 +114,7 @@ export default {
             src: 'https://boliviaturistica.com/wp-content/uploads/2018/08/Copacabana-Bolivia.jpg',
           },
       ],
+	  data_atractivo:{}
     }
   },
   mounted(){	
@@ -127,8 +124,14 @@ export default {
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);	
 		this.scroll_ini();
+		this.get_atractivo();
   },
   methods:{
+	get_atractivo(){
+		SiteServices.getDataId('atractivos', this.$route.params.id).then(response=>{
+			this.data_atractivo=response.data;
+		})
+	},
 	scroll_ini(){
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},
