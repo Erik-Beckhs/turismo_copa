@@ -15,5 +15,8 @@ export default {
     },
     editaNoticia(item){
         return Api().put(`/noticias/${item.id}`, item);
+    },
+    countNoticias(){
+        return Api().get(`/noticias/count`);
     }
 }

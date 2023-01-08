@@ -284,3 +284,17 @@
 		font-size: 20px;
 	}
 }
+
+/*admin*/
+.seleccionaImagen{
+	display: none;
+}
+
+.lblSelecciona{
+	margin-top:10px !important;
+	padding:7px 15px;
+	background-color: #003C79;
+	color: #F0F3F3;
+	border-radius:5px;
+	cursor: pointer;
+}

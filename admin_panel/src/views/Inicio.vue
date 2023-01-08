@@ -27,8 +27,8 @@
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">50</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Usuarios</strong>
+                                            <v-card-title class="text-h2">50</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Usuarios</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/programador.png"/>
                                     </v-card-text>
@@ -45,8 +45,8 @@
                                  <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">40</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Hoteles</strong>
+                                            <v-card-title class="text-h2">{{cantidadHospedajes}}</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Hoteles</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/hotel.png"/>
                                     </v-card-text>
@@ -63,8 +63,8 @@
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">30</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Atractivos</strong>
+                                            <v-card-title class="text-h2">{{cantidadAtractivos}}</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Atractivos</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/turismo.png"/>
                                     </v-card-text>
@@ -82,8 +82,8 @@
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">35</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Noticias</strong>
+                                            <v-card-title class="text-h2">{{cantidadNoticias}}</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Noticias</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/periodico.png"/>
                                     </v-card-text>
@@ -101,8 +101,8 @@
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">22</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Reseñas</strong>
+                                            <v-card-title class="text-h2">{{cantidadResenas}}</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Reseñas</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/buena-resena.png"/>
                                     </v-card-text>
@@ -120,8 +120,8 @@
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
-                                            <v-card-title style="font-size:2rem;">58</v-card-title>
-                                            <strong class="ps-5 grey--text" style="font-size:1.2rem;">Fotos en Galeria</strong>
+                                            <v-card-title class="text-h2">58</v-card-title>
+                                            <strong class="ps-5 grey--text text-h5">Fotos en Galería</strong>
                                         </div>
                                         <img width="100" src="@/assets/flaticon/galeria.png"/>
                                     </v-card-text>
@@ -140,6 +140,11 @@
     </div>
 </template>
 <script>
+import HospedajeService from '@/services/HospedajeService';
+import AtractivoService from '@/services/AtractivoService';
+import NoticiaService from '@/services/NoticiaService';
+import ResenaService from '@/services/ResenasService';
+
     export default {
         name: 'Inicio',
         data(){
@@ -169,7 +174,7 @@
                     {
                     title:'Eventos Programados',
                     color:'green',
-                    cantidad:7,
+                    cantidad:0,
                     image:'calendario-de-escritorio.png',
                     route:'/eventos'
                     },
@@ -187,8 +192,36 @@
                     image:'galeria.png',
                     route:'#'
                     }
-                ]
+                ],
+                cantidadHospedajes:0,
+                cantidadAtractivos:0,
+                cantidadResenas:0,
+                cantidadNoticias:0
             }
+        }, 
+        mounted(){
+            this.cargaCantidades();
+        },
+        methods:{
+            cargaCantidades(){
+                this.getCantidadHospedajes();
+                this.getCantidadAtractivos();
+                this.getCantidadNoticias();
+                this.getCantidadResenas();
+            },
+            getCantidadHospedajes(){
+                HospedajeService.countHospedajes().then(response => this.cantidadHospedajes=('0'+response.data.count).slice(-2));
+            },
+            getCantidadAtractivos(){
+                AtractivoService.countAtractivos().then(response => this.cantidadAtractivos=('0'+response.data.count).slice(-2));
+            },
+            getCantidadResenas(){
+                ResenaService.countResenas().then(response => this.cantidadResenas=('0'+response.data.count).slice(-2));
+            },
+            getCantidadNoticias(){
+                NoticiaService.countNoticias().then(response => this.cantidadNoticias=('0'+response.data.count).slice(-2));
+            }
+
         }
     }
 </script>
