@@ -36,5 +36,12 @@ export default {
     }, 
     countHospedajes(){
         return Api().get(`/hospedajes/count`);
-    }
+    },
+    saveImage(id, dataimage){
+        return Api().post(`/hospedajes/${id}/image`, dataimage, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
 }
