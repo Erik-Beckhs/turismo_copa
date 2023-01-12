@@ -146,6 +146,11 @@
             editUpload="myIdEdit"
             multiple
             :rename="rename_file"
+            dragText="Arrastrar imágenes"
+            browseText="Seleccionar"
+            primaryText="Por defecto"
+            popupText="Esta imagen se mostrará por defecto"
+            markIsPrimaryText="Establecer por defecto"
             >
             </vue-upload-multiple-image>
           </v-col>
@@ -323,7 +328,7 @@ export default {
       return file.name + '-' + Date.now()
     },
     uploadImageSuccess(formData, index, fileList) {
-        this.files_multimedia.push(formData);
+      this.files_multimedia.push(formData);
     },
     beforeRemove (index, done, fileList) {
       console.log('Eliminar', index, fileList)
@@ -333,6 +338,10 @@ export default {
           done()
         })
       }else{
+        if(this.multimedia_data.length==0){
+          this.files_multimedia.splice(index, 1);
+          console.log('eliminados xs', this.files_multimedia);
+        }
         done()
       }
     },
@@ -344,7 +353,6 @@ export default {
             console.log(response.data);
           })
         }
-        
       }else{
         this.files_multimedia[index]=formData;
       }
