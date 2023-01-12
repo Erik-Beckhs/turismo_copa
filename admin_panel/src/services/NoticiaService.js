@@ -1,6 +1,13 @@
 import Api from '@/services/Api';
 
 export default {
+    saveImage(id, dataimage){
+        return Api().post(`/noticias/${id}/image`, dataimage, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
     getNoticias(){
         return Api().get('/noticias');
     },

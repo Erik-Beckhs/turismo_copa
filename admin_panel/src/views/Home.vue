@@ -10,7 +10,7 @@
 			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
 				<div class="text-center white--text">
 					<span class="font-weight-black" style="font-size: 4rem;">Un lugar mágico</span><br>
-					<span class="text-subtitle-1">Descubre Copacabana, uno de los destinos turísticos mas importantes de Bolivia, lleno de magia y encanto</span>
+					<span class="text-subtitle-1">Descubre Copacabana, uno de los destinos turísticos más importantes de Bolivia, lleno de magia y encanto</span>
 				</div>
 			</v-row>
 		</v-carousel-item>
@@ -203,7 +203,7 @@
 			<path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
 		</svg>
 		<div style="background: #0099ff;">
-			<h1>Que puedes hacer</h1>
+			<h1>Qué puedes hacer?</h1>
 			<p>
 				<span>
 					Planes para todos los gustos	
@@ -229,7 +229,7 @@
 											<v-container style="padding: 10px 15px 30px 15px;">
 												<v-row>
 													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Turs culturales</span>
+														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Tours culturales</span>
 													</v-col>
 												</v-row>
 											</v-container>

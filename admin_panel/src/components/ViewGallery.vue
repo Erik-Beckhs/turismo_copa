@@ -58,7 +58,6 @@ export default {
 //     };
 //   },
   mounted() {
-    
     if (!this.lightbox) {
       this.lightbox = new PhotoSwipeLightbox({
         gallery: '#' + this.$props.galleryID,

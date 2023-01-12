@@ -15,7 +15,8 @@
       "type": "string"
     },
     "img": {
-      "type": "string"
+      "type": "string",
+      "required":false
     },
     "titulo": {
       "type": "string"
