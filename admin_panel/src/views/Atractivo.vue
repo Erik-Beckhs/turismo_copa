@@ -262,6 +262,7 @@ export default {
         reader.onerror = error => reject(error);
       });
     },
+
     updateFile(event) {
       if(event!=null){
         // generamos un nuevo nombre de imagen
@@ -398,6 +399,8 @@ export default {
     guardaAtractivo(articulos){
       console.log(this.atractivo);
       let dataimagen=this.FormDataImage('file_imagen_principal', this.atractivo.img_principal);
+      // console.log(dataimagen);
+      // return;
       this.atractivo.img_principal="";
       console.log('formadata', dataimagen);
       AtractivoService.saveAtractivo(this.atractivo).then(response=>{
