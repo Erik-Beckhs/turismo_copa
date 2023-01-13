@@ -5,15 +5,35 @@
 				<v-row>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="10">
+                        <v-tabs v-model="tab_atractivos" color="blue" background-color="transparent">
+                            <v-tab href="#tab_atractivo" @click="filtro_tab=''">
+                                Atractivos
+                            </v-tab>
+                            <v-tab href="#tab_eventos" @click="filtro_tab='Eventos Programados'">
+                                Eventos Programados
+                            </v-tab>
+                            <v-tab href="#tab_actividades" @click="filtro_tab='Actividades Que Hacer'">
+                                Que Hacer
+                            </v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="tab_atractivos">
+                            <v-tab-item value="tab_atractivo">
+                            </v-tab-item>
+                            <v-tab-item value="tab_eventos">
+                            </v-tab-item>
+                            <v-tab-item value="tab_actividades">
+                            </v-tab-item>
+                        </v-tabs-items>
                         <v-row>
+                            <v-col cols="12"><br></v-col>
                             <v-col cols="12" md="4" sm="6">
                                 <div class="text-left">
                                     <br>
-                                    <span class="text-h3 font-weight-black" style="color:#021F3C">Atractivos</span><br>
+                                    <span class="text-h3 font-weight-black" style="color:#021F3C">{{title_atractivo}}</span><br>
                                     <span class="text-subtitle-2 grey--text">Copacabana</span><br>
                                 </div>        
                             </v-col>
-                            <v-col v-for="(item, index) in list_atractivos" cols="12" :md="calcule_col(index)" sm="6" :key="item.id">
+                            <v-col v-for="(item, index) in filterAtractivos" cols="12" :md="calcule_col(index)" sm="6" :key="item.id">
                                 <router-link class="underline-none" :to="'/HomeAtractivo/'+item.id" v-slot="{ navigate }">
                                     <v-hover v-slot="{ hover }" open-delay="100">
                                         <v-card
@@ -40,141 +60,6 @@
                                     </v-hover>
 						        </router-link>    
                             </v-col>
-                            <!-- <v-col cols="12" md="4" sm="6">
-                                <v-hover
-                                    v-slot="{ hover }"
-                                    open-delay="100"
-                                >
-                                    <v-card
-                                    :elevation="hover ? 12 : 2"
-                                    :class="{ 'on-hover': hover }"
-                                    >
-                                        <v-img aspect-ratio="1"
-                                            height="450"
-                                            class="grey lighten-2 white--text align-end"
-                                            src="https://compassesandquests.com/wp-content/uploads/2019/09/0809-2019-01070182194409208622-1-1024x768.jpeg"
-                                        >
-                                            <v-container style="padding: 10px 15px 30px 15px;">
-                                                <v-row>
-                                                    <v-col cols="12" md="10">
-                                                        <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                        <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
-                                                    </v-col>
-                                                    <v-col cols="12" md="2"></v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-img>
-                                    </v-card>
-                                </v-hover>
-                            </v-col>
-                            <v-col cols="12" md="8" sm="6">
-                                <v-hover
-                                    v-slot="{ hover }"
-                                    open-delay="100"
-                                >
-                                    <v-card
-                                    :elevation="hover ? 12 : 2"
-                                    :class="{ 'on-hover': hover }"
-                                    >
-                                        <v-img aspect-ratio="1"
-                                            height="450"
-                                            class="grey lighten-2 white--text align-end"
-                                            src="https://mediaim.expedia.com/destination/2/389c7083e722eac862ef317a66149abc.jpg"
-                                        >
-                                            <v-container style="padding: 10px 15px 30px 15px;">
-                                                <v-row>
-                                                    <v-col cols="12" md="10">
-                                                        <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                        <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
-                                                    </v-col>
-                                                    <v-col cols="12" md="2"></v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-img>
-                                    </v-card>
-                                </v-hover>
-                            </v-col>
-                            <v-col cols="12" md="4" sm="6">
-                                <v-hover
-                                    v-slot="{ hover }"
-                                    open-delay="100"
-                                >
-                                    <v-card
-                                    :elevation="hover ? 12 : 2"
-                                    :class="{ 'on-hover': hover }"
-                                    >
-                                        <v-img aspect-ratio="1"
-                                            height="450"
-                                            class="grey lighten-2 white--text align-end"
-                                            src="https://1.bp.blogspot.com/-EjPqQbVCCyo/XeKOwek-mMI/AAAAAAAAwjA/_3XVs6DarYktEYKIF8do4sRywaZo_kj2ACLcBGAsYHQ/s1600/20190606_154846%2528cortada%2529.jpg"
-                                        >
-                                            <v-container style="padding: 10px 15px 30px 15px;">
-                                                <v-row>
-                                                    <v-col cols="12" md="10">
-                                                        <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                        <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
-                                                    </v-col>
-                                                    <v-col cols="12" md="2"></v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-img>
-                                    </v-card>
-                                </v-hover>
-                            </v-col>
-                            <v-col cols="12" md="4" sm="6">
-                                <v-hover
-                                    v-slot="{ hover }"
-                                    open-delay="100"
-                                >
-                                    <v-card
-                                    :elevation="hover ? 12 : 2"
-                                    :class="{ 'on-hover': hover }"
-                                    >
-                                        <v-img aspect-ratio="1"
-                                            height="450"
-                                            class="grey lighten-2 white--text align-end"
-                                            src="https://mediaim.expedia.com/destination/2/389c7083e722eac862ef317a66149abc.jpg"
-                                        >
-                                            <v-container style="padding: 10px 15px 30px 15px;">
-                                                <v-row>
-                                                    <v-col cols="12" md="10">
-                                                        <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                        <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
-                                                    </v-col>
-                                                    <v-col cols="12" md="2"></v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-img>
-                                    </v-card>
-                                </v-hover>
-                            </v-col>
-                            <v-col cols="12" md="8" sm="6">
-                                <v-hover
-                                    v-slot="{ hover }"
-                                    open-delay="100"
-                                >
-                                    <v-card
-                                    :elevation="hover ? 12 : 2"
-                                    :class="{ 'on-hover': hover }"
-                                    >
-                                        <v-img aspect-ratio="1"
-                                            height="450"
-                                            class="grey lighten-2 white--text align-end"
-                                            src="https://1.bp.blogspot.com/-EjPqQbVCCyo/XeKOwek-mMI/AAAAAAAAwjA/_3XVs6DarYktEYKIF8do4sRywaZo_kj2ACLcBGAsYHQ/s1600/20190606_154846%2528cortada%2529.jpg"
-                                        >
-                                            <v-container style="padding: 10px 15px 30px 15px;">
-                                                <v-row>
-                                                    <v-col cols="12" md="10">
-                                                        <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Cerro Calvario</span><br>
-                                                        <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Copacabana - Calvario</span>
-                                                    </v-col>
-                                                    <v-col cols="12" md="2"></v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-img>
-                                    </v-card>
-                                </v-hover>
-                            </v-col> -->
                         </v-row>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
@@ -202,10 +87,13 @@ import WOW from '@/plugins/wow.min.js';
 import ViewGallery from '@/components/ViewGallery.vue';
 import SiteServices from '@/services/SiteServices';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
+var index_mod3=0;
+var index_mod2=0;
 export default {
   name: 'HomeAtractivos',
   data(){
     return{
+        tab_atractivos:null,
       bg:'transparent',
       altura_ini_p:500,
 	  drawer:false,
@@ -250,8 +138,7 @@ export default {
           },
       ],
       list_atractivos:[],
-      index_mod3:0,
-      index_mod2:0,
+      filtro_tab:'',
     }
   },
   mounted(){	
@@ -270,20 +157,20 @@ export default {
             num_col= '4';
         }else{
             if(((index+1) % 2) ==0){
-                if(this.index_mod2==0){
+                if(index_mod2==0){
                     num_col='4';
-                    this.index_mod2=1;
+                    index_mod2=1;
                 }else{
                     num_col='8';
-                    this.index_mod2=0;
+                    index_mod2=0;
                 }
             } else{
-                if(this.index_mod3==0){
+                if(index_mod3==0){
                     num_col='8';
-                    this.index_mod3=1;
+                    index_mod3=1;
                 }else{
                     num_col='4';
-                    this.index_mod3=0;
+                    index_mod3=0;
                 }
             }
         }
@@ -311,6 +198,19 @@ export default {
           this.bg = 'transparent';
       }
     },
+  },
+  computed:{
+    filterAtractivos(){
+        return this.list_atractivos.filter(elem => {
+        	if (elem.categoria == this.filtro_tab) return true;
+            else if(this.filtro_tab=='') return true;
+    	});
+    },
+    title_atractivo(){
+        if (this.filtro_tab=='Eventos Programados') return 'Eventos Programados';
+        else if(this.filtro_tab=='Actividades Que Hacer') return 'Que Hacer';
+        else return 'Atractivos';
+    }
   },
   components: {
 	ViewGallery,

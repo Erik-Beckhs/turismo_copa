@@ -130,6 +130,7 @@ export default {
             'Sitios Naturales',
             'Etnografía y Folklore',
             'Eventos Programados',
+            'Actividades Que Hacer',
             'Patrimonio Urbano Arquitectónico',
             'Realizaciones técnicas científicas'
         ];

@@ -141,9 +141,16 @@
             @upload-success="uploadImageSuccess"
             @before-remove="beforeRemove"
             @edit-image="editImage"
-            :data-images="images"
+            :data-images="images_multi"
             idUpload="myIdUpload"
             editUpload="myIdEdit"
+            multiple
+            :rename="rename_file"
+            dragText="Arrastrar imágenes"
+            browseText="Seleccionar"
+            primaryText="Por defecto"
+            popupText="Esta imagen se mostrará por defecto"
+            markIsPrimaryText="Establecer por defecto"
             >
             </vue-upload-multiple-image>
           </v-col>
@@ -191,6 +198,7 @@
 
 //import axios from 'axios';
 import ItemService from '@/services/ItemService';
+import MultimediaService from '@/services/MultimediaService';
 import AtractivoService from '@/services/AtractivoService'
 import VueUploadMultipleImage from 'vue-upload-multiple-image';
 import { VueEditor } from "vue2-editor";
@@ -209,7 +217,7 @@ export default {
       search: '',
       estado_img:0,
       edicion:'Nuevo',
-      images:[],
+      images_multi:[],
       id_atractivo:'',
       view_image_atractivo:null,
       atractivo:{
@@ -220,10 +228,13 @@ export default {
         comunidad:'',
         jerarquia:'',
         img_principal:'',
+        img_principal:'',
         tipo:'',
         subtipo:'',
         descripcion:''
       },
+      files_multimedia:[],
+      multimedia_data:[],
       comunidades:ItemService.listComunidades(),
       categorias:ItemService.listCategoriasAtractivos(),
       articulos:ItemService.listArticulos(),
@@ -269,16 +280,33 @@ export default {
     },
     getAtractivo(id){
         AtractivoService.getAtractivo(id).then(response=>{
-        this.atractivo = response.data;
-        this.view_image_atractivo=this.$Api_url_media+this.atractivo.img_principal;
-        AtractivoService.getArticulosAtractivo(id).then(response=>{
-          if(response.data.length > 0){
-            //var articulos_response = response.data;
-            this.load_articulos(response.data);
-          }
-        }).catch(error=>console.log(error));
-      })
+          this.getMultimediaGaleria();
+          this.atractivo = response.data;
+          this.view_image_atractivo=this.$Api_url_media+this.atractivo.img_principal;
+          AtractivoService.getArticulosAtractivo(id).then(response=>{
+            if(response.data.length > 0){
+              //var articulos_response = response.data;
+              this.load_articulos(response.data);
+              
+            }
+          }).catch(error=>console.log(error));
+        })
     },
+    getMultimediaGaleria(){
+      MultimediaService.getMultimedia('atractivos', this.id_atractivo).then(response=>{
+        this.multimedia_data=response.data;
+        for (let index = 0; index < response.data.length; index++) {
+          const element_aux = {
+            default:index,
+            highlight:index,
+            name:'img_'+index,
+            aux_id:response.data[index].id,
+            path:this.$Api_url_media + response.data[index].ruta
+          };
+          this.images_multi.push(element_aux);
+        }
+      })
+    },  
     load_articulos(articulos){
       this.articulos.forEach(element=>{
               articulos.forEach(res=>{
@@ -288,7 +316,7 @@ export default {
               })
       })
     },
-      notification(title, icon){
+    notification(title, icon){
           this.$swal.fire({
           position: 'top-end',
           icon,
@@ -297,23 +325,56 @@ export default {
           timer: 1500
         })
      },
-      uploadImageSuccess(formData, index, fileList) {
-        console.log('data', formData, index, fileList);
-      // Upload image api
-      // axios.post('http://your-url-upload', formData).then(response => {
-      //   console.log(response)
-      // })
+     rename_file (file) {
+      return file.name + '-' + Date.now()
+    },
+    uploadImageSuccess(formData, index, fileList) {
+      this.files_multimedia.push(formData);
     },
     beforeRemove (index, done, fileList) {
-      console.log('index', index, fileList)
-      var r = confirm("remove image")
-      if (r == true) {
+      console.log('Eliminar', index, fileList)
+      if (typeof fileList[index].aux_id != 'undefined') {
+        MultimediaService.deleteMultimedia(fileList[index].aux_id).then(response=>{
+          console.log(response.data);
+          done()
+        })
+      }else{
+        if(this.multimedia_data.length==0){
+          this.files_multimedia.splice(index, 1);
+          console.log('eliminados xs', this.files_multimedia);
+        }
         done()
       }
     },
-    editImage (formData, index, fileList) {
-      console.log('edit data', formData, index, fileList)
-    }, 
+    editImage(formData, index, fileList) {
+      console.log('edit data', formData, index, fileList);
+      if(this.multimedia_data.length!=0){
+        if (typeof fileList[index].aux_id != 'undefined') {
+          MultimediaService.saveImage(fileList[index].aux_id, formData).then(response=>{
+            console.log(response.data);
+          })
+        }
+      }else{
+        this.files_multimedia[index]=formData;
+      }
+    },
+    guardaMultimedia(id_atractivo, nombre_atractivo){
+      for (const key in this.files_multimedia) {
+          let dataimagen=this.files_multimedia[key];
+          let multimedia={
+            "id_padre": id_atractivo,
+            "nombre": nombre_atractivo,
+            "ruta": "",
+            "tipo": "image",
+            "pertenece_a": "atractivos"
+          };
+          MultimediaService.saveMultimedia(multimedia).then(response=>{
+            MultimediaService.saveImage(response.data.id, dataimagen).then(response=>{
+              console.log(response.data);
+            })
+          })
+      }
+    },
     guardar(){
       var articulos_seleccionados = this.articulos.filter(element=>element.selected==true);
       //console.log(this.id_atractivo);
@@ -327,9 +388,13 @@ export default {
     },
     FormDataImage(id_element, nombre_archivo){
       const fileinput= document.getElementById(id_element);
-      const formData = new FormData();
-      formData.append('file', fileinput.files[0], nombre_archivo);
-      return formData;
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      } 
     },
     guardaAtractivo(articulos){
       console.log(this.atractivo);
@@ -337,9 +402,11 @@ export default {
       // console.log(dataimagen);
       // return;
       this.atractivo.img_principal="";
+      console.log('formadata', dataimagen);
       AtractivoService.saveAtractivo(this.atractivo).then(response=>{
         var id_atractivo = response.data.id;
-        this.guardaImagenAtractivo(id_atractivo, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenAtractivo(id_atractivo, dataimagen);}
+        this.guardaMultimedia(id_atractivo, response.data.nombre);
         this.guardaArticulos(articulos, id_atractivo)
         this.notification('El atractivo ha sido registrado de manera correcta', 'success');
         this.$router.replace('/atractivos');
@@ -353,10 +420,11 @@ export default {
     },
     editaAtractivo(articulos){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.atractivo.img_principal);
-      this.atractivo.img_principal="";
+      if(dataimagen!=null) this.atractivo.img_principal="";
       AtractivoService.editAtractivo(this.id_atractivo, this.atractivo).then((response)=>{
         if(response){
-          this.guardaImagenAtractivo(this.id_atractivo, dataimagen);
+          if(dataimagen!=null) {this.guardaImagenAtractivo(this.id_atractivo, dataimagen);}
+          this.guardaMultimedia(this.id_atractivo, response.data.nombre);
           AtractivoService.deleteAllAtractivosArticulo(this.id_atractivo).then(()=>{
             this.guardaArticulos(articulos, this.id_atractivo)
             this.notification('El atractivo ha sido modificado de manera correcta', 'success');
