@@ -39,7 +39,7 @@
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 				</v-row>
-				<v-row>
+				<v-row v-if="multimedia_data.length!=0">
 					<v-col cols="12">
 						<div class="text-center">
 							<br>

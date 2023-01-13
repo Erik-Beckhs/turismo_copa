@@ -57,136 +57,65 @@
 				<v-col cols="12">
 					<div class="text-center">
 						<br>
-						<span class="text-h4 font-weight-black" style="color:#0099ff">Atractivos turísticos</span><br>
+						<span class="text-h4 font-weight-black" style="color:#0099ff">Atractivos y eventos turísticos</span><br>
 						<span class="text-subtitle-2 grey--text">Municipio turístico de Bolivia</span><br>
 					</div>
 				</v-col>
 			</v-row>
 			<v-row>
-				<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
-							<figcaption>
-								<h2>{{atr.nombre}}
-								<span></span>
-								</h2>
-								<p>{{atr.descripcion}}</p>
-								<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
-									<a @click="navigate">View more</a>
-								</router-link>
-							</figcaption> 
-						</figure>
-					</div>
+				<v-col cols="12">
+					<v-tabs v-model="tab_atractivos" centered color="blue">
+						<v-tab href="#tab_atractivo">
+							Atractivos
+						</v-tab>
+						<v-tab href="#tab_eventos">
+							Eventos Programados
+						</v-tab>
+					</v-tabs>
+					<v-tabs-items v-model="tab_atractivos">
+						<v-tab-item value="tab_atractivo">
+							<v-row>
+								<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
+									<div class="wow fadeInLeft grid">
+										<figure class="effect-sadie">
+											<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
+											<figcaption>
+												<h2>{{atr.nombre}}
+												<span></span>
+												</h2>
+												<p>{{atr.descripcion}}</p>
+												<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
+													<a @click="navigate">View more</a>
+												</router-link>
+											</figcaption> 
+										</figure>
+									</div>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item value="tab_eventos">
+							<v-row>
+								<v-col cols="12" sm="4" md="3" v-for="ev in list_eventos" :key="ev.id">
+									<div class="wow fadeInLeft grid">
+										<figure class="effect-sadie">
+											<img height="260" :src="$Api_url_media+ev.img_principal" :alt="ev.nombre">
+											<figcaption>
+												<h2>{{ev.nombre}}
+												<span></span>
+												</h2>
+												<p>{{ev.descripcion}}</p>
+												<router-link class="underline-none" :to="'/HomeAtractivo/'+ev.id" v-slot="{ navigate }">
+													<a @click="navigate">View more</a>
+												</router-link>
+											</figcaption> 
+										</figure>
+									</div>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+					</v-tabs-items>	
 				</v-col>
-				<!-- <v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://live.staticflickr.com/6099/6284904269_ea2148a6c9_b.jpg" alt="img02">
-							<figcaption>
-								<h2>Basílica
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://i.ytimg.com/vi/jNHknd65uwA/maxresdefault.jpg" alt="img02">
-							<figcaption>
-								<h2>Playas
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://boliviaturistica.com/wp-content/uploads/2018/08/Isla-del-Sol-Bolivia-1024x535.jpg" alt="img02">
-							<figcaption>
-								<h2>Isla del sol
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col> -->
 			</v-row>
-			<!-- <v-row>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://compassesandquests.com/wp-content/uploads/2019/09/0809-2019-01070182194409208622-1-1024x768.jpeg" alt="img02">
-							<figcaption>
-								<h2>Horca del inca
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption> 
-						</figure>
-					</div>
-				</v-col>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://mediaim.expedia.com/destination/2/389c7083e722eac862ef317a66149abc.jpg" alt="img02">
-							<figcaption>
-								<h2>Isla de la luna
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFCcQijE84j5NY7w_veBOpolW6MBoWBxJtur3YShXYJzDPGlT-1XEZa_Z3t0h6ucOcu4A&usqp=CAU" alt="img02">
-							<figcaption>
-								<h2>Playas
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col>
-				<v-col cols="12" sm="4" md="3">
-					<div class="wow fadeInLeft grid">
-						<figure class="effect-sadie">
-							<img height="260" src="https://1.bp.blogspot.com/-EjPqQbVCCyo/XeKOwek-mMI/AAAAAAAAwjA/_3XVs6DarYktEYKIF8do4sRywaZo_kj2ACLcBGAsYHQ/s1600/20190606_154846%2528cortada%2529.jpg" alt="img02">
-							<figcaption>
-								<h2>Isla del sol
-								<span></span>
-								</h2>
-								<p>En este lugar se mezcla la historia antigua 
-								<br>con el mundo moderno.</p>
-								<a href="#">View more</a>
-							</figcaption>
-						</figure>
-					</div>
-				</v-col>
-			</v-row> -->
 			<v-row>
 				<v-col cols="12">
 					<div class="text-center">
@@ -213,7 +142,32 @@
 				<v-col cols="12" md="1"></v-col>
 				<v-col cols="12" md="10">
 					<v-row>
-						<v-col cols="12" md="3" sm="6">
+						<v-col cols="12" md="3" sm="6" v-for="act in list_actividades" :key="act.id">
+							<router-link class="underline-none" :to="'/HomeAtractivo/'+act.id" v-slot="{ navigate }">
+								<v-hover v-slot="{ hover }" open-delay="100">
+									<v-card
+									:elevation="hover ? 12 : 2"
+									:class="{ 'on-hover': hover }"
+									@click="navigate"
+									>
+										<v-img aspect-ratio="1"
+											height="200"
+											class="grey lighten-2 white--text align-end"
+											:src="$Api_url_media+act.img_principal"
+										>
+											<v-container style="padding: 10px 15px 30px 15px;">
+												<v-row>
+													<v-col cols="12" md="12">
+														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{act.nombre}}</span>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-img>
+									</v-card>
+								</v-hover>
+							</router-link>    
+						</v-col>
+						<!-- <v-col cols="12" md="3" sm="6">
 							<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
 								<v-hover v-slot="{ hover }" open-delay="100">
 									<v-card
@@ -312,11 +266,9 @@
 									</v-card>
 								</v-hover>
 							</router-link>    
-						</v-col>	
+						</v-col>	 -->
 					</v-row>
-					
 				</v-col>
-				
 				<v-col cols="12" md="1"></v-col>
 			</v-row>
 		</div>           
@@ -588,6 +540,7 @@ export default {
   name: 'Home',
   data(){
     return{
+		tab_atractivos:null,
       	bg:'transparent',
       	altura_ini_p:500,
 	  	drawer:false,
@@ -606,6 +559,8 @@ export default {
 			},
 		],
 		list_atractivos:[],
+		list_eventos:[],
+		list_actividades:[],
     }
   },
   mounted(){	
@@ -615,10 +570,22 @@ export default {
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);
 		this.get_atractivos();
+		this.get_eventos();
+		this.get_actividades();
   },
   methods:{
+	get_actividades(){
+		SiteServices.getActividadLimit(4).then(response=>{
+			this.list_actividades=response.data;
+		})
+	},
+	get_eventos(){
+		SiteServices.getEventosLimit(8).then(response=>{
+			this.list_eventos=response.data;
+		})
+	},
 	get_atractivos(){
-		SiteServices.getDataLimit('atractivos', 8).then(response=>{
+		SiteServices.getAtractivoLimit(8).then(response=>{
 			this.list_atractivos=response.data;
 		})
 	},
