@@ -1,16 +1,17 @@
 <template>
   <div class="home">
-	<v-carousel cycle hide-delimiter-background show-arrows-on-hover :height="altura_ini_p">
+	<!--<v-carousel cycle hide-delimiter-background show-arrows-on-hover :height="altura_ini_p">
 		<v-carousel-item
-		src="https://www.incaworldbolivia.com/fotos/0915201694507-Isla-del-sol-Bolivia.jpg"
+		src="../assets/img/a100.jpg"
 		gradient="to top right, rgba(100,115,201,.33), rgba(28,28,28,.7)"
 		reverse-transition="fade-transition"
 		>
 		
 			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
 				<div class="text-center white--text">
-					<span class="font-weight-black" style="font-size: 4rem;">Un lugar mágico</span><br>
-					<span class="text-subtitle-1">Descubre Copacabana, uno de los destinos turísticos más importantes de Bolivia, lleno de magia y encanto</span>
+					<span class="fs-2">DESCUBRE...</span><br>
+					<span class="font-weight-black fs-4">Un lugar mágico</span><br>
+					<span class="fs-1-2">Descubre Copacabana, uno de los destinos turísticos más importantes de Bolivia, lleno de magia y encanto</span>
 				</div>
 			</v-row>
 		</v-carousel-item>
@@ -22,32 +23,69 @@
 		
 			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
 				<div class="text-center white--text">
-					<span class="font-weight-black" style="font-size: 4rem;">Un lugar mágico</span><br>
-					<span class="text-subtitle-1">Descubre Copacabana, uno de los destinos turísticos mas importantes de Bolivia, lleno de magia y encanto</span>
+					<span class="fs-2">COMPARTE...</span><br>
+					<span class="font-weight-black fs-4">Una Maravillosa Experiencia</span><br>
+					<span class="fs-1-2">Comparte maravillosas experiencias con los servicios, atractivos y eventos que le brinda el destino turístico número uno de La Paz</span>
 				</div>
 			</v-row>
 		</v-carousel-item>
-	</v-carousel>
+		<v-carousel-item
+		src="../assets/img/a4.jpg"
+		gradient="to top right, rgba(100,115,201,.33), rgba(28,28,28,.7)"
+		reverse-transition="fade-transition"
+		>
+		
+			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
+				<div class="text-center white--text">
+					<span class="fs-2">VISITA...</span><br>
+					<span class="font-weight-black fs-4">Nuestro Santuario</span><br>
+					<span class="fs-1-2">Visita el Santuario de Copacabana y la Virgencita de la Candelaria, patrona de Bolivia</span>
+				</div>
+			</v-row>
+		</v-carousel-item>
+	</v-carousel>-->
+	<div class="hero">
+		<video autoplay loop muted plays-inline class="back-video">
+			<source src="@/assets/video/principal.mp4" type="video/mp4">
+		</video>
+		<nav>
+			<img src="@/assets/logo_copa.png" class="logo">
+			<ul>
+				<li><a href="#">INICIO</a></li>
+				<li><a href="#">ATRACTIVOS TURISTICOS</a></li>
+				<li><a href="#">HOSPEDAJE</a></li>
+				<li><a href="#">EVENTOS PROGRAMADOS</a></li>
+				<li><a href="#">NOTICIAS</a></li>
+				<li><a href="#">NOSOTROS</a></li>
+			</ul>
+		</nav>
+		<div class="content">
+			<h1>Copacabana</h1>
+			<a href="#">Explorar</a>
+		</div>
+	</div>
 	<div>
-		<v-container style="padding-top: 40px; padding-bottom: 40px;">
+		<v-container style="padding-top: 50px; padding-bottom: 50px;">
 			<v-row align="center" justify="center">
-				<v-col cols="12" md="1" sm="12" lg="1" xl="1"></v-col>
-				<v-col cols="12" md="5" sm="6" lg="5" xl="5">
+				<v-col cols="12" md="6" sm="6" lg="5" xl="5">
 					<div class="wow fadeInLeft">
-						<div class="text-center">
-						<span class="text-subtitle-2 grey--text">Municipio turístico de Bolivia</span><br>
-						<span class="text-h4 font-weight-black" style="color:#0099ff">Copacabana</span>
+						<div class="text-left">
+							<span class="fs-2 font-weight-black">Copacabana</span><br>
+							<span class="fs-1-2 grey--text">Municipio turístico de Bolivia</span><br>
+							<hr class="separador">
 						</div>
-						<br><br>
-						<p class="text-">
+						<br>
+						<p class="color-content">
 							Copacabana, en la actualidad, es considerada como uno de los más importantes destinos turísticos de Bolivia, por su exuberante belleza natural, sus atractivos  de  tipo  arqueológico,  cultural  y  por  el  estilo  de  vida  de  su  población,  que mantiene  aún  costumbres  auténticas  no  afectadas  por  el  consumismo  y  por  los  nuevos hábitos del mundo occidental.
+						</p>
+						<p class="color-content">
+							Esta ubicada a 150 Km de la Ciudad de La Paz, las empresas de transporte hacen sus salidas diarias desde el Cementerio General de la Ciudad de La Paz o la terminal interprovincial de la ciudad de El Alto, el tiempo de viaje tiene una duración de de 3 horas y media. También existen algunas agencias de viajes que organizan el traslado particular a Copacabana.
 						</p>
 					</div>
 				</v-col>
-				<v-col cols="12" md="5" sm="6" lg="5" xl="5">
-					<v-img class="wow fadeInRight" src="../assets/copaini.png"></v-img>
+				<v-col cols="12" md="6" sm="6" lg="5" xl="5" class="pt-10 ms-10">
+					<v-img width="600" class="wow fadeInRight" src="../assets/copaini.png"></v-img>
 				</v-col>
-				<v-col cols="12" md="1" sm="12" lg="1" xl="1"></v-col>
 			</v-row>
 		</v-container>
 	</div>
@@ -280,10 +318,10 @@
 		<v-container>
 			<v-flex>
 				<v-row>
-					<v-col cols="8" md="8">
+					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="text-h4 font-weight-black" style="color:#0099ff">Hospedajes</span><br>
-							<span class="text-subtitle-2 grey--text">Municipio turístico de Bolivia</span><br>
+							<div class="fs-2">Hospedaje</div>
+							<span class="fs-1-1 grey--text">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
 						</div>
 					</v-col>
 					<v-col cols="4" md="4">
@@ -366,14 +404,76 @@
 			</v-flex>	
 		</v-container>
 	</div>
-	<div style="background: #F7F7F7;" id="div_noticias">
+	<div id="id_informacion_util">
 		<v-container>
-			<v-flex>
+			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
+			<span class="fs-2">Descubre más información de</span>
+			<hr class="separador">
+			<v-flex class="my-15">
 				<v-row>
-					<v-col cols="8" md="8">
+					<v-col cols="3">
+						<div class="text-center">
+							<v-avatar size="128">
+							<img
+								src="@/assets/flaticon/escuela-de-autobuses.png"
+								alt="como llegar"
+							>
+							</v-avatar><br>
+							<span class="fs-1 mt-3">Como llegar a <br>
+							Copacabana</span><br>
+							<span class="fs-0-9 grey--text">Diferentes formas de llegar</span>
+						</div>
+					</v-col>
+					<v-col cols="3">
+						<div class="text-center">
+							<v-avatar size="128">
+							<img
+								src="@/assets/flaticon/lancha-rapida.png"
+								alt="como moverse"
+							>
+							</v-avatar><br>
+							<span class="fs-1 mt-3">Como viajar por <br>
+							Copacabana</span><br>
+							<span class="fs-0-9 grey--text">Destinos perfectamente comunicados</span>
+						</div>
+					</v-col>
+					<v-col cols="3">
+						<div class="text-center">
+							<v-avatar size="128">
+							<img
+								src="@/assets/flaticon/mapa.png"
+								alt="John"
+							>
+							</v-avatar><br>
+							<span class="fs-1 mt-3">Mapa</span><br>
+							<span class="fs-0-9 grey--text">Localiza lo que te interesa</span>
+						</div>
+					</v-col>
+					<v-col cols="3">
+						<div class="text-center">
+							<v-avatar size="128">
+							<img
+								src="@/assets/flaticon/buena-resena.png"
+								alt="John"
+							>
+							</v-avatar><br>
+							<span class="fs-1 mt-3">Mi Viaje</span><br>
+							<span class="fs-0-9 grey--text">Escribe reseñas de tu visita</span>
+						</div>
+					</v-col>
+					
+				</v-row>
+			</v-flex>
+		</v-container>
+	</div>
+	<div style="background: #F7F7F7;" id="div_noticias" >
+		<v-container>
+			<v-flex class="my-15">
+				<v-row>
+					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="text-h4 font-weight-black" style="color:#0099ff">Noticias</span><br>
-							<span class="text-subtitle-2 grey--text">Municipio turístico de Bolivia</span><br>
+							<span class="fs-2">Noticias</span><br>
+							<span class="fs-1-1 grey--text">En este apartado encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span><br>
 						</div>
 					</v-col>
 					<v-col cols="4" md="4">
@@ -508,6 +608,63 @@
 			</v-flex>
 		</v-container>
 	</div>
+	<div id="div_nosotros">
+		<v-container class="my-15">
+			<v-flex class="mx-15">
+				<v-row>
+					<v-col cols="6">
+						<span class="fs-2-5">
+							Escribenos
+						</span><br>
+						<span class="fs-1 grey--text">
+							Para nosotros es importante comunicarnos con nuestros visitantes
+						</span>
+						<v-container class="ms-16 mt-5">
+							<span class="fs-2">
+								Dirección de Turismo <br>
+								Copacabana
+							</span><br><br>
+							<p>
+								<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
+								Plaza 2 de Febrero, Copacabana Bolivia
+							</p>
+							<p>
+								<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
+								copacabanasomostudestino@gmail.com
+							</p>
+							<p>
+								<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
+								61216696
+							</p>
+						</v-container>
+						<v-container class="ms-16">
+							<div class="fs-1-5 justify-center">
+								Encuentranos también en:
+							</div>
+							<v-row class="justify-center mt-3">
+								<v-list-item-avatar>
+									<v-img src="@/assets/img/social/facebook.png"></v-img>
+								</v-list-item-avatar>
+								<v-list-item-avatar>
+									<v-img src="@/assets/img/social/instagram.png"></v-img>
+								</v-list-item-avatar>
+								<v-list-item-avatar>
+									<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
+								</v-list-item-avatar>
+							</v-row>
+						</v-container>
+					</v-col>
+					<v-col cols="6 text-center">
+						<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
+						</v-img>
+					</v-col>
+				</v-row>
+			</v-flex>
+		</v-container>
+	</div>
+	<div class="pa-2">
+		<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -529,6 +686,110 @@
 
 	.show-btns {
 		color: rgba(255, 255, 255, 1) !important;
+	}
+
+	.map{
+		width:100%;
+		height:500px;
+	}
+
+	/*hero*/
+	.hero{
+		width:100%;
+		height:100vh;
+		background-image:linear-gradient(rgba(12,3,51,0.3), rgba(12,3,51,0.3));
+		position:relative;
+		padding:0 5%;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	nav{
+		width:100%;
+		position:absolute;
+		top:0;
+		left:0;
+		padding:20px 8%;
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+	}
+
+	nav .logo{
+		width:100px;
+	}
+	nav ul li{
+		list-style:none;
+		display:inline-block;
+		margin-left:40px;
+	}
+	nav ul li a{
+		text-decoration: none;
+		color:#fff;
+		font-size:17px;
+		font-weight:600;
+	}
+	nav ul li a:hover{
+		background-color: #fff;
+		color: black;
+		border-radius:3px;
+		padding:5px 10px;
+		transition: all .5s ease;
+	}
+	.content{
+		text-align: center;
+		
+	}
+	.content h1{
+		font-size:160px;
+		color:#fff;
+		font-weight:600;
+		position:relative;
+	}
+	.content a{
+		text-decoration: none;
+		display: inline-block;
+		color:#fff;
+		font-size:24px;
+		border:2px solid #fff;
+		padding:14px 70px;
+		border-radius:50px;
+		margin-top:20px;
+		position:relative;
+	}
+
+	.content a:hover{
+		background-color: #fff;
+		color:black;
+	}
+
+	.back-video{
+		position:absolute;
+		right:0;
+		bottom:0;
+	}
+
+	@media (min-aspect-ratio: 16/9){
+		.back-video{
+			width:100%;
+			height:auto;
+		}
+	}
+
+	@media (max-aspect-ratio: 16/9){
+		.back-video{
+			width:auto;
+			height:100%;
+		}
+	}
+
+	.separador{
+		width: 70px;
+		background-color: #4fbab2;
+		height: 4px;
+		margin-top: 10px;
+		margin-bottom:10px;
 	}
 </style>
 <script>

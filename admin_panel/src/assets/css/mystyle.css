@@ -285,6 +285,39 @@
 	}
 }
 
+/* general */
+.fs-0-9{
+    font-size:0.9rem;
+}
+.fs-1{
+    font-size:1rem;
+}
+.fs-1-1{
+    font-size:1.1rem;
+}
+.fs-1-2{
+    font-size:1.2rem;
+}
+.fs-1-5{
+    font-size:1.5rem;
+}
+.fs-2{
+    font-size:2rem;
+}
+.fs-2-5{
+    font-size:2.5rem;
+}
+.fs-3{
+    font-size:3rem;
+}
+.fs-4{
+    font-size:4rem;
+}
+
+.fw-600{
+	font-weight: 600;
+}
+
 /*admin*/
 .seleccionaImagen{
 	display: none;
@@ -297,4 +330,8 @@
 	color: #F0F3F3;
 	border-radius:5px;
 	cursor: pointer;
+}
+
+.color-content{
+	color:#666666;
 }
