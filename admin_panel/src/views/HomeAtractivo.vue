@@ -39,7 +39,7 @@
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 				</v-row>
-				<v-row>
+				<v-row v-if="multimedia_data.length!=0">
 					<v-col cols="12">
 						<div class="text-center">
 							<br>
@@ -51,7 +51,7 @@
 						
 					</v-col>
 					<v-col cols="12" md="10">
-						<ViewGallery galleryID="gallery_atractivo" :images="imagenes" />
+						<ViewGallery galleryID="gallery_atractivo" :images="multimedia_data" />
 					</v-col>
 					<v-col cols="12" md="1">
 						
@@ -66,6 +66,7 @@
 import WOW from '@/plugins/wow.min.js';
 import ViewGallery from '@/components/ViewGallery.vue';
 import SiteServices from '@/services/SiteServices';
+import MultimediaService from '@/services/MultimediaService';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'HomeAtractivo',
@@ -114,7 +115,8 @@ export default {
             src: 'https://boliviaturistica.com/wp-content/uploads/2018/08/Copacabana-Bolivia.jpg',
           },
       ],
-	  data_atractivo:{}
+	  data_atractivo:{},
+	  multimedia_data:[]
     }
   },
   mounted(){	
@@ -125,6 +127,7 @@ export default {
 		setTimeout(() => (this.activa_inicio()), 1000);	
 		this.scroll_ini();
 		this.get_atractivo();
+		this.getMultimediaGaleria();
   },
   methods:{
 	get_atractivo(){
@@ -132,6 +135,21 @@ export default {
 			this.data_atractivo=response.data;
 		})
 	},
+	getMultimediaGaleria(){
+      MultimediaService.getMultimedia('atractivos', this.$route.params.id).then(response=>{
+		let galeria=[];
+        for (let index = 0; index < response.data.length; index++) {
+          const element_aux = {
+            largeURL: this.$Api_url_media + response.data[index].ruta,
+			thumbnailURL:this.$Api_url_media + response.data[index].ruta,
+			width: 1500,
+			height: 1000
+          };
+          galeria.push(element_aux);
+        }
+		this.multimedia_data=galeria;
+      })
+    },  
 	scroll_ini(){
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},
