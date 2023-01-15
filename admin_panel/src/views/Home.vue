@@ -480,7 +480,7 @@
 					</v-col>
 				</v-row>
 				<v-row>
-					<v-col cols="6" md="3">
+					<v-col cols="12" sm="6" md="3" v-for="not in list_noticias" :key="not.id">
 						<v-card
 							class="mx-auto"
 							max-width="344"
@@ -491,106 +491,17 @@
 							></v-img>
 
 							<v-card-title>
-							Recursos para copacabana
+							{{not.titulo}}
 							</v-card-title>
 
 							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
+							{{not.entrada}}
 							</v-card-subtitle>
 
 							<v-card-actions>
-								<router-link class="underline-none" to="/SiteNoticia" v-slot="{ navigate }">
+								<router-link class="underline-none" :to="'/SiteNoticia/'+not.id" v-slot="{ navigate }">
 									<v-btn @click="navigate" color="orange lighten-2" text><v-icon left>mdi-arrow-right</v-icon>Ver nota</v-btn>
 								</router-link>
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://infusedexposures.files.wordpress.com/2014/03/img_8173.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://4.bp.blogspot.com/-PQmOD6ACISE/Vrz8XfhDV5I/AAAAAAAACas/8inJzafL4q4/s1600/virgen_copacabana.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
 							<v-spacer></v-spacer>
 							</v-card-actions>
 						</v-card>
@@ -822,6 +733,7 @@ export default {
 		list_atractivos:[],
 		list_eventos:[],
 		list_actividades:[],
+		list_noticias:[]
     }
   },
   mounted(){	
@@ -833,6 +745,7 @@ export default {
 		this.get_atractivos();
 		this.get_eventos();
 		this.get_actividades();
+		this.get_noticias();
   },
   methods:{
 	get_actividades(){
@@ -848,6 +761,11 @@ export default {
 	get_atractivos(){
 		SiteServices.getAtractivoLimit(8).then(response=>{
 			this.list_atractivos=response.data;
+		})
+	},
+	get_noticias(){
+		SiteServices.getDataLimit('noticias', 4).then(response=>{
+			this.list_noticias=response.data;
 		})
 	},
     activa_inicio(){
