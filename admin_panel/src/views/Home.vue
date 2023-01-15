@@ -93,10 +93,10 @@
 		<v-container style="padding-top: 40px; padding-bottom: 40px;">
 			<v-row>
 				<v-col cols="12">
-					<div class="text-center">
-						<br>
-						<span class="text-h4 font-weight-black" style="color:#0099ff">Atractivos y eventos turísticos</span><br>
-						<span class="text-subtitle-2 grey--text">Municipio turístico de Bolivia</span><br>
+					<div class="text-left">
+						<span class="fs-1 fw-600" style="color:#4fbab2;">VEN Y DISFRUTA</span><br>
+						<span class="fs-2">Visita nuestros Atractivos Turísticos</span>
+						<hr class="separador">
 					</div>
 				</v-col>
 			</v-row>
@@ -173,7 +173,7 @@
 			<h1>Qué puedes hacer?</h1>
 			<p>
 				<span>
-					Planes para todos los gustos	
+					No te lo puedes perder	
 				</span>
 			</p>
 			<v-row>
@@ -320,8 +320,10 @@
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
-							<div class="fs-2">Hospedaje</div>
-							<span class="fs-1-1 grey--text">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
+							<span class="fs-1 fw-600" style="color:#4fbab2;">ESTADÍA</span><br>
+							<span class="fs-2">Establecimientos de Hospedaje</span>
+							<hr class="separador">
+							<span class="fs-1 grey--text">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
 						</div>
 					</v-col>
 					<v-col cols="4" md="4">
@@ -407,7 +409,7 @@
 	<div id="id_informacion_util">
 		<v-container>
 			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
-			<span class="fs-2">Descubre más información de</span>
+			<span class="fs-2">Descubre más información de :</span>
 			<hr class="separador">
 			<v-flex class="my-15">
 				<v-row>
@@ -472,8 +474,10 @@
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="fs-2">Noticias</span><br>
-							<span class="fs-1-1 grey--text">En este apartado encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span><br>
+							<span class="fs-1 fw-600" style="color:#4fbab2;">MANTENTE INFORMADO</span><br>
+							<span class="fs-2">Noticias Relevantes del Municipio</span>
+							<hr class="separador">
+							<span class="fs-1 grey--text">Aquí encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span>
 						</div>
 					</v-col>
 					<v-col cols="4" md="4">
