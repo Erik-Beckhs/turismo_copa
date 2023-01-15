@@ -12,32 +12,26 @@
 		</v-toolbar-title>
 		<v-spacer></v-spacer>
 		<div class="d-none d-sm-none d-md-flex">
-			<router-link class="underline-none" to="/" v-slot="{ navigate }">
-				<v-btn text @click="navigate">
-					inicio
-				</v-btn>
-			</router-link>
-			<v-btn text href="#div_atractivos">
-				atractivos turísticos
-			</v-btn>
-			<v-btn text href="#div_hospedajes">
-				hospedajes
-			</v-btn>
-      <v-btn text href="#div_galeria">
-				galeria
-			</v-btn>
-			<v-btn text>
-				eventos programados
-			</v-btn>
-      <v-btn text>
-				reseñas
-			</v-btn>
-			<v-btn text href="#div_noticias">
-				noticias
-			</v-btn>	 
-      <v-btn text href="#div_nosotros">
-        nosotros			
-      </v-btn>
+      <v-btn-toggle
+        v-model="option_active"
+        color="blue"
+        group
+      >
+        <router-link class="underline-none" to="/" v-slot="{ navigate }">
+          <v-btn @click="navigate" value="inicio">
+            inicio
+          </v-btn>
+        </router-link>
+        <v-btn value="atractivos turísticos" href="#div_atractivos">
+          atractivos turísticos
+        </v-btn>
+        <v-btn value="hospedajes" href="#div_hospedajes">
+          hospedajes
+        </v-btn>
+        <v-btn value="noticias" href="#div_noticias">
+          noticias
+        </v-btn>
+      </v-btn-toggle>
 		</div>
 	</v-app-bar>
 	<v-navigation-drawer
@@ -57,10 +51,6 @@
 					<v-list-item-title>INICIO</v-list-item-title>
 				</v-list-item>
 			</router-link>
-          <v-list-item>
-            <v-list-item-title>INICIO</v-list-item-title>
-          </v-list-item>
-
           <v-list-item href="#div_atractivos">
             <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
           </v-list-item>
@@ -68,20 +58,7 @@
           <v-list-item href="#div_hospedajes">
             <v-list-item-title>HOSPEDAJES</v-list-item-title>
           </v-list-item>
-
-           <v-list-item href="#div_galeria">
-            <v-list-item-title>GALERIA</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item href="#div_eventos">
-            <v-list-item-title>EVENTOS PROGRAMADOS</v-list-item-title>
-          </v-list-item>
-
-           <v-list-item href="#div_resenas">
-            <v-list-item-title>RESEÑAS</v-list-item-title>
-          </v-list-item>
-
-		      <v-list-item href="#div_noticias">
+		  <v-list-item href="#div_noticias">
             <v-list-item-title>NOTICIAS</v-list-item-title>
           </v-list-item>
 
@@ -165,6 +142,7 @@ export default {
   name: 'Site',
   data(){
     return{
+      option_active:'',
       bg:'transparent',
       altura_ini_p:500,
 	  drawer:false,
