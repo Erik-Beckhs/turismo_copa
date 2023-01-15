@@ -99,9 +99,23 @@
             <v-card-title class="py-0">
                 Imagen Principal
             </v-card-title>
-            <v-img v-show="estado_img==0 && hospedaje.img_principal==''" src="@/assets/not_found.png" />
-             <v-img v-if="estado_img==0" :src="hospedaje.img_principal"/>
-            <ImgPrincipal @estado="estado_img=$event" @imagen="hospedaje.img_principal=$event" />
+             <v-img v-if="view_image_hospedaje!=''" :src="view_image_hospedaje"/>
+            <v-file-input
+                id="file_imagen_principal"
+                label="Cargar Imagen"
+                prepend-icon="mdi-paperclip"
+                @change="updateFile"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip
+                    small
+                    label
+                    color="primary"
+                  >
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -251,6 +265,7 @@ export default {
       estado_img:0,
       images:[],
       id_hospedaje:0,
+      view_image_hospedaje:null,
       hospedaje:{
         nombre: "",
         precio_max: 0,
@@ -285,12 +300,37 @@ export default {
     this.id_hospedaje=this.$route.params.id;
     if(this.id_hospedaje!=0){
       this.getHospedaje(this.id_hospedaje);
+      this.edicion = 'Editar';
     }
   },
   methods:{
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+    updateFile(event) {
+      if(event!=null){
+        // generamos un nuevo nombre de imagen
+        var fileName = event.name;
+        var extFile = fileName.split('.').pop();
+        this.hospedaje.img_principal=(Math.random().toString(16).slice(2)) +'.'+ extFile;
+        // para la visualizacion convertimos la imagen
+        const file = event; 
+        this.toBase64(file).then(base64 => {
+          this.view_image_hospedaje=base64;
+        });
+      }else{
+        this.view_image_hospedaje='';
+      }
+    },
     getHospedaje(id){
       HospedajeService.getHospedaje(id).then(response=>{
         this.hospedaje = response.data;
+        this.view_image_hospedaje=this.$Api_url_media+this.hospedaje.img_principal;
         this.getTiposHabitacion(id);
         this.getServicios(id);
       })
@@ -336,8 +376,22 @@ export default {
         this.guardaHospedaje(thabitacion_seleccionados, servicios);
       }
     },
+    guardaImagenHospedaje(id_hospedaje, dataimagen){
+      HospedajeService.saveImage(id_hospedaje, dataimagen).then(response=>{
+        this.view_image_hospedaje='';
+      })
+    },
+    FormDataImage(id_element, nombre_archivo){
+      const fileinput= document.getElementById(id_element);
+      const formData = new FormData();
+      formData.append('file', fileinput.files[0], nombre_archivo);
+      return formData;
+    },
     editaHospedaje(list_hab, servicios){
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
+      this.hospedaje.img_principal="";
       HospedajeService.editHospedaje(this.hospedaje).then(()=>{
+        this.guardaImagenHospedaje(this.id_hospedaje, dataimagen);
         HospedajeService.deleteAllTiposHabitacion(this.id_hospedaje).then(()=>{
           list_hab.forEach(element => {
             HospedajeService.saveTHabitacion(this.id_hospedaje, element)
@@ -353,6 +407,9 @@ export default {
       })
     },
     guardaHospedaje(list_hab, list_servicios){
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
+      this.hospedaje.img_principal="";
+
       HospedajeService.guardaHospedaje(this.hospedaje).then(response=>{
         let id_hospedaje = response.data.id;
         list_hab.forEach(element => {
@@ -361,6 +418,7 @@ export default {
         list_servicios.forEach(element => {
           HospedajeService.saveServicios(id_hospedaje, element);
         });
+        this.guardaImagenHospedaje(id_hospedaje, dataimagen);
         this.notification('El establecimiento de hospedaje ha sido registrado de manera correcta', 'success');
         this.$router.replace('/hospedajes');
         })

@@ -49,9 +49,27 @@
             Imagen
           </v-card-title>
           <v-col cols="12">
-            <v-img v-show="estado_img==0 && noticia.img==''" src="@/assets/not_found.png" />
+            <v-img v-if="view_image_noticia!=''" :src="view_image_noticia"/>
+            <v-file-input
+                id="file_imagen_principal"
+                label="Cargar Imagen"
+                prepend-icon="mdi-paperclip"
+                @change="updateFile"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip
+                    small
+                    label
+                    color="primary"
+                  >
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+
+            <!--<v-img v-show="estado_img==0 && noticia.img==''" src="@/assets/not_found.png" />
             <v-img v-if="estado_img==0" :src="noticia.img"/>
-            <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>
+            <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>-->
           </v-col>
            <v-col cols="12" class="px-3 pt-5 pb-0">
             <v-text-field
@@ -114,6 +132,7 @@ export default {
       estado_img:0,
       estado_noticia:'Nueva',
       id_noticia:0,
+      view_image_noticia:null,
       noticia:{
         autor:'',
         entrada:'',
@@ -140,16 +159,40 @@ export default {
       }
   },
   methods:{
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+    updateFile(event) {
+      if(event!=null){
+        // generamos un nuevo nombre de imagen
+        var fileName = event.name;
+        var extFile = fileName.split('.').pop();
+        this.noticia.img=(Math.random().toString(16).slice(2)) +'.'+ extFile;
+        // para la visualizacion convertimos la imagen
+        const file = event; 
+        this.toBase64(file).then(base64 => {
+          this.view_image_noticia=base64;
+        });
+      }else{
+        this.view_image_noticia='';
+      }
+    },
     getNoticia(){
       NoticiaService.getNoticia(this.id_noticia).then(response=>{
         this.noticia = response.data;
+        this.view_image_noticia=this.$Api_url_media+this.noticia.img;
         this.noticia.fecha_publicacion = this.convierteFecha(this.noticia.fecha_publicacion);
       })
     },
     convierteFecha(fecha){
        let date = new Date(fecha);
-       let dia = date.getDate();
-       let mes = date.getMonth() + 1;
+       let dia = ('0'+date.getDate()).slice(-2);
+       let mes = ('0'+date.getMonth() + 1).slice(-2);
        let anio = date.getFullYear();
        return `${anio}-${mes}-${dia}`;
     },
@@ -181,19 +224,37 @@ export default {
       console.log('edit data', formData, index, fileList)
     },
     guardar(){
-      //console.log(this.noticia);
       this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
     },
     editaNoticia(){
-      NoticiaService.editaNoticia(this.noticia).then(()=>{
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.noticia.img);
+      this.noticia.img="";
+      NoticiaService.editaNoticia(this.noticia).then(response=>{
+        this.guardaImagenNoticia(this.id_noticia, dataimagen);
         this.notification("La Noticia fue editada de manera exitosa", "success");
         this.$router.replace('/noticias');
       })
     },
     guardaNoticia(){
-      NoticiaService.saveNoticia(this.noticia).then(()=>{
+      let dataimagen=this.FormDataImage('file_imagen_principal', this.noticia.img);
+      this.noticia.img="";
+      NoticiaService.saveNoticia(this.noticia).then(response=>{
+        var id_noticia = response.data.id;
+        this.guardaImagenNoticia(id_noticia, dataimagen);
         this.notification("La noticia fue creada de manera exitosa", 'success');
         this.$router.replace('/noticias');
+      })
+    },
+    FormDataImage(id_element, nombre_archivo){
+      const fileinput= document.getElementById(id_element);
+      const formData = new FormData();
+      formData.append('file', fileinput.files[0], nombre_archivo);
+      return formData;
+    },
+    guardaImagenNoticia(id_noticia, dataimagen){
+      NoticiaService.saveImage(id_noticia, dataimagen).then(response=>{
+        console.log(response.data);
+        this.view_image_noticia='';
       })
     },
     Today(){
