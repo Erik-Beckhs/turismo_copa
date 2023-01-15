@@ -377,5 +377,6 @@ export default {
   v-col{
     padding:0;
   }
+
 </style>
 

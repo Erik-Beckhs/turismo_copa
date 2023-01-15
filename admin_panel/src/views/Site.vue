@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <v-app-bar color="white" elevate-on-scroll absolute scroll-target="#scrolling-body" app>
+    <div>
+          <v-app-bar color="white" elevate-on-scroll absolute scroll-target="#scrolling-body" app>
 		<v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
 		<v-toolbar-title class="font-weight-light">
 			<v-img
@@ -22,12 +23,21 @@
 			<v-btn text href="#div_hospedajes">
 				hospedajes
 			</v-btn>
+      <v-btn text href="#div_galeria">
+				galeria
+			</v-btn>
 			<v-btn text>
 				eventos programados
 			</v-btn>
+      <v-btn text>
+				reseñas
+			</v-btn>
 			<v-btn text href="#div_noticias">
 				noticias
-			</v-btn>	
+			</v-btn>	 
+      <v-btn text href="#div_nosotros">
+        nosotros			
+      </v-btn>
 		</div>
 	</v-app-bar>
 	<v-navigation-drawer
@@ -59,15 +69,30 @@
             <v-list-item-title>HOSPEDAJES</v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
+           <v-list-item href="#div_galeria">
+            <v-list-item-title>GALERIA</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item href="#div_eventos">
             <v-list-item-title>EVENTOS PROGRAMADOS</v-list-item-title>
           </v-list-item>
-		  <v-list-item href="#div_noticias">
+
+           <v-list-item href="#div_resenas">
+            <v-list-item-title>RESEÑAS</v-list-item-title>
+          </v-list-item>
+
+		      <v-list-item href="#div_noticias">
             <v-list-item-title>NOTICIAS</v-list-item-title>
+          </v-list-item>
+
+           <v-list-item href="#div_nosotros">
+            <v-list-item-title>NOSOTROS</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+    </div>
+    
 	<v-main>
 		<v-sheet id="scrolling-body" class="overflow-y-auto" :max-height="altura_ini_p">
 			<router-view></router-view>
@@ -76,8 +101,9 @@
                     <path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
                 </svg>
             </div>
-            <v-footer dark padless>
-                <v-card flat tile class="white--text text-center" color="#0099ff">
+            <v-footer padless>
+
+              <v-card flat tile class="white--text text-center" color="#0099ff" style="width:100%;">
                 <v-card-text>
                     <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
                         <v-icon size="24px">
@@ -86,13 +112,14 @@
                     </v-btn>
                 </v-card-text>
                 <v-card-text class="white--text pt-0">
-                    Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                    Página web elaborada en colaboración del Gobierno Autónomo Municipal de Copacabana  - COPACABANA ES TU DESTINO
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-text class="white--text">
-                    {{ new Date().getFullYear() }} — <strong>COPACABANA ES TU DESTINO</strong>
+                    {{ new Date().getFullYear() }} — <strong>Todos los derechos reservados</strong>
                 </v-card-text>
                 </v-card>
+
             </v-footer>
 		</v-sheet>	
 	</v-main>
@@ -117,11 +144,11 @@
 }
 .curved-div h1 {
   font-size: 6rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;*/
 }
 .curved-div p {
   font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;*/
 }
 .curved-div svg {
   display: block;
