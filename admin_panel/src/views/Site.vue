@@ -21,15 +21,21 @@
             inicio
           </v-btn>
         </router-link>
-        <v-btn value="atractivos turísticos" href="#div_atractivos">
-          atractivos turísticos
-        </v-btn>
-        <v-btn value="hospedajes" href="#div_hospedajes">
-          hospedajes
-        </v-btn>
-        <v-btn value="noticias" href="#div_noticias">
-          noticias
-        </v-btn>
+        <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+          <v-btn @click="navigate" value="atractivos turísticos">
+            atractivos turísticos
+          </v-btn>
+        </router-link>
+        <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+          <v-btn @click="navigate" value="hospedajes">
+            hospedajes
+          </v-btn>
+        </router-link>
+        <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+          <v-btn @click="navigate" value="noticias">
+            noticias
+          </v-btn>
+        </router-link>
       </v-btn-toggle>
 		</div>
 	</v-app-bar>
@@ -45,21 +51,26 @@
         <v-list-item-group 
           active-class="deep-blue--text text--accent-4"
         >
-			<router-link class="underline-none" to="/" v-slot="{ navigate }">
-				<v-list-item @click="navigate" >
-					<v-list-item-title>INICIO</v-list-item-title>
-				</v-list-item>
-			</router-link>
-          <v-list-item href="#div_atractivos">
-            <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item href="#div_hospedajes">
-            <v-list-item-title>HOSPEDAJES</v-list-item-title>
-          </v-list-item>
-		  <v-list-item href="#div_noticias">
-            <v-list-item-title>NOTICIAS</v-list-item-title>
-          </v-list-item>
+          <router-link class="underline-none" to="/" v-slot="{ navigate }">
+            <v-list-item @click="navigate" >
+              <v-list-item-title>INICIO</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+            <v-list-item @click="navigate" >
+              <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+            <v-list-item @click="navigate" >
+              <v-list-item-title>HOSPEDAJES</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+            <v-list-item @click="navigate" >
+              <v-list-item-title>NOTICIAS</v-list-item-title>
+            </v-list-item>
+          </router-link>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

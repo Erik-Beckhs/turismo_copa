@@ -33,7 +33,7 @@ const routes = [
       { path: "/", name: "home", component: Home},
       { path: "/HomeAtractivo/:id", name: "homeAtractivo", component: HomeAtractivo},
       { path: "/HomeAtractivos", name: "homeAtractivos", component: HomeAtractivos},
-      { path: "/SiteNoticia", name: "homeNoticia", component: HomeNoticia},
+      { path: "/SiteNoticia/:id", name: "homeNoticia", component: HomeNoticia},
       { path: "/SiteNoticias", name: "homeNoticias", component: HomeNoticias},
       { path: '/SiteHospedajes', name: 'homeHospedajes', component: HomeHospedajes},
       { path: '/SiteHospedaje', name: 'homeHospedaje', component: HomeHospedaje},

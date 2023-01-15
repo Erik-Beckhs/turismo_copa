@@ -17,7 +17,7 @@
 						</v-row>
                         <v-row>
                             <v-col cols="12">
-                                <span class="font-weight-black" style="font-size: 3rem;">La Fiscalía garantiza recursos para la construcción de un edificio del Asiento Fiscal de Copacabana</span><br>
+                                <span class="font-weight-black" style="font-size: 3rem;">{{data_noticia.titulo}}</span><br>
                             </v-col>
                         </v-row>
 						<v-row>
@@ -29,19 +29,16 @@
 						</v-row>
                         <v-row>
                             <v-col cols="12">
-                                <span class="text-h5 font-weight-light">William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.</span>
+                                <span class="text-h5 font-weight-light">{{data_noticia.entrada}}</span>
 						        <br><br>
                             </v-col>
                             <v-col cols="12">
-                                <span class="text-caption font-weight-light">Fecha Publicación • Dom, 06 / Jun / 2021 11:52 am</span>
+                                <span class="text-caption font-weight-light">Fecha Publicación • {{formatdate(data_noticia.fecha_publicacion)}}</span>
                             </v-col>
                         </v-row>
                         <v-row>
 							<v-col cols="12">
-								<p>
-									El fiscal general del Estado, Juan Lanchipa Ponce, anunció, en un acto de firma de convenio en Copacabana, La Paz, que el Ministerio Público tiene garantizados los recursos económicos para la construcción de un nuevo y moderno edificio para el Asiento Fiscal de Copacabana con la finalidad de brindar un servicio adecuado, con calidad y calidez, a la población de ese municipio y zonas aledañas.
-                                    El anuncio fue realizado durante el acto de firma del Convenio de Cooperación Interinstitucional con la Alcaldía de Copacabana, que tiene como objetivo que el municipio otorgue, en calidad de uso, un ambiente adecuado para el funcionamiento del Asiento Fiscal durante el tiempo que dure el proyecto de construcción, además de coadyuvar en la demolición y movimiento de tierra del anterior inmueble; así como en el trámite, registro y autorización relacionado con el proyecto.
-								</p>
+								<div v-html="data_noticia.contenido"></div>
 							</v-col>	
 						</v-row>
                         <v-row>
@@ -51,121 +48,32 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-row>
-                                    <v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
-							height="200px"
-							></v-img>
+                                    <v-col cols="12" sm="6" md="3" v-for="not in otras_noticias" :key="not.id">
+										<v-card
+											class="mx-auto"
+											max-width="344"
+										>
+											<v-img
+											src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
+											height="200px"
+											></v-img>
 
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
+											<v-card-title>
+											{{not.titulo}}
+											</v-card-title>
 
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
+											<v-card-subtitle>
+											{{not.entrada}}
+											</v-card-subtitle>
 
-							<v-card-actions>
-								<router-link class="underline-none" to="/SiteNoticia" v-slot="{ navigate }">
-									<v-btn @click="navigate" color="orange lighten-2" text><v-icon left>mdi-arrow-right</v-icon>Ver nota</v-btn>
-								</router-link>
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://infusedexposures.files.wordpress.com/2014/03/img_8173.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://4.bp.blogspot.com/-PQmOD6ACISE/Vrz8XfhDV5I/AAAAAAAACas/8inJzafL4q4/s1600/virgen_copacabana.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
+											<v-card-actions>
+												<router-link class="underline-none" :to="'/SiteNoticia/'+not.id" v-slot="{ navigate }">
+													<v-btn @click="navigate" color="orange lighten-2" text><v-icon left>mdi-arrow-right</v-icon>Ver nota</v-btn>
+												</router-link>
+											<v-spacer></v-spacer>
+											</v-card-actions>
+										</v-card>
+									</v-col>
                                 </v-row>
                             </v-col>
                         </v-row>
@@ -179,6 +87,7 @@
 <script>
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
+import SiteServices from '@/services/SiteServices';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'HomeNoticia',
@@ -201,6 +110,9 @@ export default {
             src: 'https://boliviaturistica.com/wp-content/uploads/2018/08/Copacabana-Bolivia.jpg',
           },
       ],
+	  data_noticia:{},
+	  multimedia_data:[],
+	  otras_noticias:[]
     }
   },
   mounted(){	
@@ -210,8 +122,25 @@ export default {
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);	
 		this.scroll_ini();
+		this.get_noticia();
+		this.get_otrasnoticias();
   },
   methods:{
+	formatdate(fecha){
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		var today  = new Date(fecha); 
+		return (today.toLocaleDateString("es-ES", options));
+	},
+	get_noticia(){
+		SiteServices.getDataId('noticias', this.$route.params.id).then(response=>{
+			this.data_noticia=response.data;
+		})
+	},
+	get_otrasnoticias(){
+		SiteServices.getDataDiffLimit('noticias', 4, this.$route.params.id).then(response=>{
+			this.otras_noticias=response.data;
+		})
+	},
 	scroll_ini(){
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},

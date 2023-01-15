@@ -13,6 +13,9 @@ export default {
     getDataLimit(module, limit){
         return Api().get(`/${module}?filter[limit]=${limit}`);
     },
+    getDataDiffLimit(module, limit, id){
+        return Api().get(`/${module}?filter[limit]=${limit}&filter[where][inq][id]=${id}`);
+    },
     getDataAll(module){
         return Api().get(`/${module}`);
     },
