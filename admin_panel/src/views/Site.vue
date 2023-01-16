@@ -1,112 +1,111 @@
 <template>
-  <div class="home">
+  <div class="site">
     <div>
-          <v-app-bar color="white" elevate-on-scroll absolute scroll-target="#scrolling-body" app>
-		<v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
-		<v-toolbar-title class="font-weight-light">
-			<v-img
-				src="../assets/logo_copa.png"
-				width="120"
-			></v-img>
-			<!--span>COPACABANA ES TU DESTINO</span-->
-		</v-toolbar-title>
-		<v-spacer></v-spacer>
-		<div class="d-none d-sm-none d-md-flex">
-      <v-btn-toggle
-        v-model="option_active"
-        color="blue"
-        group
+      <v-app-bar color="white" elevate-on-scroll absolute scroll-target="#scrolling-body" app v-if="show_menu">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
+        <v-toolbar-title class="font-weight-light">
+          <v-img
+            src="../assets/logo_copa.png"
+            width="120"
+          ></v-img>
+          <!--span>COPACABANA ES TU DESTINO</span-->
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <div class="d-none d-sm-none d-md-flex">
+          <v-btn-toggle
+            v-model="active_rute"
+            color="blue"
+            group
+          >
+            <router-link class="underline-none" to="/" v-slot="{ navigate }">
+              <v-btn @click="navigate" value="home">
+                inicio
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+              <v-btn @click="navigate" value="HomeAtractivos">
+                atractivos turísticos
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+              <v-btn @click="navigate" value="SiteHospedajes">
+                hospedajes
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+              <v-btn @click="navigate" value="SiteNoticias">
+                noticias
+              </v-btn>
+            </router-link>
+          </v-btn-toggle>
+        </div>
+      </v-app-bar>
+      <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        temporary
       >
-        <router-link class="underline-none" to="/" v-slot="{ navigate }">
-          <v-btn @click="navigate" value="inicio">
-            inicio
-          </v-btn>
-        </router-link>
-        <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-          <v-btn @click="navigate" value="atractivos turísticos">
-            atractivos turísticos
-          </v-btn>
-        </router-link>
-        <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
-          <v-btn @click="navigate" value="hospedajes">
-            hospedajes
-          </v-btn>
-        </router-link>
-        <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
-          <v-btn @click="navigate" value="noticias">
-            noticias
-          </v-btn>
-        </router-link>
-      </v-btn-toggle>
-		</div>
-	</v-app-bar>
-	<v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group 
-          active-class="deep-blue--text text--accent-4"
+        <v-list
+          nav
+          dense
         >
-          <router-link class="underline-none" to="/" v-slot="{ navigate }">
-            <v-list-item @click="navigate" >
-              <v-list-item-title>INICIO</v-list-item-title>
-            </v-list-item>
-          </router-link>
-          <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-            <v-list-item @click="navigate" >
-              <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
-            </v-list-item>
-          </router-link>
-          <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
-            <v-list-item @click="navigate" >
-              <v-list-item-title>HOSPEDAJES</v-list-item-title>
-            </v-list-item>
-          </router-link>
-          <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
-            <v-list-item @click="navigate" >
-              <v-list-item-title>NOTICIAS</v-list-item-title>
-            </v-list-item>
-          </router-link>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-    </div>
-    
-	<v-main>
-		<v-sheet id="scrolling-body" class="overflow-y-auto" :max-height="altura_ini_p">
-			<router-view></router-view>
-            <div class="curved-div-footer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-                </svg>
-            </div>
-            <v-footer padless>
+          <v-list-item-group 
+            active-class="deep-blue--text text--accent-4"
+          >
+            <router-link class="underline-none" to="/" v-slot="{ navigate }">
+              <v-list-item @click="navigate" >
+                <v-list-item-title>INICIO</v-list-item-title>
+              </v-list-item>
+            </router-link>
+            <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+              <v-list-item @click="navigate" >
+                <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
+              </v-list-item>
+            </router-link>
+            <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+              <v-list-item @click="navigate" >
+                <v-list-item-title>HOSPEDAJES</v-list-item-title>
+              </v-list-item>
+            </router-link>
+            <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+              <v-list-item @click="navigate" >
+                <v-list-item-title>NOTICIAS</v-list-item-title>
+              </v-list-item>
+            </router-link>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+    </div>   
+    <v-main>
+      <v-sheet id="scrolling-body" class="overflow-y-auto" :max-height="altura_ini_p">
+        <router-view v-scroll:#scrolling-body="onScrollBody"></router-view>
+              <div class="curved-div-footer">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                      <path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+                  </svg>
+              </div>
+              <v-footer padless>
 
-              <v-card flat tile class="white--text text-center" color="#0099ff" style="width:100%;">
-                <v-card-text>
-                    <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
-                        <v-icon size="24px">
-                            {{ icon }}
-                        </v-icon>
-                    </v-btn>
-                </v-card-text>
-                <v-card-text class="white--text pt-0">
-                    Página web elaborada en colaboración del Gobierno Autónomo Municipal de Copacabana  - COPACABANA ES TU DESTINO
-                </v-card-text>
-                <v-divider></v-divider>
-                <v-card-text class="white--text">
-                    {{ new Date().getFullYear() }} — <strong>Todos los derechos reservados</strong>
-                </v-card-text>
-                </v-card>
+                <v-card flat tile class="white--text text-center" color="#0099ff" style="width:100%;">
+                  <v-card-text>
+                      <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
+                          <v-icon size="24px">
+                              {{ icon }}
+                          </v-icon>
+                      </v-btn>
+                  </v-card-text>
+                  <v-card-text class="white--text pt-0">
+                      Página web elaborada en colaboración del Gobierno Autónomo Municipal de Copacabana  - COPACABANA ES TU DESTINO
+                  </v-card-text>
+                  <v-divider></v-divider>
+                  <v-card-text class="white--text">
+                      {{ new Date().getFullYear() }} — <strong>Todos los derechos reservados</strong>
+                  </v-card-text>
+                  </v-card>
 
-            </v-footer>
-		</v-sheet>	
-	</v-main>
+              </v-footer>
+      </v-sheet>	
+    </v-main>
   </div>
 </template>
 <style>
@@ -149,10 +148,11 @@ export default {
   name: 'Site',
   data(){
     return{
-      option_active:'',
+      active_rute:'home',
+      show_menu:false,
       bg:'transparent',
       altura_ini_p:500,
-	  drawer:false,
+	    drawer:false,
       icons: [
         'mdi-facebook',
         'mdi-twitter',
@@ -169,14 +169,31 @@ export default {
       ],
     }
   },
-  mounted(){	
-		this.altura_ini_p=(window.innerHeight)-64;
-    	window.onscroll = () => {
-			this.changeColor();
-		};
+  mounted(){
+    this.active_rute=this.$route.name;
+    if(this.active_rute=='home'){
+      this.show_menu=false;
+      this.altura_ini_p=(window.innerHeight);
+    }else{
+      this.show_menu=true;
+      this.altura_ini_p=(window.innerHeight)-64;
+    }
+    window.onscroll = () => {
+      this.changeColor();
+    };
 		setTimeout(() => (this.activa_inicio()), 1000);	
   },
   methods:{
+    onScrollBody(e){
+      this.offsetTop = e.target.scrollTop;
+      if(this.offsetTop==0 && this.active_rute=='home'){
+        this.show_menu=false;
+        this.altura_ini_p=(window.innerHeight);
+      }else if(this.offsetTop>80 && this.active_rute=='home'){
+        this.show_menu=true;
+        this.altura_ini_p=(window.innerHeight)-64;
+      }
+    },
     activa_inicio(){
       var wow = new WOW({ scrollContainer: "#scrolling-body"});
       wow.init();
@@ -189,6 +206,17 @@ export default {
           this.bg = 'white';
       } else {
           this.bg = 'transparent';
+      }
+    },
+  },
+  watch:{
+    $route (to, from){
+      console.log(to.name);
+      this.active_rute=to.name;
+      if(to.name=='home'){
+        this.show_menu=false;
+      }else{
+        this.show_menu=true;
       }
     },
   },
