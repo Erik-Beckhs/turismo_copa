@@ -228,9 +228,9 @@ export default {
     },
     editaNoticia(){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.noticia.img);
-      this.noticia.img="";
+      if(dataimagen!=null) this.noticia.img="";
       NoticiaService.editaNoticia(this.noticia).then(response=>{
-        this.guardaImagenNoticia(this.id_noticia, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenNoticia(this.id_noticia, dataimagen);}
         this.notification("La Noticia fue editada de manera exitosa", "success");
         this.$router.replace('/noticias');
       })
@@ -240,16 +240,20 @@ export default {
       this.noticia.img="";
       NoticiaService.saveNoticia(this.noticia).then(response=>{
         var id_noticia = response.data.id;
-        this.guardaImagenNoticia(id_noticia, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenNoticia(id_noticia, dataimagen);}
         this.notification("La noticia fue creada de manera exitosa", 'success');
         this.$router.replace('/noticias');
       })
     },
     FormDataImage(id_element, nombre_archivo){
       const fileinput= document.getElementById(id_element);
-      const formData = new FormData();
-      formData.append('file', fileinput.files[0], nombre_archivo);
-      return formData;
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      }
     },
     guardaImagenNoticia(id_noticia, dataimagen){
       NoticiaService.saveImage(id_noticia, dataimagen).then(response=>{
