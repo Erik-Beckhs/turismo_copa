@@ -215,8 +215,10 @@ export default {
       this.active_rute=to.name;
       if(to.name=='home'){
         this.show_menu=false;
+        this.altura_ini_p=(window.innerHeight);
       }else{
         this.show_menu=true;
+        this.altura_ini_p=(window.innerHeight)-64;
       }
     },
   },
