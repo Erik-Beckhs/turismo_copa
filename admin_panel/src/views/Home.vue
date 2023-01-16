@@ -84,7 +84,7 @@
 					</div>
 				</v-col>
 				<v-col cols="12" md="6" sm="6" lg="5" xl="5" class="pt-10 ms-10">
-					<v-img width="600" class="wow fadeInRight" src="../assets/copaini.png"></v-img>
+					<v-img width="600" class="wow fadeInRight img-sepia" src="../assets/copaini.png"></v-img>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -165,15 +165,19 @@
 			</v-row>
 		</v-container>
 	</div>
+
 	<div class="curved-div">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 			<path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
 		</svg>
 		<div style="background: #0099ff;">
-			<h1>Qué puedes hacer?</h1>
+			<span class="fs-4 font-weight-bold">¿Qué puedes hacer?</span>
 			<p>
-				<span>
+				<span class="fs-1-5">
 					No te lo puedes perder	
+				</span><br>
+				<span class="fs-1-2">
+					Elige el plan que más te guste para hacer que tu estancia en Copacabana sea inolvidable
 				</span>
 			</p>
 			<v-row>
@@ -314,6 +318,20 @@
 			<path fill="#0099ff" fill-opacity="1" d="M0,0L48,10.7C96,21,192,43,288,90.7C384,139,480,213,576,234.7C672,256,768,224,864,186.7C960,149,1056,107,1152,117.3C1248,128,1344,192,1392,224L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
 		</svg>  
 	</div>
+	<div id="eventos">
+		<v-container style="padding-top: 40px; padding-bottom: 40px;">
+			<v-row>
+				<v-col cols="12">
+					<div class="text-left">
+						<span class="fs-1 fw-600" style="color:#4fbab2;">CULTURA</span><br>
+						<span class="fs-2">Disfruta nuestros Eventos Programados</span>
+						<hr class="separador">
+						<span class="fs-1 grey--text">Fiestas patronales, ferias, ceremonias, entre otras actividades</span><br>
+					</div>
+				</v-col>
+			</v-row>
+		</v-container>
+	</div>
 	<div id="div_hospedajes">
 		<v-container>
 			<v-flex>
@@ -416,7 +434,7 @@
 					<v-col cols="3">
 						<div class="text-center">
 							<v-avatar size="128">
-							<img
+							<img class="img-opacity"
 								src="@/assets/flaticon/escuela-de-autobuses.png"
 								alt="como llegar"
 							>
@@ -429,7 +447,7 @@
 					<v-col cols="3">
 						<div class="text-center">
 							<v-avatar size="128">
-							<img
+							<img class="img-opacity"
 								src="@/assets/flaticon/lancha-rapida.png"
 								alt="como moverse"
 							>
@@ -442,7 +460,7 @@
 					<v-col cols="3">
 						<div class="text-center">
 							<v-avatar size="128">
-							<img
+							<img class="img-opacity"
 								src="@/assets/flaticon/mapa.png"
 								alt="John"
 							>
@@ -454,7 +472,7 @@
 					<v-col cols="3">
 						<div class="text-center">
 							<v-avatar size="128">
-							<img
+							<img class="img-opacity"
 								src="@/assets/flaticon/buena-resena.png"
 								alt="John"
 							>
@@ -795,6 +813,19 @@
 		margin-top: 10px;
 		margin-bottom:10px;
 	}
+
+	/*animaciones*/
+	.img-sepia:hover {
+		filter: sepia(60%);
+		transition:all .5s ease-in-out;
+		}
+
+	.img-opacity:hover
+	{
+		filter: opacity(.5);
+		transition:all .3s ease-in-out;
+	}
+
 </style>
 <script>
 // @ is an alias to /src
