@@ -48,15 +48,37 @@
 		<video autoplay loop muted plays-inline class="back-video">
 			<source src="@/assets/video/principal.mp4" type="video/mp4">
 		</video>
-		<nav>
+		<nav class="d-none d-sm-none d-md-flex">
 			<img src="@/assets/logo_copa.png" class="logo">
 			<ul>
-				<li><a href="#">INICIO</a></li>
-				<li><a href="#">ATRACTIVOS TURISTICOS</a></li>
-				<li><a href="#">HOSPEDAJE</a></li>
-				<li><a href="#">EVENTOS PROGRAMADOS</a></li>
-				<li><a href="#">NOTICIAS</a></li>
-				<li><a href="#">NOSOTROS</a></li>
+				<li>
+					<router-link class="underline-none" to="/" v-slot="{ navigate }">
+						<a @click="navigate">INICIO</a>
+					</router-link>
+				</li>
+				<li>
+					<router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+						<a @click="navigate">
+							atractivos turísticos
+						</a>
+					</router-link>
+				</li>
+				<li>
+					<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+						<a @click="navigate">
+							hospedajes
+						</a>
+					</router-link>
+				</li>
+				<!-- <li><a href="#">EVENTOS PROGRAMADOS</a></li> -->
+				<li>
+					<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+						<a @click="navigate">
+							noticias
+						</a>
+					</router-link>
+				</li>
+				<!-- <li><a href="#">NOSOTROS</a></li> -->
 			</ul>
 		</nav>
 		<div class="content">
@@ -641,6 +663,7 @@
 	}
 	nav ul li a{
 		text-decoration: none;
+		text-transform: uppercase;
 		color:#fff;
 		font-size:17px;
 		font-weight:600;
@@ -653,13 +676,13 @@
 		transition: all .5s ease;
 	}
 	.content{
-		text-align: center;
-		
+		text-align: center;	
 	}
 	.content h1{
 		font-size:160px;
 		color:#fff;
 		font-weight:600;
+		text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 		position:relative;
 	}
 	.content a{
@@ -737,21 +760,27 @@ export default {
 		list_atractivos:[],
 		list_eventos:[],
 		list_actividades:[],
-		list_noticias:[]
+		list_noticias:[],
+		offsetTop:0,
     }
   },
   mounted(){	
-		this.altura_ini_p=(window.innerHeight)-64;
+		// this.altura_ini_p=(window.innerHeight)-64;
+		this.altura_ini_p=(window.innerHeight);
     	window.onscroll = () => {
 			this.changeColor();
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);
+		this.scroll_ini();
 		this.get_atractivos();
 		this.get_eventos();
 		this.get_actividades();
 		this.get_noticias();
   },
   methods:{
+	scroll_ini(){
+		document.querySelector('#scrolling-body').scrollTo(0,0);
+	},
 	get_actividades(){
 		SiteServices.getActividadLimit(4).then(response=>{
 			this.list_actividades=response.data;
