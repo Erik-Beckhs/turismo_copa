@@ -761,7 +761,7 @@
 	.content h1{
 		font-size:250px;
 		color:#fff;
-		font-weight:600;
+		font-weight:500;
 		text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 		position:relative;
 		font-family: 'Covered By Your Grace', cursive;
