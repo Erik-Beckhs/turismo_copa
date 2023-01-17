@@ -77,7 +77,7 @@
       </v-navigation-drawer>
     </div>   
     <v-main>
-      <v-sheet id="scrolling-body" class="overflow-y-auto" :max-height="altura_ini_p">
+      <v-sheet id="scrolling-body" class="overflow-y-auto overflow-x-hidden" :max-height="altura_ini_p">
         <router-view v-scroll:#scrolling-body="onScrollBody"></router-view>
               <div class="curved-div-footer">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

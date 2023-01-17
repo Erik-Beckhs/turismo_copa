@@ -129,6 +129,11 @@
             :data-images="images"
             idUpload="myIdUpload"
             editUpload="myIdEdit"
+            dragText="Arrastrar imágenes"
+            browseText="Seleccionar"
+            primaryText="Por defecto"
+            popupText="Esta imagen se mostrará por defecto"
+            markIsPrimaryText="Establecer por defecto"
             >
             </vue-upload-multiple-image>
           </v-col>
@@ -383,15 +388,19 @@ export default {
     },
     FormDataImage(id_element, nombre_archivo){
       const fileinput= document.getElementById(id_element);
-      const formData = new FormData();
-      formData.append('file', fileinput.files[0], nombre_archivo);
-      return formData;
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      }
     },
     editaHospedaje(list_hab, servicios){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
-      this.hospedaje.img_principal="";
+      if(dataimagen!=null) this.hospedaje.img_principal="";
       HospedajeService.editHospedaje(this.hospedaje).then(()=>{
-        this.guardaImagenHospedaje(this.id_hospedaje, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenHospedaje(this.id_hospedaje, dataimagen);}
         HospedajeService.deleteAllTiposHabitacion(this.id_hospedaje).then(()=>{
           list_hab.forEach(element => {
             HospedajeService.saveTHabitacion(this.id_hospedaje, element)
@@ -409,7 +418,6 @@ export default {
     guardaHospedaje(list_hab, list_servicios){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
       this.hospedaje.img_principal="";
-
       HospedajeService.guardaHospedaje(this.hospedaje).then(response=>{
         let id_hospedaje = response.data.id;
         list_hab.forEach(element => {
@@ -418,7 +426,7 @@ export default {
         list_servicios.forEach(element => {
           HospedajeService.saveServicios(id_hospedaje, element);
         });
-        this.guardaImagenHospedaje(id_hospedaje, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenHospedaje(id_hospedaje, dataimagen);}
         this.notification('El establecimiento de hospedaje ha sido registrado de manera correcta', 'success');
         this.$router.replace('/hospedajes');
         })

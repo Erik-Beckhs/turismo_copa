@@ -23,7 +23,7 @@
 						<v-row>
 							<v-col cols="12">
                                 <v-img
-                                src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
+                                :src="$Api_url_media+data_noticia.img"
                                 ></v-img>
 							</v-col>
 						</v-row>
@@ -54,7 +54,7 @@
 											max-width="344"
 										>
 											<v-img
-											src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
+											:src="$Api_url_media+not.img"
 											height="200px"
 											></v-img>
 

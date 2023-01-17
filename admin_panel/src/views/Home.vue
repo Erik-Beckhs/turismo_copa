@@ -497,7 +497,7 @@
 			</v-flex>	
 		</v-container>
 	</div>
-	<div id="id_informacion_util">
+	<div id="id_informacion_util" style="background: #F7F7F7;" >
 		<v-container>
 			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
 			<span class="fs-2">Descubre más información de :</span>
@@ -506,8 +506,8 @@
 				<v-row>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/escuela-de-autobuses.png"
 								alt="como llegar"
 							>
@@ -519,8 +519,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/lancha-rapida.png"
 								alt="como moverse"
 							>
@@ -532,8 +532,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/mapa.png"
 								alt="John"
 							>
@@ -544,8 +544,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/buena-resena.png"
 								alt="John"
 							>
@@ -559,7 +559,7 @@
 			</v-flex>
 		</v-container>
 	</div>
-	<div style="background: #F7F7F7;" id="div_noticias" >
+	<div id="div_noticias">
 		<v-container>
 			<v-flex class="my-10">
 				<v-row>
@@ -581,7 +581,7 @@
 							max-width="344"
 						>
 							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
+							:src="$Api_url_media+not.img"
 							height="200px"
 							></v-img>
 
@@ -614,63 +614,69 @@
 			</v-flex>
 		</v-container>
 	</div>
-	<div id="div_nosotros">
+	<div id="div_nosotros" style="background: #F7F7F7;">
 		<v-container class="my-15">
 			<v-flex class="mx-15">
 				<v-row>
-					<v-col cols="6">
+					<v-col cols="12" md="6">
 						<span class="fs-2-5">
 							Escribenos
 						</span><br>
 						<span class="fs-1 grey--text">
 							Para nosotros es importante comunicarnos con nuestros visitantes
 						</span>
-						<v-container class="ms-16 mt-5">
-							<span class="fs-2">
-								Dirección de Turismo <br>
-								Copacabana
-							</span><br><br>
-							<p>
-								<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
-								Plaza 2 de Febrero, Copacabana Bolivia
-							</p>
-							<p>
-								<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
-								copacabanasomostudestino@gmail.com
-							</p>
-							<p>
-								<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
-								61216696
-							</p>
-						</v-container>
-						<v-container class="ms-16">
-							<div class="fs-1-5 justify-center">
-								Encuentranos también en:
-							</div>
-							<v-row class="justify-center mt-3">
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/facebook.png"></v-img>
-								</v-list-item-avatar>
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/instagram.png"></v-img>
-								</v-list-item-avatar>
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
-								</v-list-item-avatar>
-							</v-row>
-						</v-container>
+						<v-row>
+							<v-col cols="4">
+								<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
+								</v-img>
+							</v-col>
+							<v-col cols="8">
+								<v-container class="ms-16 mt-5">
+									<span class="fs-2">
+										Dirección de Turismo <br>
+										Copacabana
+									</span><br><br>
+									<p>
+										<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
+										Plaza 2 de Febrero, Copacabana Bolivia
+									</p>
+									<p>
+										<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
+										copacabanasomostudestino@gmail.com
+									</p>
+									<p>
+										<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
+										61216696
+									</p>
+								</v-container>
+								<v-container class="ms-16">
+									<div class="fs-1-5 justify-center">
+										Encuentranos también en:
+									</div>
+									<v-row class="justify-center mt-3">
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/facebook.png"></v-img>
+										</v-list-item-avatar>
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/instagram.png"></v-img>
+										</v-list-item-avatar>
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
+										</v-list-item-avatar>
+									</v-row>
+								</v-container>
+							</v-col>
+						</v-row>
+						
+						
 					</v-col>
-					<v-col cols="6 text-center">
-						<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
-						</v-img>
+					<v-col cols="12" md="6">
+						<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</v-col>
 				</v-row>
 			</v-flex>
 		</v-container>
 	</div>
-	<div class="pa-2">
-		<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
   </div>
 </template>
 <style scoped>
@@ -806,7 +812,7 @@
 
 	.separador{
 		width: 70px;
-		background-color: #4fbab2;
+		background-color: #0099ff;
 		height: 4px;
 		margin-top: 10px;
 		margin-bottom:10px;
