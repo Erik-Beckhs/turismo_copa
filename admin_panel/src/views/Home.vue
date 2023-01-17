@@ -313,6 +313,56 @@
 				</v-col>
 				<v-col cols="12" md="1"></v-col>
 			</v-row>
+			<v-row>
+			    <v-container>
+					<v-row>
+						<v-col cols="12">
+							<div class="carousel center-align">
+								<div class="carousel-item">
+									<p class="titulo">
+										Gastronomía
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Disfruta la Comida</p>
+									<img src="@/assets/img/trucha.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Rutas
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Nuevas Experiencias</p>
+									<img src="@/assets/img/a33.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Cultura
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Aprende mas sobre Copacabana</p>
+									<img src="@/assets/img/koya.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Deporte y Aventura
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Disfruta la adrenalina</p>
+									<img src="@/assets/img/zipline.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Turismo Urbano
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Lo que estabas buscando</p>
+									<img src="@/assets/img/turismo.jpg" alt="">
+								</div>
+							</div>
+						</v-col>
+					</v-row>
+				</v-container>
+			</v-row>
 		</div>           
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 			<path fill="#0099ff" fill-opacity="1" d="M0,0L48,10.7C96,21,192,43,288,90.7C384,139,480,213,576,234.7C672,256,768,224,864,186.7C960,149,1056,107,1152,117.3C1248,128,1344,192,1392,224L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
@@ -690,6 +740,8 @@
   </div>
 </template>
 <style scoped>
+	@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
+
 	.card-simplex{
 		background-color: transparent !important;
     	border-color: #fff !important;
@@ -736,6 +788,7 @@
 		display:flex;
 		align-items:center;
 		justify-content:space-between;
+		background:none !important;
 	}
 
 	nav .logo{
@@ -751,14 +804,22 @@
 		color:#fff;
 		font-size:17px;
 		font-weight:600;
+		padding:0 !important;
+		display:inherit;
+		line-height:1;
 	}
 	nav ul li a:hover{
 		background-color: #fff;
 		color: black;
 		border-radius:3px;
-		padding:5px 10px;
+		padding:5px 10px !important;
 		transition: all .5s ease;
 	}
+
+	.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+		box-shadow: none;
+	}
+
 	.content{
 		text-align: center;
 		
@@ -768,6 +829,7 @@
 		color:#fff;
 		font-weight:600;
 		position:relative;
+		text-shadow: 3px 3px 1px rgba(0,0,0,0.5);
 	}
 	.content a{
 		text-decoration: none;
@@ -825,6 +887,57 @@
 		filter: opacity(.5);
 		transition:all .3s ease-in-out;
 	}
+
+	.titulo{
+		font-size: 4rem;
+		font-family: 'Covered By Your Grace', cursive;
+		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+	}
+	.linea-card{
+		width:50%;
+		margin:0px auto;
+		height:4px;
+		border-radius:3px;
+		background-color: #4fbab2;
+	}
+	.subtitulo{
+		font-size:1.5rem;
+		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+	}
+
+/*estilos de materialize*/
+.carousel .carousel-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    width: 350px;
+    height: 350px;
+}
+
+.carousel{
+    min-height: 350px;
+}
+
+.carousel .carousel-item img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+    border-radius:15px;
+}
+
+.carousel .indicators .indicator-item{
+    border-radius: 0;
+    transform:rotate(45deg);
+    margin:0 15px;
+    background: #36221c;
+}
+
 
 </style>
 <script>
@@ -903,4 +1016,17 @@ export default {
   components: {
   }
 }
+
+document.addEventListener('DOMContentLoaded',() =>{
+    const elementosCarousel = document.querySelectorAll('.carousel');
+    M.Carousel.init(elementosCarousel, {
+        duration:150,
+        dist:-80,
+        shift:5,
+        padding:5,
+        numVisible:5,
+        indicators:true,
+        //noWrap:true
+    })
+})
 </script>
