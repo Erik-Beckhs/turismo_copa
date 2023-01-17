@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
+
 .v-application--wrap {
 	background: #F0F3F3 !important;
 }
@@ -313,6 +315,9 @@
 .fs-4{
     font-size:4rem;
 }
+.fs-5{
+    font-size:5rem;
+}
 
 .fw-600{
 	font-weight: 600;
@@ -334,6 +339,10 @@
 
 .color-content{
 	color:#666666;
+}
+
+.font-cursive{
+	font-family: 'Covered By Your Grace', cursive;
 }
 
 /*animaciones*/

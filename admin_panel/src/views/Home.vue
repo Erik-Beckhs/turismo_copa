@@ -87,7 +87,7 @@
 		</div>
 	</div>
 	<div>
-		<v-container style="padding-top: 50px; padding-bottom: 50px;">
+		<v-container style="padding-top: 50px; padding-bottom: 0px;">
 			<v-row align="center" justify="center">
 				<v-col cols="12" md="6" sm="6" lg="5" xl="5">
 					<div class="wow fadeInLeft">
@@ -111,89 +111,12 @@
 			</v-row>
 		</v-container>
 	</div>
-	<div id="div_atractivos">
-		<v-container style="padding-top: 40px; padding-bottom: 40px;">
-			<v-row>
-				<v-col cols="12">
-					<div class="text-left">
-						<span class="fs-1 fw-600" style="color:#4fbab2;">VEN Y DISFRUTA</span><br>
-						<span class="fs-2">Visita nuestros Atractivos Turísticos</span>
-						<hr class="separador">
-					</div>
-				</v-col>
-			</v-row>
-			<v-row>
-				<v-col cols="12">
-					<v-tabs v-model="tab_atractivos" centered color="blue">
-						<v-tab href="#tab_atractivo">
-							Atractivos
-						</v-tab>
-						<v-tab href="#tab_eventos">
-							Eventos Programados
-						</v-tab>
-					</v-tabs>
-					<v-tabs-items v-model="tab_atractivos">
-						<v-tab-item value="tab_atractivo">
-							<v-row>
-								<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
-									<div class="wow fadeInLeft grid">
-										<figure class="effect-sadie">
-											<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
-											<figcaption>
-												<h2>{{atr.nombre}}
-												<span></span>
-												</h2>
-												<p>{{atr.descripcion}}</p>
-												<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
-													<a @click="navigate">View more</a>
-												</router-link>
-											</figcaption> 
-										</figure>
-									</div>
-								</v-col>
-							</v-row>
-						</v-tab-item>
-						<v-tab-item value="tab_eventos">
-							<v-row>
-								<v-col cols="12" sm="4" md="3" v-for="ev in list_eventos" :key="ev.id">
-									<div class="wow fadeInLeft grid">
-										<figure class="effect-sadie">
-											<img height="260" :src="$Api_url_media+ev.img_principal" :alt="ev.nombre">
-											<figcaption>
-												<h2>{{ev.nombre}}
-												<span></span>
-												</h2>
-												<p>{{ev.descripcion}}</p>
-												<router-link class="underline-none" :to="'/HomeAtractivo/'+ev.id" v-slot="{ navigate }">
-													<a @click="navigate">View more</a>
-												</router-link>
-											</figcaption> 
-										</figure>
-									</div>
-								</v-col>
-							</v-row>
-						</v-tab-item>
-					</v-tabs-items>	
-				</v-col>
-			</v-row>
-			<v-row>
-				<v-col cols="12">
-					<div class="text-center">
-						<router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-							<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
-						</router-link>
-					</div>
-				</v-col>
-			</v-row>
-		</v-container>
-	</div>
-
 	<div class="curved-div">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 			<path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
 		</svg>
 		<div style="background: #0099ff;">
-			<span class="fs-4 font-weight-bold">¿Qué puedes hacer?</span>
+			<span class="fs-5 font-cursive">¿Qué puedes hacer?</span>
 			<p>
 				<span class="fs-1-5">
 					No te lo puedes perder	
@@ -335,11 +258,139 @@
 				</v-col>
 				<v-col cols="12" md="1"></v-col>
 			</v-row>
+			<v-row>
+			    <v-container>
+					<v-row>
+						<v-col cols="12">
+							<div class="carousel center-align">
+								<div class="carousel-item">
+									<p class="titulo">
+										Gastronomía
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Disfruta la Comida</p>
+									<img src="@/assets/img/trucha.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Rutas
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Nuevas Experiencias</p>
+									<img src="@/assets/img/a33.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Cultura
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Aprende mas sobre Copacabana</p>
+									<img src="@/assets/img/koya.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Deporte y Aventura
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Disfruta la adrenalina</p>
+									<img src="@/assets/img/zipline.jpg" alt="">
+								</div>
+								<div class="carousel-item">
+									<p class="titulo">
+										Turismo Urbano
+									</p>
+									<hr class="linea-card">
+									<p class="subtitulo">Lo que estabas buscando</p>
+									<img src="@/assets/img/turismo.jpg" alt="">
+								</div>
+							</div>
+						</v-col>
+					</v-row>
+				</v-container>
+			</v-row>
 		</div>           
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 			<path fill="#0099ff" fill-opacity="1" d="M0,0L48,10.7C96,21,192,43,288,90.7C384,139,480,213,576,234.7C672,256,768,224,864,186.7C960,149,1056,107,1152,117.3C1248,128,1344,192,1392,224L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
 		</svg>  
 	</div>
+	<div id="div_atractivos">
+		<v-container style="padding-top: 40px; padding-bottom: 40px;">
+			<v-row>
+				<v-col cols="12">
+					<div class="text-left">
+						<span class="fs-1 fw-600" style="color:#4fbab2;">VEN Y DISFRUTA</span><br>
+						<span class="fs-2">Visita nuestros Atractivos Turísticos</span>
+						<hr class="separador">
+					</div>
+				</v-col>
+			</v-row>
+			<v-row>
+				<v-col cols="12">
+					<v-tabs v-model="tab_atractivos" centered color="blue">
+						<v-tab href="#tab_atractivo">
+							Atractivos
+						</v-tab>
+						<v-tab href="#tab_eventos">
+							Eventos Programados
+						</v-tab>
+					</v-tabs>
+					<v-tabs-items v-model="tab_atractivos">
+						<v-tab-item value="tab_atractivo">
+							<v-row>
+								<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
+									<div class="wow fadeInLeft grid">
+										<figure class="effect-sadie">
+											<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
+											<figcaption>
+												<h2>{{atr.nombre}}
+												<span></span>
+												</h2>
+												<p>{{atr.descripcion}}</p>
+												<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
+													<a @click="navigate">View more</a>
+												</router-link>
+											</figcaption> 
+										</figure>
+									</div>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item value="tab_eventos">
+							<v-row>
+								<v-col cols="12" sm="4" md="3" v-for="ev in list_eventos" :key="ev.id">
+									<div class="wow fadeInLeft grid">
+										<figure class="effect-sadie">
+											<img height="260" :src="$Api_url_media+ev.img_principal" :alt="ev.nombre">
+											<figcaption>
+												<h2>{{ev.nombre}}
+												<span></span>
+												</h2>
+												<p>{{ev.descripcion}}</p>
+												<router-link class="underline-none" :to="'/HomeAtractivo/'+ev.id" v-slot="{ navigate }">
+													<a @click="navigate">View more</a>
+												</router-link>
+											</figcaption> 
+										</figure>
+									</div>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+					</v-tabs-items>	
+				</v-col>
+			</v-row>
+			<v-row>
+				<v-col cols="12">
+					<div class="text-center">
+						<router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+							<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+						</router-link>
+					</div>
+				</v-col>
+			</v-row>
+		</v-container>
+	</div>
+
+	
 	<div id="eventos">
 		<v-container style="padding-top: 40px; padding-bottom: 40px;">
 			<v-row>
@@ -510,7 +561,7 @@
 	</div>
 	<div style="background: #F7F7F7;" id="div_noticias" >
 		<v-container>
-			<v-flex class="my-15">
+			<v-flex class="my-10">
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
@@ -623,6 +674,8 @@
   </div>
 </template>
 <style scoped>
+	@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
+
 	.card-simplex{
 		background-color: transparent !important;
     	border-color: #fff !important;
@@ -669,6 +722,7 @@
 		display:flex;
 		align-items:center;
 		justify-content:space-between;
+		background:none !important;
 	}
 
 	nav .logo{
@@ -685,23 +739,33 @@
 		color:#fff;
 		font-size:17px;
 		font-weight:600;
+		padding:0 !important;
+		display:inherit;
+		line-height:1;
 	}
 	nav ul li a:hover{
 		background-color: #fff;
 		color: black;
 		border-radius:3px;
-		padding:5px 10px;
+		padding:5px 10px !important;
 		transition: all .5s ease;
 	}
+
+	.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+		box-shadow: none;
+	}
+
 	.content{
 		text-align: center;	
 	}
 	.content h1{
-		font-size:160px;
+		font-size:250px;
 		color:#fff;
 		font-weight:600;
 		text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 		position:relative;
+		font-family: 'Covered By Your Grace', cursive;
+		text-shadow: 3px 3px 1px rgba(0,0,0,0.5);
 	}
 	.content a{
 		text-decoration: none;
@@ -759,6 +823,57 @@
 		filter: opacity(.5);
 		transition:all .3s ease-in-out;
 	}
+
+	.titulo{
+		font-size: 4rem;
+		font-family: 'Covered By Your Grace', cursive;
+		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+	}
+	.linea-card{
+		width:50%;
+		margin:0px auto;
+		height:4px;
+		border-radius:3px;
+		background-color: #4fbab2;
+	}
+	.subtitulo{
+		font-size:1.5rem;
+		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+	}
+
+/*estilos de materialize*/
+.carousel .carousel-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    width: 350px;
+    height: 350px;
+}
+
+.carousel{
+    min-height: 350px;
+}
+
+.carousel .carousel-item img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+    border-radius:15px;
+}
+
+.carousel .indicators .indicator-item{
+    border-radius: 0;
+    transform:rotate(45deg);
+    margin:0 15px;
+    background: #36221c;
+}
+
 
 </style>
 <script>
@@ -850,4 +965,17 @@ export default {
   components: {
   }
 }
+
+document.addEventListener('DOMContentLoaded',() =>{
+    const elementosCarousel = document.querySelectorAll('.carousel');
+    M.Carousel.init(elementosCarousel, {
+        duration:150,
+        dist:-80,
+        shift:5,
+        padding:5,
+        numVisible:5,
+        indicators:true,
+        //noWrap:true
+    })
+})
 </script>
