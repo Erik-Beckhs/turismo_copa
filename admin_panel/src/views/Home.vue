@@ -455,7 +455,7 @@
 										<div class="slick">
 											<div>
 												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
+													<h4><small>2 de Noviembre</small>Fiesta de Todos los Santos</h4>
 													<picture>
 														<img src="@/assets/img/a4.jpg" alt="Image">
 													</picture>
