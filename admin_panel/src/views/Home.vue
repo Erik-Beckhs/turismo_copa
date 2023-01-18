@@ -421,73 +421,68 @@
 						
 					</v-col>
 				</v-row>
-				<v-carousel height="580" hide-delimiters style="box-shadow: 0px 0px">
-				<v-carousel-item v-for="i in 2" :key="i">
-					<v-layout row>
-					<v-flex sm3 v-for="j in 6" :key="j" pl-2 pr-2>
-						<v-card class="mx-auto my-12"
-							max-width="374"
-						>
-							<template slot="progress">
-							<v-progress-linear
-								color="deep-purple"
-								height="10"
-								indeterminate
-							></v-progress-linear>
-							</template>
-
-							<v-img
-							height="250"
-							src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/117502498.jpg?k=cf7b2bfb872933a7d05a9adbacfa3a90d538993be44fdd3f20a1040545fc6d37&o=&hp=1"
-							></v-img>
-
-							<v-card-title>Hostal Las Olas</v-card-title>
-
-							<v-card-text>
-							<v-row
-								align="center"
-								class="mx-0"
-							>
-								<v-rating
-								:value="4.5"
-								color="amber"
-								dense
-								half-increments
-								readonly
-								size="14"
-								></v-rating>
-							</v-row>
-
-							<div class="my-4 text-subtitle-1">
-								<v-icon left small>mdi-wifi</v-icon> WiFi gratis <v-icon left small>mdi-dog</v-icon>Admite mascotas
-							</div>
-
-							<div><v-icon left small>mdi-map-marker</v-icon> Calle Michel Perez Nº1-3 Calle Jauregui, 4132 Copacabana</div>
-							</v-card-text>
-
-							<v-divider class="mx-4"></v-divider>
-							<v-card-text>
-								<v-row>
-									<v-col cols="12" md="8">
-										<div class="text-left">
-											<span class="grey--text">Precios desde:</span>&nbsp; <span class="text-h5 font-weight-black">$56</span>
+				<v-carousel height="420" hide-delimiters style="box-shadow: 0px 0px">
+					<v-carousel-item v-for="i in 2" :key="i">
+						<v-layout row>
+							<v-flex sm6 md3 lg2 v-for="ho in list_hospedaje" :key="ho.id" pl-2 pr-2>
+								<v-card class="mx-auto my-12"
+									max-width="374"
+									color="transparent"
+									@click=""
+								>
+									<template slot="progress">
+									<v-progress-linear
+										color="deep-purple"
+										height="10"
+										indeterminate
+									></v-progress-linear>
+									</template>
+									<v-img
+									height="250"
+									class="white--text align-start text-right"
+									:src="$Api_url_media+ho.img_principal"
+									>
+										<v-chip class="ma-2" color="blue" label small text-color="white">
+											{{ho.tipo}}
+										</v-chip>
+									</v-img>
+									<v-card-text>
+										<div>
+											<span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
 										</div>
-									</v-col>
-									<v-col cols="12" md="4">
-										<router-link class="underline-none" to="/SiteHospedaje" v-slot="{ navigate }">
-											<v-btn x-small outlined @click="navigate" color="blue"><v-icon left>mdi-arrow-right</v-icon>ver mas</v-btn>
-										</router-link>
-									</v-col>
-								</v-row>
-							</v-card-text>
-						</v-card>
-					</v-flex>
-					</v-layout>
-				</v-carousel-item>
+										<div class="row">
+											<div class="col-12">
+												<div class="grey--text font-weight-light text-truncate">
+													{{ho.direccion}}
+												</div>
+											</div>	
+										</div>
+										<div class="row">
+											<div class="col-5" style="padding-top:0; padding-bottom:0;">
+												<v-rating
+												:value="ho.categoria"
+												color="amber"
+												dense
+												half-increments
+												readonly
+												size="14"
+												></v-rating>
+											</div>
+											<div class="col-7" style="padding-top:0; padding-bottom:0;">
+												<div class="text-right">
+													<span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
+												</div>
+											</div>
+										</div>
+									</v-card-text>
+								</v-card>
+							</v-flex>
+						</v-layout>
+					</v-carousel-item>
 				</v-carousel>
 				<v-row>
 					<v-col cols="12">
-						<div class="text-center">
+						<div class="text-center pa-6">
 							<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
 								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
 							</router-link>
@@ -583,16 +578,23 @@
 							<v-img
 							:src="$Api_url_media+not.img"
 							height="200px"
-							></v-img>
-
-							<v-card-title>
-							{{not.titulo}}
-							</v-card-title>
-
-							<v-card-subtitle>
-							{{not.entrada}}
-							</v-card-subtitle>
-
+							>
+							</v-img>
+							<v-card-text>
+								<div>
+									<v-chip color="green" label x-small text-color="white">
+										Cultura
+									</v-chip><br>
+									<span class="text-subtitle-1 font-weight-bold">{{not.titulo}}</span>	
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="grey--text font-weight-light text-truncate">
+											{{not.entrada}}
+										</div>
+									</div>	
+								</div>
+							</v-card-text>
 							<v-card-actions>
 								<router-link class="underline-none" :to="'/SiteNoticia/'+not.id" v-slot="{ navigate }">
 									<v-btn @click="navigate" color="orange lighten-2" text><v-icon left>mdi-arrow-right</v-icon>Ver nota</v-btn>
@@ -879,7 +881,12 @@
     margin:0 15px;
     background: #36221c;
 }
-
+#div_hospedajes .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none;
+}
+#div_hospedajes .v-card > *:first-child:not(.v-btn):not(.v-chip):not(.v-avatar){
+    border-radius: 20px;
+}
 
 </style>
 <script>
@@ -913,7 +920,7 @@ export default {
 		list_eventos:[],
 		list_actividades:[],
 		list_noticias:[],
-		offsetTop:0,
+		list_hospedaje:[]
     }
   },
   mounted(){	
@@ -927,6 +934,7 @@ export default {
 		this.get_atractivos();
 		this.get_eventos();
 		this.get_actividades();
+		this.get_hospedajes();
 		this.get_noticias();
   },
   methods:{
@@ -946,6 +954,11 @@ export default {
 	get_atractivos(){
 		SiteServices.getAtractivoLimit(8).then(response=>{
 			this.list_atractivos=response.data;
+		})
+	},
+	get_hospedajes(){
+		SiteServices.getDataLimit('hospedajes', 8).then(response=>{
+			this.list_hospedaje=response.data;
 		})
 	},
 	get_noticias(){

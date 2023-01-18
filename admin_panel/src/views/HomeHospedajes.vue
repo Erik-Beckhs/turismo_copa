@@ -195,7 +195,7 @@
                             <v-img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/117502498.jpg?k=cf7b2bfb872933a7d05a9adbacfa3a90d538993be44fdd3f20a1040545fc6d37&o=&hp=1"></v-img>
                           </v-avatar>
                         </v-col>
-                        <v-col cols="12" md="4" style="border-right: 1px solid #ddd;">
+                        <v-col cols="12" md="8">
                           <div class="text-center">
                             <span class="text-h6 font-weight-black" style="color:#021F3C">Hostal Las Olas</span><br>
                             <v-rating
@@ -218,15 +218,6 @@
                             <router-link class="underline-none" to="/SiteHospedaje" v-slot="{ navigate }">
                               <v-btn small outlined @click="navigate" color="blue"><v-icon left>mdi-arrow-right</v-icon>ver mas</v-btn>
                             </router-link>
-                          </div>
-                        </v-col>
-                        <v-col cols="12" md="4">
-                          <div class="text-left grey--text">
-                            <span class="text-caption font-weight-black" style="color:#021F3C">Servicios de hospedaje</span><br>
-                            <br>
-                            <span class="text-subtitle-2"><v-icon left>mdi-wifi</v-icon> Wifi</span><br>
-                            <span class="text-subtitle-2"><v-icon left>mdi-shower</v-icon> Baño independiente</span><br>
-                            <span class="text-subtitle-2"><v-icon left>mdi-human-male-female-child</v-icon> Areas verdes</span><br>
                           </div>
                         </v-col>
                       </v-row>
