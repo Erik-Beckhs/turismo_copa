@@ -559,8 +559,7 @@
 							<v-flex sm6 md3 lg2 v-for="ho in list_hospedaje" :key="ho.id" pl-2 pr-2>
 								<v-card class="mx-auto my-12"
 									max-width="374"
-									color="transparent"
-									
+									color="white"
 								>
 									<template slot="progress">
 									<v-progress-linear
