@@ -126,9 +126,14 @@
             @upload-success="uploadImageSuccess"
             @before-remove="beforeRemove"
             @edit-image="editImage"
-            :data-images="images"
+            :data-images="images_multi"
             idUpload="myIdUpload"
             editUpload="myIdEdit"
+            dragText="Arrastrar imágenes"
+            browseText="Seleccionar"
+            primaryText="Por defecto"
+            popupText="Esta imagen se mostrará por defecto"
+            markIsPrimaryText="Establecer por defecto"
             >
             </vue-upload-multiple-image>
           </v-col>
@@ -245,6 +250,7 @@
 <script>
 //import axios from 'axios';
 import ItemService from '@/services/ItemService';
+import MultimediaService from '@/services/MultimediaService';
 import HospedajeService from '@/services/HospedajeService';
 import VueUploadMultipleImage from 'vue-upload-multiple-image';
 import { VueEditor } from "vue2-editor";
@@ -290,6 +296,9 @@ export default {
       nameRules: [
         v => !!v || 'El nombre es requerido',
       ],
+      files_multimedia:[],
+      multimedia_data:[],
+      images_multi:[],
     }
   },
   computed:{
@@ -304,6 +313,21 @@ export default {
     }
   },
   methods:{
+    getMultimediaGaleria(){
+      MultimediaService.getMultimedia('hospedajes', this.id_hospedaje).then(response=>{
+        this.multimedia_data=response.data;
+        for (let index = 0; index < response.data.length; index++) {
+          const element_aux = {
+            default:index,
+            highlight:index,
+            name:'img_'+index,
+            aux_id:response.data[index].id,
+            path:this.$Api_url_media + response.data[index].ruta
+          };
+          this.images_multi.push(element_aux);
+        }
+      })
+    },
     toBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -330,6 +354,7 @@ export default {
     getHospedaje(id){
       HospedajeService.getHospedaje(id).then(response=>{
         this.hospedaje = response.data;
+        this.getMultimediaGaleria();
         this.view_image_hospedaje=this.$Api_url_media+this.hospedaje.img_principal;
         this.getTiposHabitacion(id);
         this.getServicios(id);
@@ -376,6 +401,23 @@ export default {
         this.guardaHospedaje(thabitacion_seleccionados, servicios);
       }
     },
+    guardaMultimedia(id_hospedaje, nombre_hospedaje){
+      for (const key in this.files_multimedia) {
+          let dataimagen=this.files_multimedia[key];
+          let multimedia={
+            "id_padre": id_hospedaje,
+            "nombre": nombre_hospedaje,
+            "ruta": "",
+            "tipo": "image",
+            "pertenece_a": "hospedajes"
+          };
+          MultimediaService.saveMultimedia(multimedia).then(response=>{
+            MultimediaService.saveImage(response.data.id, dataimagen).then(response=>{
+              console.log(response.data);
+            })
+          })
+      }
+    },
     guardaImagenHospedaje(id_hospedaje, dataimagen){
       HospedajeService.saveImage(id_hospedaje, dataimagen).then(response=>{
         this.view_image_hospedaje='';
@@ -383,15 +425,20 @@ export default {
     },
     FormDataImage(id_element, nombre_archivo){
       const fileinput= document.getElementById(id_element);
-      const formData = new FormData();
-      formData.append('file', fileinput.files[0], nombre_archivo);
-      return formData;
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      }
     },
     editaHospedaje(list_hab, servicios){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
-      this.hospedaje.img_principal="";
-      HospedajeService.editHospedaje(this.hospedaje).then(()=>{
-        this.guardaImagenHospedaje(this.id_hospedaje, dataimagen);
+      if(dataimagen!=null) this.hospedaje.img_principal="";
+      HospedajeService.editHospedaje(this.hospedaje).then(response=>{
+        if(dataimagen!=null) {this.guardaImagenHospedaje(this.id_hospedaje, dataimagen);}
+        this.guardaMultimedia(this.id_hospedaje, response.data.nombre);
         HospedajeService.deleteAllTiposHabitacion(this.id_hospedaje).then(()=>{
           list_hab.forEach(element => {
             HospedajeService.saveTHabitacion(this.id_hospedaje, element)
@@ -409,16 +456,16 @@ export default {
     guardaHospedaje(list_hab, list_servicios){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
       this.hospedaje.img_principal="";
-
       HospedajeService.guardaHospedaje(this.hospedaje).then(response=>{
         let id_hospedaje = response.data.id;
+        this.guardaMultimedia(id_hospedaje, response.data.nombre);
         list_hab.forEach(element => {
           HospedajeService.saveTHabitacion(id_hospedaje, element);
         });
         list_servicios.forEach(element => {
           HospedajeService.saveServicios(id_hospedaje, element);
         });
-        this.guardaImagenHospedaje(id_hospedaje, dataimagen);
+        if(dataimagen!=null) {this.guardaImagenHospedaje(id_hospedaje, dataimagen);}
         this.notification('El establecimiento de hospedaje ha sido registrado de manera correcta', 'success');
         this.$router.replace('/hospedajes');
         })
@@ -436,23 +483,36 @@ export default {
           timer: 1500
         })
      },
-      uploadImageSuccess(formData, index, fileList) {
-      console.log('data', formData, index, fileList)
-      // Upload image api
-      // axios.post('http://your-url-upload', formData).then(response => {
-      //   console.log(response)
-      // })
+    uploadImageSuccess(formData, index, fileList) {
+      this.files_multimedia.push(formData);
     },
     beforeRemove (index, done, fileList) {
-      console.log('index', index, fileList)
-      var r = confirm("remove image")
-      if (r == true) {
+      console.log('Eliminar', index, fileList)
+      if (typeof fileList[index].aux_id != 'undefined') {
+        MultimediaService.deleteMultimedia(fileList[index].aux_id).then(response=>{
+          console.log(response.data);
+          done()
+        })
+      }else{
+        if(this.multimedia_data.length==0){
+          this.files_multimedia.splice(index, 1);
+          console.log('eliminados xs', this.files_multimedia);
+        }
         done()
       }
     },
-    editImage (formData, index, fileList) {
-      console.log('edit data', formData, index, fileList)
-    }
+    editImage(formData, index, fileList) {
+      console.log('edit data', formData, index, fileList);
+      if(this.multimedia_data.length!=0){
+        if (typeof fileList[index].aux_id != 'undefined') {
+          MultimediaService.saveImage(fileList[index].aux_id, formData).then(response=>{
+            console.log(response.data);
+          })
+        }
+      }else{
+        this.files_multimedia[index]=formData;
+      }
+    },
     //  getArticulos(){
     //   ArticuloService.getArticulos().
     //   then(response=>this.articulos=response.data)

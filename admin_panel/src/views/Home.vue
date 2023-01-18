@@ -48,15 +48,37 @@
 		<video autoplay loop muted plays-inline class="back-video">
 			<source src="@/assets/video/principal.mp4" type="video/mp4">
 		</video>
-		<nav>
+		<nav class="d-none d-sm-none d-md-flex">
 			<img src="@/assets/logo_copa.png" class="logo">
 			<ul>
-				<li><a href="#">INICIO</a></li>
-				<li><a href="#">ATRACTIVOS TURISTICOS</a></li>
-				<li><a href="#">HOSPEDAJE</a></li>
-				<li><a href="#">EVENTOS PROGRAMADOS</a></li>
-				<li><a href="#">NOTICIAS</a></li>
-				<li><a href="#">NOSOTROS</a></li>
+				<li>
+					<router-link class="underline-none" to="/" v-slot="{ navigate }">
+						<a @click="navigate">INICIO</a>
+					</router-link>
+				</li>
+				<li>
+					<router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+						<a @click="navigate">
+							atractivos turísticos
+						</a>
+					</router-link>
+				</li>
+				<li>
+					<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+						<a @click="navigate">
+							hospedajes
+						</a>
+					</router-link>
+				</li>
+				<!-- <li><a href="#">EVENTOS PROGRAMADOS</a></li> -->
+				<li>
+					<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+						<a @click="navigate">
+							noticias
+						</a>
+					</router-link>
+				</li>
+				<!-- <li><a href="#">NOSOTROS</a></li> -->
 			</ul>
 		</nav>
 		<div class="content">
@@ -531,73 +553,68 @@
 						</div>
 					</v-col>
 				</v-row>
-				<v-carousel height="580" hide-delimiters style="box-shadow: 0px 0px">
-				<v-carousel-item v-for="i in 2" :key="i">
-					<v-layout row>
-					<v-flex sm3 v-for="j in 6" :key="j" pl-2 pr-2>
-						<v-card class="mx-auto my-12"
-							max-width="374"
-						>
-							<template slot="progress">
-							<v-progress-linear
-								color="deep-purple"
-								height="10"
-								indeterminate
-							></v-progress-linear>
-							</template>
-
-							<v-img
-							height="250"
-							src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/117502498.jpg?k=cf7b2bfb872933a7d05a9adbacfa3a90d538993be44fdd3f20a1040545fc6d37&o=&hp=1"
-							></v-img>
-
-							<v-card-title>Hostal Las Olas</v-card-title>
-
-							<v-card-text>
-							<v-row
-								align="center"
-								class="mx-0"
-							>
-								<v-rating
-								:value="4.5"
-								color="amber"
-								dense
-								half-increments
-								readonly
-								size="14"
-								></v-rating>
-							</v-row>
-
-							<div class="my-4 text-subtitle-1">
-								<v-icon left small>mdi-wifi</v-icon> WiFi gratis <v-icon left small>mdi-dog</v-icon>Admite mascotas
-							</div>
-
-							<div><v-icon left small>mdi-map-marker</v-icon> Calle Michel Perez Nº1-3 Calle Jauregui, 4132 Copacabana</div>
-							</v-card-text>
-
-							<v-divider class="mx-4"></v-divider>
-							<v-card-text>
-								<v-row>
-									<v-col cols="12" md="8">
-										<div class="text-left">
-											<span class="grey--text">Precios desde:</span>&nbsp; <span class="text-h5 font-weight-black">$56</span>
+				<v-carousel height="420" hide-delimiters style="box-shadow: 0px 0px">
+					<v-carousel-item v-for="i in 2" :key="i">
+						<v-layout row>
+							<v-flex sm6 md3 lg2 v-for="ho in list_hospedaje" :key="ho.id" pl-2 pr-2>
+								<v-card class="mx-auto my-12"
+									max-width="374"
+									color="transparent"
+									
+								>
+									<template slot="progress">
+									<v-progress-linear
+										color="deep-purple"
+										height="10"
+										indeterminate
+									></v-progress-linear>
+									</template>
+									<v-img
+									height="250"
+									class="white--text align-start text-right"
+									:src="$Api_url_media+ho.img_principal"
+									>
+										<v-chip class="ma-2" color="blue" label small text-color="white">
+											{{ho.tipo}}
+										</v-chip>
+									</v-img>
+									<v-card-text>
+										<div>
+											<span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
 										</div>
-									</v-col>
-									<v-col cols="12" md="4">
-										<router-link class="underline-none" to="/SiteHospedaje" v-slot="{ navigate }">
-											<v-btn x-small outlined @click="navigate" color="blue"><v-icon left>mdi-arrow-right</v-icon>ver mas</v-btn>
-										</router-link>
-									</v-col>
-								</v-row>
-							</v-card-text>
-						</v-card>
-					</v-flex>
-					</v-layout>
-				</v-carousel-item>
+										<div class="row">
+											<div class="col-12">
+												<div class="grey--text font-weight-light text-truncate">
+													{{ho.direccion}}
+												</div>
+											</div>	
+										</div>
+										<div class="row">
+											<div class="col-5" style="padding-top:0; padding-bottom:0;">
+												<v-rating
+												:value="ho.categoria"
+												color="amber"
+												dense
+												half-increments
+												readonly
+												size="14"
+												></v-rating>
+											</div>
+											<div class="col-7" style="padding-top:0; padding-bottom:0;">
+												<div class="text-right">
+													<span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
+												</div>
+											</div>
+										</div>
+									</v-card-text>
+								</v-card>
+							</v-flex>
+						</v-layout>
+					</v-carousel-item>
 				</v-carousel>
 				<v-row>
 					<v-col cols="12">
-						<div class="text-center">
+						<div class="text-center pa-6">
 							<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
 								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
 							</router-link>
@@ -607,7 +624,8 @@
 			</v-flex>	
 		</v-container>
 	</div>
-	<div id="id_informacion_util" class="py-15">
+
+	<div id="id_informacion_util" class="py-15" style="background: #F7F7F7;" >
 		<v-container>
 			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
 			<span class="fs-2">Descubre más información de :</span>
@@ -616,8 +634,8 @@
 				<v-row>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/escuela-de-autobuses.png"
 								alt="como llegar"
 							>
@@ -629,8 +647,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/lancha-rapida.png"
 								alt="como moverse"
 							>
@@ -642,8 +660,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/mapa.png"
 								alt="John"
 							>
@@ -654,8 +672,8 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128">
-							<img class="img-opacity"
+							<v-avatar size="128" tile>
+							<img
 								src="@/assets/flaticon/buena-resena.png"
 								alt="John"
 							>
@@ -669,7 +687,7 @@
 			</v-flex>
 		</v-container>
 	</div>
-	<div style="background: #F7F7F7;" id="div_noticias" >
+	<div id="div_noticias">
 		<v-container>
 			<v-flex class="my-10">
 				<v-row>
@@ -685,117 +703,35 @@
 					</v-col>
 				</v-row>
 				<v-row>
-					<v-col cols="6" md="3">
+					<v-col cols="12" sm="6" md="3" v-for="not in list_noticias" :key="not.id">
 						<v-card
 							class="mx-auto"
 							max-width="344"
 						>
 							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
+							:src="$Api_url_media+not.img"
 							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
+							>
+							</v-img>
+							<v-card-text>
+								<div>
+									<v-chip color="green" label x-small text-color="white">
+										Cultura
+									</v-chip><br>
+									<span class="text-subtitle-1 font-weight-bold">{{not.titulo}}</span>	
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="grey--text font-weight-light text-truncate">
+											{{not.entrada}}
+										</div>
+									</div>	
+								</div>
+							</v-card-text>
 							<v-card-actions>
-								<router-link class="underline-none" to="/SiteNoticia" v-slot="{ navigate }">
+								<router-link class="underline-none" :to="'/SiteNoticia/'+not.id" v-slot="{ navigate }">
 									<v-btn @click="navigate" color="orange lighten-2" text><v-icon left>mdi-arrow-right</v-icon>Ver nota</v-btn>
 								</router-link>
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://infusedexposures.files.wordpress.com/2014/03/img_8173.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://4.bp.blogspot.com/-PQmOD6ACISE/Vrz8XfhDV5I/AAAAAAAACas/8inJzafL4q4/s1600/virgen_copacabana.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
-
-							<v-spacer></v-spacer>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-					<v-col cols="6" md="3">
-						<v-card
-							class="mx-auto"
-							max-width="344"
-						>
-							<v-img
-							src="https://cdn.bolivia.com/sdi/2021/06/06/fiscalia-garantiza-recursos-para-la-construccion-de-un-edificio-del-asiento-fiscal-de-copacabana-923872.jpg"
-							height="200px"
-							></v-img>
-
-							<v-card-title>
-							Recursos para copacabana
-							</v-card-title>
-
-							<v-card-subtitle>
-							William Alave Laura, informó que estas actividades fueron iniciadas por la Fiscalía paceña con el propósito de brindar una mejor atención a los municipios.
-							</v-card-subtitle>
-
-							<v-card-actions>
-							<v-btn
-								color="orange lighten-2"
-								text
-							>
-								Ver nota
-							</v-btn>
 							<v-spacer></v-spacer>
 							</v-card-actions>
 						</v-card>
@@ -813,63 +749,69 @@
 			</v-flex>
 		</v-container>
 	</div>
-	<div id="div_nosotros">
+	<div id="div_nosotros" style="background: #F7F7F7;">
 		<v-container class="my-15">
 			<v-flex class="mx-15">
 				<v-row>
-					<v-col cols="6">
+					<v-col cols="12" md="6">
 						<span class="fs-2-5">
 							Escribenos
 						</span><br>
 						<span class="fs-1 grey--text">
 							Para nosotros es importante comunicarnos con nuestros visitantes
 						</span>
-						<v-container class="ms-16 mt-5">
-							<span class="fs-2">
-								Dirección de Turismo <br>
-								Copacabana
-							</span><br><br>
-							<p>
-								<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
-								Plaza 2 de Febrero, Copacabana Bolivia
-							</p>
-							<p>
-								<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
-								copacabanasomostudestino@gmail.com
-							</p>
-							<p>
-								<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
-								61216696
-							</p>
-						</v-container>
-						<v-container class="ms-16">
-							<div class="fs-1-5 justify-center">
-								Encuentranos también en:
-							</div>
-							<v-row class="justify-center mt-3">
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/facebook.png"></v-img>
-								</v-list-item-avatar>
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/instagram.png"></v-img>
-								</v-list-item-avatar>
-								<v-list-item-avatar>
-									<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
-								</v-list-item-avatar>
-							</v-row>
-						</v-container>
+						<v-row>
+							<v-col cols="4">
+								<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
+								</v-img>
+							</v-col>
+							<v-col cols="8">
+								<v-container class="ms-16 mt-5">
+									<span class="fs-2">
+										Dirección de Turismo <br>
+										Copacabana
+									</span><br><br>
+									<p>
+										<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
+										Plaza 2 de Febrero, Copacabana Bolivia
+									</p>
+									<p>
+										<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
+										copacabanasomostudestino@gmail.com
+									</p>
+									<p>
+										<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
+										61216696
+									</p>
+								</v-container>
+								<v-container class="ms-16">
+									<div class="fs-1-5 justify-center">
+										Encuentranos también en:
+									</div>
+									<v-row class="justify-center mt-3">
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/facebook.png"></v-img>
+										</v-list-item-avatar>
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/instagram.png"></v-img>
+										</v-list-item-avatar>
+										<v-list-item-avatar>
+											<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
+										</v-list-item-avatar>
+									</v-row>
+								</v-container>
+							</v-col>
+						</v-row>
+						
+						
 					</v-col>
-					<v-col cols="6 text-center">
-						<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
-						</v-img>
+					<v-col cols="12" md="6">
+						<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</v-col>
 				</v-row>
 			</v-flex>
 		</v-container>
 	</div>
-	<div class="pa-2">
-		<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
   </div>
 </template>
 <style scoped>
@@ -934,6 +876,7 @@
 	}
 	nav ul li a{
 		text-decoration: none;
+		text-transform: uppercase;
 		color:#fff;
 		font-size:17px;
 		font-weight:600;
@@ -954,8 +897,7 @@
 	}
 
 	.content{
-		text-align: center;
-		
+		text-align: center;	
 	}
 	.content h1{
 		font-size:250px;
@@ -1004,7 +946,7 @@
 
 	.separador{
 		width: 70px;
-		background-color: #4fbab2;
+		background-color: #0099ff;
 		height: 4px;
 		margin-top: 10px;
 		margin-bottom:10px;
@@ -1203,19 +1145,28 @@ export default {
 		list_atractivos:[],
 		list_eventos:[],
 		list_actividades:[],
+		list_noticias:[],
+		list_hospedaje:[]
     }
   },
   mounted(){	
-		this.altura_ini_p=(window.innerHeight)-64;
+		// this.altura_ini_p=(window.innerHeight)-64;
+		this.altura_ini_p=(window.innerHeight);
     	window.onscroll = () => {
 			this.changeColor();
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);
+		this.scroll_ini();
 		this.get_atractivos();
 		this.get_eventos();
 		this.get_actividades();
+		this.get_hospedajes();
+		this.get_noticias();
   },
   methods:{
+	scroll_ini(){
+		document.querySelector('#scrolling-body').scrollTo(0,0);
+	},
 	get_actividades(){
 		SiteServices.getActividadLimit(4).then(response=>{
 			this.list_actividades=response.data;
@@ -1229,6 +1180,16 @@ export default {
 	get_atractivos(){
 		SiteServices.getAtractivoLimit(8).then(response=>{
 			this.list_atractivos=response.data;
+		})
+	},
+	get_hospedajes(){
+		SiteServices.getDataLimit('hospedajes', 8).then(response=>{
+			this.list_hospedaje=response.data;
+		})
+	},
+	get_noticias(){
+		SiteServices.getDataLimit('noticias', 4).then(response=>{
+			this.list_noticias=response.data;
 		})
 	},
     activa_inicio(){
