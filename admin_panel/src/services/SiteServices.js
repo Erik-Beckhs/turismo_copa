@@ -1,6 +1,9 @@
 import Api from '@/services/Api';
 
 export default {
+    getAllHospedaje(){
+        return Api().get(`/hospedajes?filter[include]=servicios&filter[include]=tipos_habitacion`);
+    },
     getAtractivoLimit(limit){
         return Api().get(`/atractivos?filter[limit]=${limit}&filter[where][inq][categoria]=Actividades%20Que%20Hacer&filter[where][inq][categoria]=Eventos%20Programados`);
     },

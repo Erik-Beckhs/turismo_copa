@@ -142,13 +142,15 @@ export default {
     }
   },
   mounted(){	
+    index_mod3=0;
+    index_mod2=0;
 		this.altura_ini_p=(window.innerHeight)-64;
     	window.onscroll = () => {
 			this.changeColor();
 		};
 		setTimeout(() => (this.activa_inicio()), 1000);	
 		this.scroll_ini();
-        this.get_atractivos();
+    this.get_atractivos();
   },
   methods:{
     calcule_col(index){
@@ -177,13 +179,13 @@ export default {
         return num_col;
     },
     get_atractivos(){
-		SiteServices.getDataAll('atractivos').then(response=>{
-			this.list_atractivos=response.data;
-		})
-	},
-	scroll_ini(){
-		document.querySelector('#scrolling-body').scrollTo(0,0);
-	},
+      SiteServices.getDataAll('atractivos').then(response=>{
+        this.list_atractivos=response.data;
+      })
+    },
+    scroll_ini(){
+      document.querySelector('#scrolling-body').scrollTo(0,0);
+    },
     activa_inicio(){
       var wow = new WOW({ scrollContainer: "#scrolling-body"});
       wow.init();
