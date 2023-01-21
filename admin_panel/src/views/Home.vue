@@ -1221,15 +1221,13 @@ document.addEventListener('DOMContentLoaded',() =>{
         indicators:true,
         //noWrap:true
     })
+
+	var app = new App();
+    window.app = app;
 })
 
 /*carousel eventos*/
 function App() {}
-
-window.onload = function (event) {
-    var app = new App();
-    window.app = app;
-};
 
 App.prototype.processingButton = function(event) {
     const btn = event.currentTarget;
@@ -1241,6 +1239,8 @@ App.prototype.processingButton = function(event) {
     
     const trackWidth = track.offsetWidth;
     const listWidth = slickList.offsetWidth;
+
+	var leftPosition=0;
 
     track.style.left == ""  ? leftPosition = track.style.left = 0 : leftPosition = parseFloat(track.style.left.slice(0, -2) * -1);
 
