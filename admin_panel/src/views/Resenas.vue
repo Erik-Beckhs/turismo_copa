@@ -24,25 +24,6 @@
       <span>{{index + 1}}</span>
     </template>
      <template v-slot:[`item.estado`]="{ item }">
-     <v-tooltip top>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-        class="mx-1"
-        fab
-        dark
-        small
-        @click="verResena(item)"
-         v-bind="attrs"
-          v-on="on"
-        color="primary"
-        >
-        <v-icon dark>
-            mdi-eye
-        </v-icon>
-        </v-btn>
-      </template>
-      <span>Ver Reseña</span>
-    </v-tooltip>
 
     <v-tooltip top>
       <template v-slot:activator="{ on, attrs }">
@@ -97,6 +78,7 @@
        </v-icon>
        <span class="ms-2">Lista de Reseñas</span>
     </v-card-title>
+    <hr class="line-blue"/>
     <v-col cols="6">
       <v-card-title>
       <v-text-field
@@ -117,25 +99,6 @@
       <span>{{index + 1}}</span>
     </template>
         <template v-slot:[`item.estado`]="{ item }">
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-            class="mx-1"
-            fab
-            dark
-            small
-            @click="verResena(item)"
-            v-bind="attrs"
-              v-on="on"
-            color="primary"
-            >
-            <v-icon dark>
-                mdi-eye
-            </v-icon>
-            </v-btn>
-          </template>
-          <span>Ver Reseña</span>
-        </v-tooltip>
 
       <v-tooltip top>
       <template v-slot:activator="{ on, attrs }">
@@ -253,10 +216,6 @@ export default {
       ResenasService.getResenas().then(response=>{
         this.resenas_list = response.data;
       })
-     },
-     verResena(element){
-         this.card_resena = true;
-         this.resena = element;
      },
      eliminarResena(id, state){
         this.$swal.fire({

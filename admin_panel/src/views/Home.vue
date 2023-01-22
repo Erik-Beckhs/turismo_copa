@@ -1,5 +1,107 @@
 <template>
   <div class="home">
+    <v-dialog
+      v-model="dialog_resena"
+      max-width="900"
+    >
+      <v-card class="pa-3">
+	  <v-form>
+        <v-card-title class="text-h5 pb-0">
+          Nueva Reseña
+        </v-card-title>
+		<v-card-subtitle class="mt-1 fs-1 pb-0">
+			Para nosotros y los visitantes es importante conocer la experiencia que tuviste visitando nuestro Santuario
+		</v-card-subtitle>
+		<p class="ms-6 text-subtitle-1 grey--text">
+			<v-icon>mdi-calendar</v-icon>&nbsp;
+			Fecha: 04 de Enero de 2023
+		</p>
+
+        <v-card-text>
+			<v-card outlined class="py-10 px-2">
+			<v-row>
+				<v-col cols="12">
+					<v-col cols="4">
+						<v-img class="mx-auto" v-if="image_user!=''" width="190" :src="image_user"/>
+						<v-img class="mx-auto" v-else width="190" src="@/assets/user2.png"/>
+						<v-col cols="12" class="pt-3">
+							<v-file-input
+							id="file_imagen_principal"
+							label="Cambiar Foto"
+							prepend-icon="mdi-camera"
+							@change="updateFile"
+							outlined
+							dense
+							>
+								<template v-slot:selection="{ text }">
+									<v-chip
+										small
+										label
+										color="primary"
+									>
+										{{ text }}
+									</v-chip>
+								</template>
+							</v-file-input>
+						</v-col>
+					
+						
+						
+					</v-col>
+					<v-col cols="8">
+						<v-col cols="12">
+							<v-text-field hide-details="true" outlined label="Autor" v-model="resena.autor" />
+						</v-col>
+						<v-col cols="12" class="py-3">
+							<v-text-field hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
+						</v-col>
+						<v-col cols="12">
+							<v-textarea
+							label="Contenido"
+							outlined
+							v-model="resena.contenido"
+							:rows="8"
+							></v-textarea>
+						</v-col>
+					</v-col>
+				</v-col>
+			</v-row>
+		  <v-divider></v-divider>
+		  <v-card-subtitle class="fs-1 text-center">Califique su experiencia de visita en el Santuario de Copacabana</v-card-subtitle>
+		  <v-row>
+		  	<v-rating
+			v-model="resena.rating"
+			background-color="orange lighten-3"
+			color="orange"
+			large
+			class="mx-auto"
+			></v-rating>
+		  </v-row>
+			</v-card>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog_resena = false"
+          >
+            Cancelar
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog_resena = false"
+          >
+            Guardar
+          </v-btn>
+        </v-card-actions>
+		</v-form>
+      </v-card>
+    </v-dialog>
 	<!--<v-carousel cycle hide-delimiter-background show-arrows-on-hover :height="altura_ini_p">
 		<v-carousel-item
 		src="../assets/img/a100.jpg"
@@ -128,8 +230,8 @@
 			<v-row>
 				<v-col cols="12" md="1"></v-col>
 				<v-col cols="12" md="10">
-					<v-row>
-						<v-col cols="12" md="3" sm="6" v-for="act in list_actividades" :key="act.id">
+					
+						<v-col cols="12" md="10" sm="6" v-for="act in list_actividades" :key="act.id">
 							<router-link class="underline-none" :to="'/HomeAtractivo/'+act.id" v-slot="{ navigate }">
 								<v-hover v-slot="{ hover }" open-delay="100">
 									<v-card
@@ -254,7 +356,7 @@
 								</v-hover>
 							</router-link>    
 						</v-col>	 -->
-					</v-row>
+					
 				</v-col>
 				<v-col cols="12" md="1"></v-col>
 			</v-row>
@@ -353,14 +455,13 @@
 				<v-col cols="12">
 					<div class="text-center">
 						<router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-							<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+							<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
 						</router-link>
 					</div>
 				</v-col>
 			</v-row>
 		</v-container>
 	</div>
-
 	
 	<div id="eventos">
 		<v-container style="padding-top: 40px;">
@@ -618,7 +719,7 @@
 					<v-col cols="12">
 						<div class="text-center pa-6">
 							<router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
-								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
 							</router-link>
 						</div>
 					</v-col>
@@ -627,7 +728,7 @@
 		</v-container>
 	</div>
 
-	<div id="id_informacion_util" class="py-15" style="background: #F7F7F7;" >
+	<div id="informacion_util" class="py-15" style="background: #F7F7F7;" >
 		<v-container>
 			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
 			<span class="fs-2">Descubre más información de :</span>
@@ -636,10 +737,10 @@
 				<v-row>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128" tile>
+							<v-avatar size="128" tile class="pointer">
 							<img
 								src="@/assets/flaticon/escuela-de-autobuses.png"
-								alt="como llegar"
+						
 							>
 							</v-avatar><br>
 							<span class="fs-1 mt-3">Como llegar a <br>
@@ -649,10 +750,10 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128" tile>
+							<v-avatar size="128" tile class="pointer">
 							<img
 								src="@/assets/flaticon/lancha-rapida.png"
-								alt="como moverse"
+							
 							>
 							</v-avatar><br>
 							<span class="fs-1 mt-3">Como viajar por <br>
@@ -662,10 +763,9 @@
 					</v-col>
 					<v-col cols="3">
 						<div class="text-center">
-							<v-avatar size="128" tile>
+							<v-avatar size="128" tile class="pointer">
 							<img
 								src="@/assets/flaticon/mapa.png"
-								alt="John"
 							>
 							</v-avatar><br>
 							<span class="fs-1 mt-3">Mapa</span><br>
@@ -673,11 +773,10 @@
 						</div>
 					</v-col>
 					<v-col cols="3">
-						<div class="text-center">
-							<v-avatar size="128" tile>
+						<div class="text-center" >
+							<v-avatar size="128" tile class="pointer"  @click="dialog_resena = true">
 							<img
 								src="@/assets/flaticon/buena-resena.png"
-								alt="John"
 							>
 							</v-avatar><br>
 							<span class="fs-1 mt-3">Mi Viaje</span><br>
@@ -743,7 +842,7 @@
 					<v-col cols="12">
 						<div class="text-center">
 							<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
-								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todos</v-btn>
+								<v-btn @click="navigate" rounded large color="blue" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
 							</router-link>
 						</div>
 					</v-col>
@@ -751,6 +850,45 @@
 			</v-flex>
 		</v-container>
 	</div>
+	<div id="resenas">	
+		<div class="bg pa-15">
+			<v-container>
+				<v-row>
+					<div class="col-12">
+						<div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms" style="color:#fff;">
+							<h3>Últimas Reseñas</h3>
+							<span>Comparte tu experiencia y ayuda a cientos de personas que pretenden visitar el Santuario</span>
+						</div>
+					</div>	
+				</v-row>
+				<v-row>
+					<!-- Single Testimonials Area -->
+					<div class="col-12 col-md-6" v-for="resena in resenas" :key="resena.id">
+						<div class="resena mb-100 d-flex wow fadeInUp" data-wow-delay="400ms">
+							<div class="img-thumb">
+								<img width="50" src="@/assets/user2.png" alt="">
+							</div>
+							<div class="resena-contenido">
+								<h5>{{resena.titulo}}</h5>
+								<p>{{resena.contenido}}</p>
+								<h6><span>{{resena.autor}},</span> {{resena.fecha_publicacion}}</h6>
+							</div>
+						</div>
+					</div>
+				</v-row>
+				<v-row class="mt-7">
+					<v-col cols="12">
+						<div class="text-center">
+							<router-link class="underline-none" to="/HomeResenas" v-slot="{ navigate }">
+								<v-btn @click="navigate" rounded large color="white" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
+							</router-link>
+						</div>
+					</v-col>
+				</v-row>
+			</v-container>
+		</div>
+	</div>
+
 	<div id="div_nosotros" style="background: #F7F7F7;">
 		<v-container class="my-15">
 			<v-flex class="mx-15">
@@ -763,12 +901,12 @@
 							Para nosotros es importante comunicarnos con nuestros visitantes
 						</span>
 						<v-row>
-							<v-col cols="4">
-								<v-img  class="mx-auto" src="@/assets/img/escudo.png" width="300">
+							<v-col cols="3" class="pt-15">
+								<v-img class="mx-auto" src="@/assets/img/escudo.png" width="250">
 								</v-img>
 							</v-col>
-							<v-col cols="8">
-								<v-container class="ms-16 mt-5">
+							<v-col cols="9">
+								<v-container class="mt-5">
 									<span class="fs-2">
 										Dirección de Turismo <br>
 										Copacabana
@@ -786,7 +924,7 @@
 										61216696
 									</p>
 								</v-container>
-								<v-container class="ms-16">
+								<v-container class="ms-15">
 									<div class="fs-1-5 justify-center">
 										Encuentranos también en:
 									</div>
@@ -818,6 +956,10 @@
 </template>
 <style scoped>
 	@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
+	
+	textarea{
+		min-height:200px !important;
+	}
 
 	.card-simplex{
 		background-color: transparent !important;
@@ -984,6 +1126,7 @@
 	}
 
 /*estilos de materialize*/
+
 .carousel .carousel-item{
     display: flex;
     flex-direction: column;
@@ -1015,6 +1158,7 @@
     margin:0 15px;
     background: #36221c;
 }
+
 
 /*Carousel 2*/
 h4, h2,small,a{
@@ -1116,6 +1260,60 @@ a{
     right: 0px;
 }
 
+/*Reseñas*/
+
+.bg
+{
+  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../assets/basilica.jpg);
+  background-size: cover;
+}
+
+.resena {
+  position: relative;
+  z-index: 1; 
+  }
+  .resena .img-thumb {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 55px;
+    flex: 0 0 55px;
+    max-width: 55px;
+    width: 55px;
+    height: 55px;
+    border: 2px solid transparent;
+    margin-right: 40px;
+    margin-top: 15px;
+    border-radius: 50%; }
+    .resena .img-thumb img {
+      border-radius: 50%; }
+  .resena .resena-contenido h5 {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 30px; }
+  .resena .resena-contenido p {
+    color: #ffffff; }
+  .resena .resena-contenido h6 {
+    color: #ffffff;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 15px; }
+    .resena .resena-contenido h6 span {
+      color: #69bc5f; }
+  .resena:hover .img-thumb {
+    border-color: #69bc5f; }
+  .resena:hover .resena-contenido h5 {
+    color: #69bc5f; }
+/*///////Reseñas*/
+
+
+#informacion_util img:hover {
+	filter: opacity(.5);
+	transition:all .3s ease;
+	}
+
 </style>
 <script>
 // @ is an alias to /src
@@ -1126,6 +1324,46 @@ export default {
   name: 'Home',
   data(){
     return{
+		image_user:'',
+		resenas:[
+			{
+				id:1,
+				titulo:'Hermoso Lugar',
+				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+				autor:'Carla Rimba',
+				fecha_publicacion:'19/11/2022'
+			},
+			{
+				id:2,
+				titulo:'Hermoso Lugar',
+				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+				autor:'Carla Rimba',
+				fecha_publicacion:'19/11/2022'
+			},
+			{
+				id:3,
+				titulo:'Hermoso Lugar',
+				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+				autor:'Carla Rimba',
+				fecha_publicacion:'19/11/2022'
+			},
+			{
+				id:4,
+				titulo:'Hermoso Lugar',
+				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+				autor:'Carla Rimba',
+				fecha_publicacion:'19/11/2022'
+			},
+		],
+		dialog_resena :false,
+		resena:{
+			autor:'',
+			titulo:'',
+			contenido:'',
+			fecha_publicacion:'',
+			img_user:'',
+			rating:5
+		},
 		tab_atractivos:null,
       	bg:'transparent',
       	altura_ini_p:500,
@@ -1166,6 +1404,42 @@ export default {
 		this.get_noticias();
   },
   methods:{
+	toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+
+	updateFile(event) {
+      if(event!=null){
+        // generamos un nuevo nombre de imagen
+        var fileName = event.name;
+        var extFile = fileName.split('.').pop();
+        this.resena.img_user=(Math.random().toString(16).slice(2)) +'.'+ extFile;
+        // para la visualizacion convertimos la imagen
+        const file = event; 
+        this.toBase64(file).then(base64 => {
+          this.image_user=base64;
+        });
+      }else{
+        this.image_user='';
+      }
+    },
+	validateResena(){
+
+	},
+	guardaResena(){
+
+	},
+	guardaImagenUser(id_resena, dataimagen){
+      ResenaService.saveImage(id_resena, dataimagen).then(response=>{
+        console.log(response.data);
+        this.image_user='';
+      })
+    },
 	scroll_ini(){
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},
