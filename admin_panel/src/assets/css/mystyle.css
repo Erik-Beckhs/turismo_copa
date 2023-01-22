@@ -346,3 +346,39 @@
 }
 
 /*animaciones*/
+
+.line-blue{
+	width:8%;
+	background-color:#42a5f5;
+	height:4px;
+	border-radius:5px;
+	margin:3px 0px 5px 0px;
+}
+
+.pointer{
+	cursor:pointer;
+}
+
+.border-botom-none{
+	border-bottom: none;
+}
+
+/*correccion a conflictos con materialize*/
+.row{
+	margin-bottom:0 !important;
+}
+
+input{
+	border-bottom: none !important;
+	box-shadow: none !important;
+}
+.container{
+	width:80% !important;
+	max-width:85% !important;
+}
+
+textarea{
+	min-height:120px !important;
+}
+
+/*//correccion a conflictos con materialize*/

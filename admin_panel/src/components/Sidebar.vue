@@ -6,17 +6,8 @@
       src="@/assets/img/escudo_trazo.png"
       style="margin:15px auto !important;"
     />
-      <!--<div class="text-center">
-        <v-avatar class="mb-4" color="grey darken-1" size="64">
-          <v-img
-            aspect-ratio="30"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Cristiano_Ronaldo_2013-06-10.jpg/198px-Cristiano_Ronaldo_2013-06-10.jpg"
-          />
-        </v-avatar>
-        <h2 class="white--text">ADMIN</h2>
-      </div>-->
-    <p class="text-center font-weight-bold white--text">
-        Gobierno Autónomo Municipal de Copacabana
+    <p class="text-center font-weight-bold white--text" style="line-height:20px;">
+        Dirección de Turismo Copacabana
     </p>
 
     <v-divider class="grey lighten-1"></v-divider>
