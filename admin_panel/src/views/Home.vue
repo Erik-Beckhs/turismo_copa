@@ -425,57 +425,59 @@
 					<v-carousel-item v-for="i in 2" :key="i">
 						<v-layout row>
 							<v-flex sm6 md3 lg2 v-for="ho in list_hospedaje" :key="ho.id" pl-2 pr-2>
-								<v-card class="mx-auto my-12"
-									max-width="374"
-									color="transparent"
-									@click=""
-								>
-									<template slot="progress">
-									<v-progress-linear
-										color="deep-purple"
-										height="10"
-										indeterminate
-									></v-progress-linear>
-									</template>
-									<v-img
-									height="250"
-									class="white--text align-start text-right"
-									:src="$Api_url_media+ho.img_principal"
+								<router-link class="underline-none" :to="'/SiteHospedaje/'+ho.id" v-slot="{ navigate }">
+									<v-card class="mx-auto my-12"
+										max-width="374"
+										color="transparent"
+										@click="navigate"
 									>
-										<v-chip class="ma-2" color="blue" label small text-color="white">
-											{{ho.tipo}}
-										</v-chip>
-									</v-img>
-									<v-card-text>
-										<div>
-											<span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
-										</div>
-										<div class="row">
-											<div class="col-12">
-												<div class="grey--text font-weight-light text-truncate">
-													{{ho.direccion}}
-												</div>
-											</div>	
-										</div>
-										<div class="row">
-											<div class="col-5" style="padding-top:0; padding-bottom:0;">
-												<v-rating
-												:value="ho.categoria"
-												color="amber"
-												dense
-												half-increments
-												readonly
-												size="14"
-												></v-rating>
+										<template slot="progress">
+										<v-progress-linear
+											color="deep-purple"
+											height="10"
+											indeterminate
+										></v-progress-linear>
+										</template>
+										<v-img
+										height="250"
+										class="white--text align-start text-right"
+										:src="$Api_url_media+ho.img_principal"
+										>
+											<v-chip class="ma-2" color="blue" label small text-color="white">
+												{{ho.tipo}}
+											</v-chip>
+										</v-img>
+										<v-card-text>
+											<div>
+												<span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
 											</div>
-											<div class="col-7" style="padding-top:0; padding-bottom:0;">
-												<div class="text-right">
-													<span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
+											<div class="row">
+												<div class="col-12">
+													<div class="grey--text font-weight-light text-truncate">
+														{{ho.direccion}}
+													</div>
+												</div>	
+											</div>
+											<div class="row">
+												<div class="col-5" style="padding-top:0; padding-bottom:0;">
+													<v-rating
+													:value="ho.categoria"
+													color="amber"
+													dense
+													half-increments
+													readonly
+													size="14"
+													></v-rating>
+												</div>
+												<div class="col-7" style="padding-top:0; padding-bottom:0;">
+													<div class="text-right">
+														<span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
+													</div>
 												</div>
 											</div>
-										</div>
-									</v-card-text>
-								</v-card>
+										</v-card-text>
+									</v-card>
+								</router-link>
 							</v-flex>
 						</v-layout>
 					</v-carousel-item>

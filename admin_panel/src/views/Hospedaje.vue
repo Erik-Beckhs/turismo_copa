@@ -375,7 +375,6 @@ export default {
     getServicios(id){
        HospedajeService.getServicios(id).then(response=>{
           let servicios_seleccionados=response.data;
-
           this.servicios.forEach(element=>{
             servicios_seleccionados.forEach(servicio=>{
               if(servicio.servicio == element.servicio){
