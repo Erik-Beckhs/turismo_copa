@@ -6,6 +6,8 @@ import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '@/assets/css/mystyle.css';
+import '@/assets/materialize/materialize.min.css';
+import '@/assets/materialize/materialize.min.js';
 import '@/assets/css/media-hover-effects.css';
 import '@/assets/css/animate.css';
 

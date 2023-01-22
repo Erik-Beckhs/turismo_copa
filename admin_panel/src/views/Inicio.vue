@@ -1,9 +1,8 @@
 <template>
   <div class="inicio">
     <v-container class="grey lighten-5 px-15">
-        <h2>Inicio</h2>
-
-
+        <div class="text-h4">Inicio</div>
+        <hr class="line-blue" />
             <v-row class="pt-3">
                             <!--<v-col lg="6" cols="12" v-for="(item,index) in itemsInicio" :key="index">
                                 <v-card elevation="2" class="rounded-lg pa-3">
@@ -225,3 +224,6 @@ import ResenaService from '@/services/ResenasService';
         }
     }
 </script>
+<style scoped>
+    
+</style>
