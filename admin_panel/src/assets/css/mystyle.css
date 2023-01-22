@@ -377,8 +377,4 @@ input{
 	max-width:85% !important;
 }
 
-textarea{
-	min-height:120px !important;
-}
-
 /*//correccion a conflictos con materialize*/
