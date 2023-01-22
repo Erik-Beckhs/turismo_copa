@@ -1,6 +1,9 @@
 import Api from '@/services/Api';
 
 export default {
+    getHospedajeId(id){
+        return Api().get(`/hospedajes/${id}?filter[include]=servicios&filter[include]=tipos_habitacion`);
+    },
     getAllHospedaje(){
         return Api().get(`/hospedajes?filter[include]=servicios&filter[include]=tipos_habitacion`);
     },
@@ -17,7 +20,7 @@ export default {
         return Api().get(`/${module}?filter[limit]=${limit}`);
     },
     getDataDiffLimit(module, limit, id){
-        return Api().get(`/${module}?filter[limit]=${limit}&filter[where][inq][id]=${id}`);
+        return Api().get(`/${module}?filter[limit]=${limit}&filter[where][id][nlike]=${id}`);
     },
     getDataAll(module){
         return Api().get(`/${module}`);
