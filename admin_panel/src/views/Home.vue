@@ -326,16 +326,7 @@
 			</v-row>
 			<v-row>
 				<v-col cols="12">
-					<v-tabs v-model="tab_atractivos" centered color="blue">
-						<v-tab href="#tab_atractivo">
-							Atractivos
-						</v-tab>
-						<v-tab href="#tab_eventos">
-							Eventos Programados
-						</v-tab>
-					</v-tabs>
-					<v-tabs-items v-model="tab_atractivos">
-						<v-tab-item value="tab_atractivo">
+
 							<v-row>
 								<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
 									<div class="wow fadeInLeft grid">
@@ -354,28 +345,8 @@
 									</div>
 								</v-col>
 							</v-row>
-						</v-tab-item>
-						<v-tab-item value="tab_eventos">
-							<v-row>
-								<v-col cols="12" sm="4" md="3" v-for="ev in list_eventos" :key="ev.id">
-									<div class="wow fadeInLeft grid">
-										<figure class="effect-sadie">
-											<img height="260" :src="$Api_url_media+ev.img_principal" :alt="ev.nombre">
-											<figcaption>
-												<h2>{{ev.nombre}}
-												<span></span>
-												</h2>
-												<p>{{ev.descripcion}}</p>
-												<router-link class="underline-none" :to="'/HomeAtractivo/'+ev.id" v-slot="{ navigate }">
-													<a @click="navigate">View more</a>
-												</router-link>
-											</figcaption> 
-										</figure>
-									</div>
-								</v-col>
-							</v-row>
-						</v-tab-item>
-					</v-tabs-items>	
+
+
 				</v-col>
 			</v-row>
 			<v-row>
@@ -392,7 +363,7 @@
 
 	
 	<div id="eventos">
-		<v-container style="padding-top: 40px; padding-bottom: 40px;">
+		<v-container style="padding-top: 40px;">
 			<v-row>
 				<v-col cols="12">
 					<div class="text-left">
@@ -404,21 +375,182 @@
 				</v-col>
 			</v-row>
 		</v-container>
+						    <div class="Carousel">
+								<div class="slick-list" id="slick-list">
+									<button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
+										<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg>
+									</button>
+									<div class="slick-track" id="track">
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>24 de Enero</small>Alasitas</h4>
+													<picture>
+														<img src="@/assets/img/eventos/alasita.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>2 de Febrero</small>Entronización de la Virgen de la Candelaria</h4>
+													<picture>
+														<img src="@/assets/img/eventos/virgen.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>20 de Abril</small>Semana Santa</h4>
+													<picture>
+														<img src="@/assets/img/eventos/semana.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>3 de Mayo</small>Fiesta del Señor de Kolquepata</h4>
+													<picture>
+														<img src="@/assets/img/eventos/mayo.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>6 de Junio</small>Aniversario de la Provincia Manco Kapac</h4>
+													<picture>
+														<img src="@/assets/img/eventos/desfileee.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>21 de Junio</small>Año Nuevo Aymara</h4>
+													<picture>
+														<img src="@/assets/img/eventos/nuevo.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>6 de Agosto</small>Fiesta Internacional Bolivia Perú</h4>
+													<picture>
+														<img src="@/assets/img/eventos/agosto.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>2 de Noviembre</small>Fiesta de Todos los Santos</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+										<div class="slick">
+											<div>
+												<a href="/">
+													<h4><small>Share Your Message</small>Watch</h4>
+													<picture>
+														<img src="@/assets/img/a4.jpg" alt="Image">
+													</picture>
+												</a>
+											</div>
+										</div>
+									</div>
+									<button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
+										<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
+									</button>
+								</div>
+							</div>
+
 	</div>
-	<div id="div_hospedajes">
+	<div id="div_hospedajes" class="mt-10 py-15" style="background-color:#0099ff;">
 		<v-container>
 			<v-flex>
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="fs-1 fw-600" style="color:#4fbab2;">ESTADÍA</span><br>
-							<span class="fs-2">Establecimientos de Hospedaje</span>
-							<hr class="separador">
-							<span class="fs-1 grey--text">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
+							<span class="fs-1 fw-600" style="color:#ffffff;">ESTADÍA</span><br>
+							<span class="fs-2" style="color:#ffffff;">Establecimientos de Hospedaje</span>
+							<hr class="separador" style="color:#ffffff;">
+							<span class="fs-1" style="color:#ffffff;">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
 						</div>
-					</v-col>
-					<v-col cols="4" md="4">
-						
 					</v-col>
 				</v-row>
 				<v-carousel height="420" hide-delimiters style="box-shadow: 0px 0px">
@@ -494,7 +626,8 @@
 			</v-flex>	
 		</v-container>
 	</div>
-	<div id="id_informacion_util" style="background: #F7F7F7;" >
+
+	<div id="id_informacion_util" class="py-15" style="background: #F7F7F7;" >
 		<v-container>
 			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
 			<span class="fs-2">Descubre más información de :</span>
@@ -772,7 +905,6 @@
 		font-size:250px;
 		color:#fff;
 		font-weight:500;
-		text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 		position:relative;
 		font-family: 'Covered By Your Grace', cursive;
 		text-shadow: 3px 3px 1px rgba(0,0,0,0.5);
@@ -883,11 +1015,105 @@
     margin:0 15px;
     background: #36221c;
 }
-#div_hospedajes .v-sheet.v-card:not(.v-sheet--outlined) {
-    box-shadow: none;
+
+/*Carousel 2*/
+h4, h2,small,a{
+    margin: 0;
+    padding: 0;
 }
-#div_hospedajes .v-card > *:first-child:not(.v-btn):not(.v-chip):not(.v-avatar){
-    border-radius: 20px;
+a{
+    text-decoration: none;
+}
+.Carousel{
+    width: 100%;
+    margin: 15px auto;
+}
+
+/* images */
+
+.slick-list{
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 400px;
+    padding: 0px;
+    margin: 0px auto;
+    max-width: 95vw;
+    overflow: hidden;
+}
+.slick-track{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    transition: .5s ease-in-out;
+}
+.slick{
+    position: relative;
+    width: 275px;
+    padding: 0 10px;
+    float: left;
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+	overflow:hidden;
+}
+.slick h4{
+    position: absolute;
+    z-index: 1;
+    font-size: 2rem;
+    line-height: 2rem;
+    color: #fff;
+    padding: 15px;
+	text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+}
+.slick h4 small{
+    font-size: 1rem;
+    display: block;
+	text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+}
+.slick a img{
+    object-fit: cover;
+    height: 400px;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.5);
+    transition: .3s ease-in-out;
+}
+
+.slick:hover img {
+	-webkit-transform:scale(1.1);
+	transform:scale(1.1);
+	}
+
+/* buttons */
+
+.slick-arrow{
+    border-radius: 30px;
+    background-color: #fff;
+    position: absolute;
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.15);
+    border: 0;
+    cursor: pointer;
+}
+.slick-arrow:focus{
+    outline: 0;
+}
+.slick-arrow svg{
+    width: 12px;
+    height: 100%;
+    color: rgba(0,0,0,.7);
+}
+.slick-prev{
+    left: 0px;
+}
+.slick-next{
+    right: 0px;
 }
 
 </style>
@@ -998,5 +1224,42 @@ document.addEventListener('DOMContentLoaded',() =>{
         indicators:true,
         //noWrap:true
     })
+
+	var app = new App();
+    window.app = app;
 })
+
+/*carousel eventos*/
+function App() {}
+
+App.prototype.processingButton = function(event) {
+    const btn = event.currentTarget;
+    const slickList = event.currentTarget.parentNode;
+    const track = event.currentTarget.parentNode.querySelector('#track');
+    const slick = track.querySelectorAll('.slick');
+
+    const slickWidth = slick[0].offsetWidth;
+    
+    const trackWidth = track.offsetWidth;
+    const listWidth = slickList.offsetWidth;
+
+	var leftPosition=0;
+
+    track.style.left == ""  ? leftPosition = track.style.left = 0 : leftPosition = parseFloat(track.style.left.slice(0, -2) * -1);
+
+    btn.dataset.button == "button-prev" ? prevAction(leftPosition,slickWidth,track) : nextAction(leftPosition,trackWidth,listWidth,slickWidth,track)
+}
+
+let prevAction = (leftPosition,slickWidth,track) => {
+    if(leftPosition > 0) {
+        console.log("entro 2")
+        track.style.left = `${-1 * (leftPosition - slickWidth)}px`;
+    }
+}
+
+let nextAction = (leftPosition,trackWidth,listWidth,slickWidth,track) => {
+    if(leftPosition < (trackWidth - listWidth)) {
+        track.style.left = `${-1 * (leftPosition + slickWidth)}px`;
+    }
+}
 </script>
