@@ -257,7 +257,9 @@
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Garaje')"><v-icon left>mdi-garage-variant</v-icon> Garaje &nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Restaurant')"><v-icon left>mdi-silverware</v-icon> Restaurant</span>
                             <v-spacer></v-spacer>
-                            <v-btn color="orange" dark small>Ver mas</v-btn>
+                            <router-link class="underline-none" :to="'/SiteHospedaje/'+ho.id" v-slot="{ navigate }">
+                              <v-btn color="orange" dark small @click="navigate">Ver mas</v-btn>
+                            </router-link>
                           </v-card-actions>
                         </v-col>
                       </v-row>
