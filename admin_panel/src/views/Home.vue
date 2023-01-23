@@ -498,7 +498,7 @@
 			</v-flex>	
 		</v-container>
 	</div>
-	<div id="id_informacion_util" class="banner-rotated">
+	<div id="informacion_util" class="banner-rotated">
 		<v-img height="600" aspect-ratio="1.7" src="@/assets/img/a66.jpg">
 			<v-row>
 				<v-col cols="12" class="text-center">
@@ -514,7 +514,7 @@
 									<v-flex class="my-5">
 										<v-row dense>
 											<v-col cols="3">
-												<div class="text-center">
+												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
 														src="@/assets/flaticon/escuela-de-autobuses.png"
@@ -527,7 +527,7 @@
 												</div>
 											</v-col>
 											<v-col cols="3">
-												<div class="text-center">
+												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
 														src="@/assets/flaticon/lancha-rapida.png"
@@ -540,11 +540,10 @@
 												</div>
 											</v-col>
 											<v-col cols="3">
-												<div class="text-center">
+												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
 														src="@/assets/flaticon/mapa.png"
-														alt="John"
 													>
 													</v-avatar><br>
 													<span class="fs-1 mt-3">Mapa</span><br>
@@ -552,11 +551,10 @@
 												</div>
 											</v-col>
 											<v-col cols="3">
-												<div class="text-center">
+												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
 														src="@/assets/flaticon/buena-resena.png"
-														alt="John"
 													>
 													</v-avatar><br>
 													<span class="fs-1 mt-3">Mi Viaje</span><br>
