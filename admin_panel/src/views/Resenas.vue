@@ -24,46 +24,52 @@
       <span>{{index + 1}}</span>
     </template>
      <template v-slot:[`item.estado`]="{ item }">
-
-    <v-tooltip top>
+     
+      <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-        class="mx-1"
-        fab
-        dark
-        small
-         v-bind="attrs"
+          fab
+          small
+          v-bind="attrs"
           v-on="on"
-        @click="aprobarResena(item.id)"
-        color="success"
         >
-        <v-icon dark>
-            mdi-check
-        </v-icon>
+          <v-icon>
+            mdi-dots-vertical
+          </v-icon>
         </v-btn>
       </template>
-      <span>Aprobar Reseña</span>
-    </v-tooltip>
-
-      <v-tooltip top>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-        class="mx-1"
-        fab
-        dark
-        small
+        <v-list>
+        <v-list-item
+        @click="verResena(item)"
+        >
+          <v-list-item-title>
+          <v-icon>mdi-eye-outline</v-icon>
+          Ver Reseña
+          </v-list-item-title>
+        </v-list-item>
+          <v-divider></v-divider>
+         <v-list-item
+          @click="aprobarResena(item.id)"
+        >
+          <v-list-item-title>
+          <v-icon>mdi-check</v-icon>
+          Aprobar
+          <v-divider></v-divider>
+          </v-list-item-title>
+        </v-list-item>
+          <v-divider></v-divider>
+        <v-list-item
         @click="eliminarResena(item.id, 1)"
-        color="red"
-        v-bind="attrs"
-          v-on="on"
         >
-        <v-icon dark>
-            mdi-delete
-        </v-icon>
-        </v-btn>
-      </template>
-      <span>Eliminar Reseña</span>
-    </v-tooltip>
+          <v-list-item-title>
+          <v-icon>mdi-delete</v-icon>
+          Eliminar
+          <v-divider></v-divider>
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
     
      </template>
     </v-data-table>
@@ -100,64 +106,115 @@
     </template>
         <template v-slot:[`item.estado`]="{ item }">
 
-      <v-tooltip top>
+            <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-        class="mx-1"
-        fab
-        dark
-        small
-        @click="eliminarResena(item.id, 2)"
-        color="red"
-        v-bind="attrs"
+          fab
+          small
+          v-bind="attrs"
           v-on="on"
         >
-        <v-icon dark>
-            mdi-delete
-        </v-icon>
+          <v-icon>
+            mdi-dots-vertical
+          </v-icon>
         </v-btn>
       </template>
-      <span>Eliminar Reseña</span>
-    </v-tooltip>
+        <v-list>
+        <v-list-item
+        @click="verResena(item)"
+        >
+          <v-list-item-title>
+          <v-icon>mdi-eye-outline</v-icon>
+          Ver Reseña
+          </v-list-item-title>
+        </v-list-item>
+          <v-divider></v-divider>
+        <v-list-item
+        @click="eliminarResena(item.id, 1)"
+        >
+          <v-list-item-title>
+          <v-icon>mdi-delete</v-icon>
+          Eliminar
+          <v-divider></v-divider>
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
      </template>
     </v-data-table>
     </v-container>
 
   </v-card>
 
-<v-dialog v-model="card_resena" width="400">
-    <v-card
+<v-dialog v-model="card_resena" width="600" max-height="400">
+
+  <v-card
+    :loading="loading"
     
   >
+    <template slot="progress">
+      <v-progress-linear
+        color="deep-purple"
+        height="10"
+        indeterminate
+      ></v-progress-linear>
+    </template>
 
     <v-img
       height="250"
-      :src="resena.image"
+      :src="$Api_url_media+resena.img_user"
     ></v-img>
 
-    <v-card-title>{{resena.titulo}}</v-card-title>
+    <v-card-title>{{resena.autor}}</v-card-title>
 
     <v-card-text>
-      <div class="grey--text">
-         {{resena.autor}}
+      <v-row
+        align="center"
+        class="mx-0"
+      >
+        <v-rating
+          :value="resena.rating"
+          color="amber"
+          dense
+          half-increments
+          readonly
+          size="14"
+        ></v-rating>
+
+        <div class="grey--text ms-4">
+          {{resena.rating}}
         </div>
-      <div class="text-subtitle-1">
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">
         {{resena.fecha_publicacion}}
       </div>
 
-      <div>{{resena.descripcion}}</div>
+     <v-card-title class="ps-0">{{resena.titulo}}</v-card-title>
+      <div>{{resena.contenido}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions>
-      <v-btn
-        color="deep-purple lighten-2"
-        text
-        @click="card_resena = false"
-      >
-        Cerrar
-      </v-btn>
+     <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="card_resena = false"
+          >
+            Cerrar
+          </v-btn>
+
+          <v-btn
+          v-if="resena.estado == 0"
+            color="green darken-1"
+            text
+            @click="aprobarResena(resena.id)"
+          >
+            Aprobar
+          </v-btn>
+
     </v-card-actions>
   </v-card>
 </v-dialog>
@@ -174,6 +231,7 @@ export default {
   data(){
     return{
       search: '',
+      loading:false,
       card_resena:false,
         headers: [
           {
@@ -184,16 +242,17 @@ export default {
           { text: 'Fecha de Publicación', value: 'fecha_publicacion' },
           { text: 'Autor', value: 'autor' },
           { text: 'Título', value: 'titulo' },
-          { text: 'Contenido', value: 'descripcion' },
+          { text: 'Contenido', value: 'contenido' },
           { text: 'Acciones', value: 'estado' },
         ],
         resenas_list:[],
         resena:{
           titulo:'',
           fecha_publicacion:'',
-          descripcion:'',
+          contenido:'',
           autor:'',
-          imagen:''
+          img_user:'', 
+          rating:0
         }
     }
   },
@@ -215,7 +274,17 @@ export default {
      getResenas(){
       ResenasService.getResenas().then(response=>{
         this.resenas_list = response.data;
+        this.resenas_list.forEach(element=>{
+          var fecha = new Date(element.fecha_publicacion);
+          element.fecha_publicacion = this.ordenaFecha(fecha);
+        })
       })
+     },
+     ordenaFecha(fecha){
+      let dia = ('0'+fecha.getDate()).slice(-2);
+      let mes = ('0'+(fecha.getMonth()+1)).slice(-2);
+      let anio = fecha.getFullYear();
+      return `${dia}-${mes}-${anio}`;
      },
      eliminarResena(id, state){
         this.$swal.fire({
@@ -249,16 +318,21 @@ export default {
           confirmButtonText: 'Si, aprobar'
         }).then((result) => {
           if (result.isConfirmed) {
+             this.card_resena = false;
              this.aprobar(id);
           }
         })
      }, 
      aprobar(id){
        ResenasService.aprobarResena(id, {estado:1}).then(()=> {
-              this.notification('La reseña fue aprobado con exito', 'success');
+              this.notification('La reseña fue aprobada con exito', 'success');
               location.reload();
               //this.getResenas(); 
             })
+     },
+     verResena(item){
+        this.resena = item;
+        this.card_resena = true;
      },
      notification(title, icon){
           this.$swal.fire({

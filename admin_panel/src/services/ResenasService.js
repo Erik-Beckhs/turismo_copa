@@ -12,5 +12,15 @@ export default {
     },
     countResenas(){
         return Api().get(`/resenas/count`);
-    }
+    }, 
+    saveImage(id, dataimage){
+        return Api().post(`/resenas/${id}/image`, dataimage, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
+    saveResena(item){
+        return Api().post('/resenas', item);
+    }, 
 }

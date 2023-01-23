@@ -5,7 +5,11 @@
       max-width="900"
     >
       <v-card class="pa-3">
-	  <v-form>
+	  <v-form 
+	  ref="form"
+      v-model="valid"
+      lazy-validation
+	  >
         <v-card-title class="text-h5 pb-0">
           Nueva Reseña
         </v-card-title>
@@ -16,11 +20,10 @@
 			<v-icon>mdi-calendar</v-icon>&nbsp;
 			Fecha: 04 de Enero de 2023
 		</p>
-
+		<v-divider></v-divider>
         <v-card-text>
-			<v-card outlined class="py-10 px-2">
+			<v-card outlined class="pa-1">
 			<v-row>
-				<v-col cols="12">
 					<v-col cols="4">
 						<v-img class="mx-auto" v-if="image_user!=''" width="190" :src="image_user"/>
 						<v-img class="mx-auto" v-else width="190" src="@/assets/user2.png"/>
@@ -44,27 +47,25 @@
 								</template>
 							</v-file-input>
 						</v-col>
-					
-						
-						
 					</v-col>
 					<v-col cols="8">
 						<v-col cols="12">
-							<v-text-field hide-details="true" outlined label="Autor" v-model="resena.autor" />
+							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Autor" v-model="resena.autor" />
 						</v-col>
 						<v-col cols="12" class="py-3">
-							<v-text-field hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
+							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
 						</v-col>
 						<v-col cols="12">
 							<v-textarea
 							label="Contenido"
 							outlined
+							counter
 							v-model="resena.contenido"
-							:rows="8"
+							:rows="4"
+							:rules="contenidoRules"
 							></v-textarea>
 						</v-col>
 					</v-col>
-				</v-col>
 			</v-row>
 		  <v-divider></v-divider>
 		  <v-card-subtitle class="fs-1 text-center">Califique su experiencia de visita en el Santuario de Copacabana</v-card-subtitle>
@@ -94,7 +95,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="dialog_resena = false"
+            @click="validateResena"
           >
             Guardar
           </v-btn>
@@ -552,7 +553,7 @@
 											</v-col>
 											<v-col cols="3">
 												<div class="text-center pointer">
-													<v-avatar size="128" tile>
+													<v-avatar size="128" @click="dialog_resena=true" tile>
 													<img
 														src="@/assets/flaticon/buena-resena.png"
 													>
@@ -1094,6 +1095,7 @@ a{
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
 import SiteServices from '@/services/SiteServices';
+import ResenaService from '@/services/ResenasService';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
@@ -1101,6 +1103,11 @@ export default {
   data(){
     return{
 		image_user:'',
+		valid: true,
+		camposRules: [
+			v => !!v || 'El campo es requerido'
+		],
+		contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
 		resenas:[
 			{
 				id:1,
@@ -1137,8 +1144,9 @@ export default {
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:'',
-			img_user:'',
-			rating:5
+			rating:5, 
+			estado:0, 
+			img_user:''
 		},
 		tab_atractivos:null,
       	bg:'transparent',
@@ -1180,6 +1188,18 @@ export default {
 		this.get_noticias();
   },
   methods:{
+	limpiarResena(){
+		this.resena = {
+			autor:'',
+			titulo:'',
+			contenido:'',
+			fecha_publicacion:'',
+			rating:5, 
+			estado:0, 
+			img_user:''
+		};
+		this.image_user='';
+	},
 	toBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1205,10 +1225,38 @@ export default {
       }
     },
 	validateResena(){
-
+		if(this.$refs.form.validate()){
+			this.guardaResena()
+		}
 	},
+	 FormDataImage(id_element, nombre_archivo){
+      const fileinput= document.getElementById(id_element);
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      }
+    },
 	guardaResena(){
+		var dataimagen=this.FormDataImage('file_imagen_principal', this.resena.img_user);
+      	//this.resena.img_user="";
 
+		this.resena.fecha_publicacion = new Date().toISOString();
+		ResenaService.saveResena(this.resena)
+		.then(response=>{
+			let id_resena = response.data.id;
+			console.log(response.data);
+			if(dataimagen!=null) {this.guardaImagenUser(id_resena, dataimagen);}
+			this.$swal.fire(
+			'Buen trabajo!',
+			'Tu reseña ha sido registrada y esta a la espera de su aprobación, agradecemos tu gentil colaboración',
+			'success'
+			);
+			this.limpiarResena();
+			this.dialog_resena = false;
+		})
 	},
 	guardaImagenUser(id_resena, dataimagen){
       ResenaService.saveImage(id_resena, dataimagen).then(response=>{
