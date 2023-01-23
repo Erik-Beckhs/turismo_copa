@@ -12,10 +12,3 @@ export default {
   methods: {},
 };
 </script>
-<style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-  #inspire{
-    font-family: 'Poppins', sans-serif !important;
-  }
-</style>

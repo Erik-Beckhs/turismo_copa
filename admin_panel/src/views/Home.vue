@@ -1,49 +1,5 @@
 <template>
   <div class="home">
-	<!--<v-carousel cycle hide-delimiter-background show-arrows-on-hover :height="altura_ini_p">
-		<v-carousel-item
-		src="../assets/img/a100.jpg"
-		gradient="to top right, rgba(100,115,201,.33), rgba(28,28,28,.7)"
-		reverse-transition="fade-transition"
-		>
-		
-			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
-				<div class="text-center white--text">
-					<span class="fs-2">DESCUBRE...</span><br>
-					<span class="font-weight-black fs-4">Un lugar mágico</span><br>
-					<span class="fs-1-2">Descubre Copacabana, uno de los destinos turísticos más importantes de Bolivia, lleno de magia y encanto</span>
-				</div>
-			</v-row>
-		</v-carousel-item>
-		<v-carousel-item
-		src="../assets/img/a33.jpg"
-		gradient="to top right, rgba(100,115,201,.33), rgba(28,28,28,.7)"
-		reverse-transition="fade-transition"
-		>
-		
-			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
-				<div class="text-center white--text">
-					<span class="fs-2">COMPARTE...</span><br>
-					<span class="font-weight-black fs-4">Una Maravillosa Experiencia</span><br>
-					<span class="fs-1-2">Comparte maravillosas experiencias con los servicios, atractivos y eventos que le brinda el destino turístico número uno de La Paz</span>
-				</div>
-			</v-row>
-		</v-carousel-item>
-		<v-carousel-item
-		src="../assets/img/a4.jpg"
-		gradient="to top right, rgba(100,115,201,.33), rgba(28,28,28,.7)"
-		reverse-transition="fade-transition"
-		>
-		
-			<v-row class="fill-height" align="center" justify="center" style="top: -50px;">
-				<div class="text-center white--text">
-					<span class="fs-2">VISITA...</span><br>
-					<span class="font-weight-black fs-4">Nuestro Santuario</span><br>
-					<span class="fs-1-2">Visita el Santuario de Copacabana y la Virgencita de la Candelaria, patrona de Bolivia</span>
-				</div>
-			</v-row>
-		</v-carousel-item>
-	</v-carousel>-->
 	<div class="hero">
 		<video autoplay loop muted plays-inline class="back-video">
 			<source src="@/assets/video/principal.mp4" type="video/mp4">
@@ -70,7 +26,6 @@
 						</a>
 					</router-link>
 				</li>
-				<!-- <li><a href="#">EVENTOS PROGRAMADOS</a></li> -->
 				<li>
 					<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
 						<a @click="navigate">
@@ -78,23 +33,23 @@
 						</a>
 					</router-link>
 				</li>
-				<!-- <li><a href="#">NOSOTROS</a></li> -->
 			</ul>
 		</nav>
 		<div class="content">
 			<h1>Copacabana</h1>
-			<a href="#">Explorar</a>
+			<h3>¡Te invitamos a descubrir la belleza de Copacabana!</h3>
+			<a href="#div_ini"><v-icon left dark large>mdi-chevron-down</v-icon>	Explorar</a>
 		</div>
 	</div>
-	<div>
+	<div id="div_ini">
 		<v-container style="padding-top: 50px; padding-bottom: 0px;">
 			<v-row align="center" justify="center">
 				<v-col cols="12" md="6" sm="6" lg="5" xl="5">
 					<div class="wow fadeInLeft">
 						<div class="text-left">
-							<span class="fs-2 font-weight-black">Copacabana</span><br>
-							<span class="fs-1-2 grey--text">Municipio turístico de Bolivia</span><br>
-							<hr class="separador">
+							<span class="subtitle-box">Municipio turístico de Bolivia</span><br>
+							<span class="title-box">Copacabana</span><br>
+							<hr class="separador-hr">
 						</div>
 						<br>
 						<p class="color-content">
@@ -116,197 +71,71 @@
 			<path fill="#0099ff" fill-opacity="1" d="M0,192L80,208C160,224,320,256,480,240C640,224,800,160,960,144C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
 		</svg>
 		<div style="background: #0099ff;">
-			<span class="fs-5 font-cursive">¿Qué puedes hacer?</span>
-			<p>
-				<span class="fs-1-5">
-					No te lo puedes perder	
-				</span><br>
-				<span class="fs-1-2">
-					Elige el plan que más te guste para hacer que tu estancia en Copacabana sea inolvidable
-				</span>
-			</p>
 			<v-row>
-				<v-col cols="12" md="1"></v-col>
-				<v-col cols="12" md="10">
-					<v-row>
-						<v-col cols="12" md="3" sm="6" v-for="act in list_actividades" :key="act.id">
-							<router-link class="underline-none" :to="'/HomeAtractivo/'+act.id" v-slot="{ navigate }">
-								<v-hover v-slot="{ hover }" open-delay="100">
-									<v-card
-									:elevation="hover ? 12 : 2"
-									:class="{ 'on-hover': hover }"
-									@click="navigate"
-									>
-										<v-img aspect-ratio="1"
-											height="200"
-											class="grey lighten-2 white--text align-end"
-											:src="$Api_url_media+act.img_principal"
-										>
-											<v-container style="padding: 10px 15px 30px 15px;">
-												<v-row>
-													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{act.nombre}}</span>
-													</v-col>
-												</v-row>
-											</v-container>
-										</v-img>
-									</v-card>
-								</v-hover>
-							</router-link>    
-						</v-col>
-						<!-- <v-col cols="12" md="3" sm="6">
-							<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
-								<v-hover v-slot="{ hover }" open-delay="100">
-									<v-card
-									:elevation="hover ? 12 : 2"
-									:class="{ 'on-hover': hover }"
-									@click="navigate"
-									>
-										<v-img aspect-ratio="1"
-											height="200"
-											class="grey lighten-2 white--text align-end"
-											src="https://defbol.com/uploads/adm_paquetes/pak_1527272469_1540752375.jpg"
-										>
-											<v-container style="padding: 10px 15px 30px 15px;">
-												<v-row>
-													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Tours culturales</span>
-													</v-col>
-												</v-row>
-											</v-container>
-										</v-img>
-									</v-card>
-								</v-hover>
-							</router-link>    
-						</v-col>
-						<v-col cols="12" md="3" sm="6">
-							<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
-								<v-hover v-slot="{ hover }" open-delay="100">
-									<v-card
-									:elevation="hover ? 12 : 2"
-									:class="{ 'on-hover': hover }"
-									@click="navigate"
-									>
-										<v-img aspect-ratio="1"
-											height="200"
-											class="grey lighten-2 white--text align-end"
-											src="https://www.kuodatravel.com/wp-content/uploads/2022/05/copacabana-Bolivia.jpg"
-										>
-											<v-container style="padding: 10px 15px 30px 15px;">
-												<v-row>
-													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Actividades en playa</span>
-													</v-col>
-												</v-row>
-											</v-container>
-										</v-img>
-									</v-card>
-								</v-hover>
-							</router-link>    
-						</v-col>
-						<v-col cols="12" md="3" sm="6">
-							<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
-								<v-hover v-slot="{ hover }" open-delay="100">
-									<v-card
-									:elevation="hover ? 12 : 2"
-									:class="{ 'on-hover': hover }"
-									@click="navigate"
-									>
-										<v-img aspect-ratio="1"
-											height="200"
-											class="grey lighten-2 white--text align-end"
-											src="https://rcbolivia.com/wp-content/uploads/2021/04/WhatsApp-Image-2021-04-23-at-20.18.09-1.jpeg"
-										>
-											<v-container style="padding: 10px 15px 30px 15px;">
-												<v-row>
-													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Excursiones</span>
-													</v-col>
-												</v-row>
-											</v-container>
-										</v-img>
-									</v-card>
-								</v-hover>
-							</router-link>    
-						</v-col>
-						<v-col cols="12" md="3" sm="6">
-							<router-link class="underline-none" to="/HomeAtractivo" v-slot="{ navigate }">
-								<v-hover v-slot="{ hover }" open-delay="100">
-									<v-card
-									:elevation="hover ? 12 : 2"
-									:class="{ 'on-hover': hover }"
-									@click="navigate"
-									>
-										<v-img aspect-ratio="1"
-											height="200"
-											class="grey lighten-2 white--text align-end"
-											src="https://etheriamagazine.com/wp-content/uploads/2019/12/comida-lago-titicaca-bolivia-900x569.jpg"
-										>
-											<v-container style="padding: 10px 15px 30px 15px;">
-												<v-row>
-													<v-col cols="12" md="12">
-														<span class="font-weight-black" style="font-size: 1.5rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">Gastronomía</span>
-													</v-col>
-												</v-row>
-											</v-container>
-										</v-img>
-									</v-card>
-								</v-hover>
-							</router-link>    
-						</v-col>	 -->
-					</v-row>
+				<v-col cols="12">
+					<span class="fs-5 font-weight-bold">¿Qué puedes hacer?</span>
+					<p>
+						<span class="fs-1-2">
+							Planes para todos los gustos
+						</span>
+					</p>
 				</v-col>
-				<v-col cols="12" md="1"></v-col>
 			</v-row>
 			<v-row>
-			    <v-container>
-					<v-row>
-						<v-col cols="12">
-							<div class="carousel center-align">
-								<div class="carousel-item">
-									<p class="titulo">
-										Gastronomía
-									</p>
-									<hr class="linea-card">
-									<p class="subtitulo">Disfruta la Comida</p>
-									<img src="@/assets/img/trucha.jpg" alt="">
-								</div>
-								<div class="carousel-item">
-									<p class="titulo">
-										Rutas
-									</p>
-									<hr class="linea-card">
-									<p class="subtitulo">Nuevas Experiencias</p>
-									<img src="@/assets/img/a33.jpg" alt="">
-								</div>
-								<div class="carousel-item">
-									<p class="titulo">
-										Cultura
-									</p>
-									<hr class="linea-card">
-									<p class="subtitulo">Aprende mas sobre Copacabana</p>
-									<img src="@/assets/img/koya.jpg" alt="">
-								</div>
-								<div class="carousel-item">
-									<p class="titulo">
-										Deporte y Aventura
-									</p>
-									<hr class="linea-card">
-									<p class="subtitulo">Disfruta la adrenalina</p>
-									<img src="@/assets/img/zipline.jpg" alt="">
-								</div>
-								<div class="carousel-item">
-									<p class="titulo">
-										Turismo Urbano
-									</p>
-									<hr class="linea-card">
-									<p class="subtitulo">Lo que estabas buscando</p>
-									<img src="@/assets/img/turismo.jpg" alt="">
-								</div>
+				<v-col cols="12">
+					<carousel-3d autoplay :autoplayTimeout="3000" :perspective="0" :space="400" :display="5" :height="400" class="carousel center-align">
+						<slide :index="0">
+							<div class="carousel-item">
+								<p class="titulo">
+									Gastronomía
+								</p>
+								<hr class="linea-card">
+								<p class="subtitulo">Disfruta la Comida</p>
+								<img src="@/assets/img/trucha.jpg" alt="">
 							</div>
-						</v-col>
-					</v-row>
-				</v-container>
+						</slide>
+						<slide :index="1">
+							<div class="carousel-item">
+								<p class="titulo">
+									Rutas
+								</p>
+								<hr class="linea-card">
+								<p class="subtitulo">Nuevas Experiencias</p>
+								<img src="@/assets/img/a33.jpg" alt="">
+							</div>
+						</slide>
+						<slide :index="2">
+							<div class="carousel-item">
+								<p class="titulo">
+									Cultura
+								</p>
+								<hr class="linea-card">
+								<p class="subtitulo">Aprende mas sobre Copacabana</p>
+								<img src="@/assets/img/koya.jpg" alt="">
+							</div>
+						</slide>
+						<slide :index="3">
+							<div class="carousel-item">
+								<p class="titulo">
+									Deporte y Aventura
+								</p>
+								<hr class="linea-card">
+								<p class="subtitulo">Disfruta la adrenalina</p>
+								<img src="@/assets/img/zipline.jpg" alt="">
+							</div>
+						</slide>
+						<slide :index="4">
+							<div class="carousel-item">
+								<p class="titulo">
+									Turismo Urbano
+								</p>
+								<hr class="linea-card">
+								<p class="subtitulo">Lo que estabas buscando</p>
+								<img src="@/assets/img/turismo.jpg" alt="">
+							</div>
+						</slide>
+					</carousel-3d>
+				</v-col>
 			</v-row>
 		</div>           
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -318,35 +147,35 @@
 			<v-row>
 				<v-col cols="12">
 					<div class="text-left">
-						<span class="fs-1 fw-600" style="color:#4fbab2;">VEN Y DISFRUTA</span><br>
+						<span class="subtitle-box">VEN Y DISFRUTA</span><br>
 						<span class="fs-2">Visita nuestros Atractivos Turísticos</span>
-						<hr class="separador">
+						<hr class="separador-hr">
 					</div>
 				</v-col>
 			</v-row>
 			<v-row>
 				<v-col cols="12">
-
-							<v-row>
-								<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
-									<div class="wow fadeInLeft grid">
-										<figure class="effect-sadie">
-											<img height="260" :src="$Api_url_media+atr.img_principal" :alt="atr.nombre">
-											<figcaption>
-												<h2>{{atr.nombre}}
-												<span></span>
-												</h2>
-												<p>{{atr.descripcion}}</p>
-												<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
-													<a @click="navigate">View more</a>
-												</router-link>
-											</figcaption> 
-										</figure>
-									</div>
-								</v-col>
-							</v-row>
-
-
+					<v-row>
+						<v-col cols="12" sm="4" md="3" v-for="atr in list_atractivos" :key="atr.id">
+							<div class="wow fadeInLeft grid">
+								<figure class="effect-sadie">
+									<v-img aspect-ratio="1"
+										class="grey lighten-2"
+										:src="$Api_url_media+atr.img_principal"
+									></v-img>
+									<figcaption>
+										<h2>{{atr.nombre}}
+										<span></span>
+										</h2>
+										<p>{{atr.descripcion}}</p>
+										<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
+											<a @click="navigate">View more</a>
+										</router-link>
+									</figcaption> 
+								</figure>
+							</div>
+						</v-col>
+					</v-row>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -360,196 +189,137 @@
 			</v-row>
 		</v-container>
 	</div>
-
-	
-	<div id="eventos">
-		<v-container style="padding-top: 40px;">
+	<div id="eventos" style="background: #F7F7F7;">
+		<v-container style="padding-top: 60px;">
 			<v-row>
 				<v-col cols="12">
 					<div class="text-left">
-						<span class="fs-1 fw-600" style="color:#4fbab2;">CULTURA</span><br>
+						<span class="subtitle-box">CULTURA</span><br>
 						<span class="fs-2">Disfruta nuestros Eventos Programados</span>
-						<hr class="separador">
+						<hr class="separador-hr">
 						<span class="fs-1 grey--text">Fiestas patronales, ferias, ceremonias, entre otras actividades</span><br>
 					</div>
 				</v-col>
 			</v-row>
 		</v-container>
-						    <div class="Carousel">
-								<div class="slick-list" id="slick-list">
-									<button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
-										<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" class="svg-inline--fa fa-chevron-left fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg>
-									</button>
-									<div class="slick-track" id="track">
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>24 de Enero</small>Alasitas</h4>
-													<picture>
-														<img src="@/assets/img/eventos/alasita.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
+		<v-container style="padding-bottom: 60px;">
+			<v-row>
+				<v-col cols="12">
+					<carousel-3d :controls-visible="true" :controls-prev-html="'&#10092; '" :controls-next-html="'&#10093;'" 
+               :controls-width="30" :controls-height="60" :clickable="false" :disable3d="true" :height="400" :space="380" :border="0">
+						<slide :index="0">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<div>
+											<h4><small>24 de Enero</small>Alasitas</h4>
 										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>2 de Febrero</small>Entronización de la Virgen de la Candelaria</h4>
-													<picture>
-														<img src="@/assets/img/eventos/virgen.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>20 de Abril</small>Semana Santa</h4>
-													<picture>
-														<img src="@/assets/img/eventos/semana.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>3 de Mayo</small>Fiesta del Señor de Kolquepata</h4>
-													<picture>
-														<img src="@/assets/img/eventos/mayo.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>6 de Junio</small>Aniversario de la Provincia Manco Kapac</h4>
-													<picture>
-														<img src="@/assets/img/eventos/desfileee.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>21 de Junio</small>Año Nuevo Aymara</h4>
-													<picture>
-														<img src="@/assets/img/eventos/nuevo.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>6 de Agosto</small>Fiesta Internacional Bolivia Perú</h4>
-													<picture>
-														<img src="@/assets/img/eventos/agosto.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>2 de Noviembre</small>Fiesta de Todos los Santos</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-										<div class="slick">
-											<div>
-												<a href="/">
-													<h4><small>Share Your Message</small>Watch</h4>
-													<picture>
-														<img src="@/assets/img/a4.jpg" alt="Image">
-													</picture>
-												</a>
-											</div>
-										</div>
-									</div>
-									<button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
-										<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg>
-									</button>
+										<picture>
+											<img src="@/assets/img/eventos/alasita.jpg" alt="Image">
+										</picture>
+									</a>
 								</div>
 							</div>
-
+						</slide>
+						<slide :index="1">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>2 de Febrero</small>Entronización de la Virgen de la Candelaria</h4>
+										<picture>
+											<img src="@/assets/img/eventos/virgen.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="2">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>20 de Abril</small>Semana Santa</h4>
+										<picture>
+											<img src="@/assets/img/eventos/semana.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="3">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>3 de Mayo</small>Fiesta del Señor de Kolquepata</h4>
+										<picture>
+											<img src="@/assets/img/eventos/mayo.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="4">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>6 de Junio</small>Aniversario de la Provincia Manco Kapac</h4>
+										<picture>
+											<img src="@/assets/img/eventos/desfileee.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="5">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>21 de Junio</small>Año Nuevo Aymara</h4>
+										<picture>
+											<img src="@/assets/img/eventos/nuevo.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="6">
+							<div class="slick">
+								<div>
+									<a href="/">
+										<h4><small>6 de Agosto</small>Fiesta Internacional Bolivia Perú</h4>
+										<picture>
+											<img src="@/assets/img/eventos/agosto.jpg" alt="Image">
+										</picture>
+									</a>
+								</div>
+							</div>
+						</slide>
+						<slide :index="7">
+							<div class="slick">
+							<div>
+								<a href="/">
+									<h4><small>2 de Noviembre</small>Fiesta de Todos los Santos</h4>
+									<picture>
+										<img src="@/assets/img/a4.jpg" alt="Image">
+									</picture>
+								</a>
+							</div>
+						</div>
+						</slide>
+					</carousel-3d>
+				</v-col>
+			</v-row>
+		</v-container>
 	</div>
-	<div id="div_hospedajes" class="mt-10 py-15" style="background-color:#0099ff;">
-		<v-container>
+	<div id="div_hospedajes">
+		<v-container style="padding-top: 60px; padding-bottom: 40px;">
 			<v-flex>
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="fs-1 fw-600" style="color:#ffffff;">ESTADÍA</span><br>
-							<span class="fs-2" style="color:#ffffff;">Establecimientos de Hospedaje</span>
-							<hr class="separador" style="color:#ffffff;">
-							<span class="fs-1" style="color:#ffffff;">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
+							<span class="subtitle-box">ESTADÍA</span><br>
+							<span class="fs-2">Establecimientos de Hospedaje</span>
+							<hr class="separador-hr">
+							<span class="fs-1">Disfruta de tu estadía en el santuario, hospedandote en nuestros hoteles con gran variedad de servicios y costo variado</span><br>
 						</div>
 					</v-col>
 				</v-row>
@@ -626,78 +396,91 @@
 			</v-flex>	
 		</v-container>
 	</div>
-
-	<div id="id_informacion_util" class="py-15" style="background: #F7F7F7;" >
-		<v-container>
-			<span class="fs-1 fw-600" style="color:#4fbab2;">PLANIFICA TU VIAJE</span><br>
-			<span class="fs-2">Descubre más información de :</span>
-			<hr class="separador">
-			<v-flex class="my-15">
-				<v-row>
-					<v-col cols="3">
-						<div class="text-center">
-							<v-avatar size="128" tile>
-							<img
-								src="@/assets/flaticon/escuela-de-autobuses.png"
-								alt="como llegar"
-							>
-							</v-avatar><br>
-							<span class="fs-1 mt-3">Como llegar a <br>
-							Copacabana</span><br>
-							<span class="fs-0-9 grey--text">Diferentes formas de llegar</span>
-						</div>
-					</v-col>
-					<v-col cols="3">
-						<div class="text-center">
-							<v-avatar size="128" tile>
-							<img
-								src="@/assets/flaticon/lancha-rapida.png"
-								alt="como moverse"
-							>
-							</v-avatar><br>
-							<span class="fs-1 mt-3">Como viajar por <br>
-							Copacabana</span><br>
-							<span class="fs-0-9 grey--text">Destinos perfectamente comunicados</span>
-						</div>
-					</v-col>
-					<v-col cols="3">
-						<div class="text-center">
-							<v-avatar size="128" tile>
-							<img
-								src="@/assets/flaticon/mapa.png"
-								alt="John"
-							>
-							</v-avatar><br>
-							<span class="fs-1 mt-3">Mapa</span><br>
-							<span class="fs-0-9 grey--text">Localiza lo que te interesa</span>
-						</div>
-					</v-col>
-					<v-col cols="3">
-						<div class="text-center">
-							<v-avatar size="128" tile>
-							<img
-								src="@/assets/flaticon/buena-resena.png"
-								alt="John"
-							>
-							</v-avatar><br>
-							<span class="fs-1 mt-3">Mi Viaje</span><br>
-							<span class="fs-0-9 grey--text">Escribe reseñas de tu visita</span>
-						</div>
-					</v-col>
-					
-				</v-row>
-			</v-flex>
-		</v-container>
+	<div id="id_informacion_util" class="banner-rotated">
+		<v-img height="600" aspect-ratio="1.7" src="@/assets/img/a66.jpg">
+			<v-row>
+				<v-col cols="12" class="text-center">
+					<h2 class="titulo-portada custom-title container-fluid white--text">Planifica tu viaje</h2>
+					<span class="text-h6 white--text">Descubre más información de :</span>
+				</v-col>
+				<v-col cols="12">
+					<v-container>
+						<v-row>
+							<v-col cols="1"></v-col>
+							<v-col cols="10">
+								<div style="background: rgba(247,247,247,0.9);" class="pa-4">
+									<v-flex class="my-5">
+										<v-row dense>
+											<v-col cols="3">
+												<div class="text-center">
+													<v-avatar size="128" tile>
+													<img
+														src="@/assets/flaticon/escuela-de-autobuses.png"
+														alt="como llegar"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Como llegar a <br>
+													Copacabana</span><br>
+													<span class="fs-0-9 grey--text">Diferentes formas de llegar</span>
+												</div>
+											</v-col>
+											<v-col cols="3">
+												<div class="text-center">
+													<v-avatar size="128" tile>
+													<img
+														src="@/assets/flaticon/lancha-rapida.png"
+														alt="como moverse"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Como viajar por <br>
+													Copacabana</span><br>
+													<span class="fs-0-9 grey--text">Destinos perfectamente comunicados</span>
+												</div>
+											</v-col>
+											<v-col cols="3">
+												<div class="text-center">
+													<v-avatar size="128" tile>
+													<img
+														src="@/assets/flaticon/mapa.png"
+														alt="John"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Mapa</span><br>
+													<span class="fs-0-9 grey--text">Localiza lo que te interesa</span>
+												</div>
+											</v-col>
+											<v-col cols="3">
+												<div class="text-center">
+													<v-avatar size="128" tile>
+													<img
+														src="@/assets/flaticon/buena-resena.png"
+														alt="John"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Mi Viaje</span><br>
+													<span class="fs-0-9 grey--text">Escribe reseñas de tu visita</span>
+												</div>
+											</v-col>
+										</v-row>
+									</v-flex>
+								</div>
+							</v-col>
+							<v-col cols="1"></v-col>
+						</v-row>
+					</v-container>
+				</v-col>
+			</v-row>
+		</v-img>
 	</div>
 	<div id="div_noticias">
-		<v-container>
+		<v-container style="padding-top: 60px;">
 			<v-flex class="my-10">
 				<v-row>
 					<v-col cols="9" md="9">
 						<div class="text-left">
-							<span class="fs-1 fw-600" style="color:#4fbab2;">MANTENTE INFORMADO</span><br>
+							<span class="subtitle-box">MANTENTE INFORMADO</span><br>
 							<span class="fs-2">Noticias Relevantes del Municipio</span>
-							<hr class="separador">
+							<hr class="separador-hr">
 							<span class="fs-1 grey--text">Aquí encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span>
 						</div>
 					</v-col>
@@ -752,7 +535,7 @@
 		</v-container>
 	</div>
 	<div id="div_nosotros" style="background: #F7F7F7;">
-		<v-container class="my-15">
+		<v-container style="padding-top: 60px;">
 			<v-flex class="mx-15">
 				<v-row>
 					<v-col cols="12" md="6">
@@ -803,9 +586,7 @@
 									</v-row>
 								</v-container>
 							</v-col>
-						</v-row>
-						
-						
+						</v-row>				
 					</v-col>
 					<v-col cols="12" md="6">
 						<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7028.137552529651!2d-69.08804086311453!3d-16.16281986022165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1673794327002!5m2!1ses!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -818,7 +599,15 @@
 </template>
 <style scoped>
 	@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
-
+	.carousel-3d-slide {
+		background-color: transparent;
+	}
+	.banner-rotated .custom-title {
+		font-size: 120px;
+		font-weight: 500;
+		font-family: 'Mega-Fresh';
+    	transform: rotate(-3deg);
+	}
 	.card-simplex{
 		background-color: transparent !important;
     	border-color: #fff !important;
@@ -906,8 +695,14 @@
 		color:#fff;
 		font-weight:500;
 		position:relative;
-		font-family: 'Covered By Your Grace', cursive;
+		font-family: 'Mega-Fresh', cursive;
 		text-shadow: 3px 3px 1px rgba(0,0,0,0.5);
+	}
+	.content h3{
+		color:#fff;
+		position:relative;
+		font-weight:500;
+		font-size: 1.5rem;
 	}
 	.content a{
 		text-decoration: none;
@@ -946,13 +741,7 @@
 		}
 	}
 
-	.separador{
-		width: 70px;
-		background-color: #0099ff;
-		height: 4px;
-		margin-top: 10px;
-		margin-bottom:10px;
-	}
+	
 
 	/*animaciones*/
 	.img-sepia:hover {
@@ -968,18 +757,13 @@
 
 	.titulo{
 		font-size: 4rem;
-		font-family: 'Covered By Your Grace', cursive;
+		text-align: center;
+		font-family: 'Mega-Fresh', cursive;
 		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
 	}
-	.linea-card{
-		width:50%;
-		margin:0px auto;
-		height:4px;
-		border-radius:3px;
-		background-color: #4fbab2;
-	}
 	.subtitulo{
-		font-size:1.5rem;
+		font-size:1.3rem;
+		text-align: center;
 		text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
 	}
 
@@ -1030,17 +814,6 @@ a{
 }
 
 /* images */
-
-.slick-list{
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 400px;
-    padding: 0px;
-    margin: 0px auto;
-    max-width: 95vw;
-    overflow: hidden;
-}
 .slick-track{
     position: relative;
     top: 0;
@@ -1051,7 +824,7 @@ a{
 }
 .slick{
     position: relative;
-    width: 275px;
+    width: 100%;
     padding: 0 10px;
     float: left;
     box-sizing: border-box;
@@ -1062,7 +835,7 @@ a{
 .slick h4{
     position: absolute;
     z-index: 1;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 2rem;
     color: #fff;
     padding: 15px;
@@ -1115,12 +888,18 @@ a{
 .slick-next{
     right: 0px;
 }
-
+#div_hospedajes .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none;
+}
+#div_hospedajes .v-card > *:first-child:not(.v-btn):not(.v-chip):not(.v-avatar){
+    border-radius: 20px;
+}
 </style>
 <script>
 // @ is an alias to /src
 import WOW from '@/plugins/wow.min.js';
 import SiteServices from '@/services/SiteServices';
+import { Carousel3d, Slide } from 'vue-carousel-3d';
 // var wow = new WOW({ scrollContainer: "#scrolling-body"});
 export default {
   name: 'Home',
@@ -1210,56 +989,8 @@ export default {
     },
   },
   components: {
+	'carousel-3d': Carousel3d,
+    'slide':Slide
   }
-}
-
-document.addEventListener('DOMContentLoaded',() =>{
-    const elementosCarousel = document.querySelectorAll('.carousel');
-    M.Carousel.init(elementosCarousel, {
-        duration:150,
-        dist:-80,
-        shift:5,
-        padding:5,
-        numVisible:5,
-        indicators:true,
-        //noWrap:true
-    })
-
-	var app = new App();
-    window.app = app;
-})
-
-/*carousel eventos*/
-function App() {}
-
-App.prototype.processingButton = function(event) {
-    const btn = event.currentTarget;
-    const slickList = event.currentTarget.parentNode;
-    const track = event.currentTarget.parentNode.querySelector('#track');
-    const slick = track.querySelectorAll('.slick');
-
-    const slickWidth = slick[0].offsetWidth;
-    
-    const trackWidth = track.offsetWidth;
-    const listWidth = slickList.offsetWidth;
-
-	var leftPosition=0;
-
-    track.style.left == ""  ? leftPosition = track.style.left = 0 : leftPosition = parseFloat(track.style.left.slice(0, -2) * -1);
-
-    btn.dataset.button == "button-prev" ? prevAction(leftPosition,slickWidth,track) : nextAction(leftPosition,trackWidth,listWidth,slickWidth,track)
-}
-
-let prevAction = (leftPosition,slickWidth,track) => {
-    if(leftPosition > 0) {
-        console.log("entro 2")
-        track.style.left = `${-1 * (leftPosition - slickWidth)}px`;
-    }
-}
-
-let nextAction = (leftPosition,trackWidth,listWidth,slickWidth,track) => {
-    if(leftPosition < (trackWidth - listWidth)) {
-        track.style.left = `${-1 * (leftPosition + slickWidth)}px`;
-    }
 }
 </script>

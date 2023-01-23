@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
-
+@font-face {
+    font-family: 'Mega-Fresh';
+    src: url('~@/assets/font/mega_fresh-webfont.woff2');
+}
 .v-application--wrap {
 	background: #F0F3F3 !important;
 }
@@ -337,12 +339,48 @@
 	cursor: pointer;
 }
 
-.color-content{
+/* .color-content{
 	color:#666666;
-}
+} */
 
 .font-cursive{
-	font-family: 'Covered By Your Grace', cursive;
+	font-family: 'Mega-Fresh', cursive;
 }
-
+.separador-hr{
+	width: 70px;
+	background-color: #0099ff;
+	height: 4px;
+	margin-top: 10px;
+	margin-bottom:10px;
+	border-top: none;
+}
+.linea-card[data-v-fae5bece] {
+    width: 50%;
+    margin: 0px auto;
+    height: 4px;
+    border-radius: 3px;
+    background-color: #0099ff;
+	border-top: none;
+}
+.title-box {
+    font-size: 40px !important;
+	font-weight: 200 !important;
+	color: #021F3C;
+}
+.subtitle-box{
+	font-size: 1rem;
+    margin-bottom: 1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	color:#0099ff;
+}
+.theme--light.v-sheet {
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #021F3C;
+}
+.theme--light.v-application {
+    background: #FFFFFF;
+    color: #021F3C;
+}
 /*animaciones*/
