@@ -401,18 +401,3 @@
 	border-bottom: none;
 }
 
-/*correccion a conflictos con materialize*/
-.row{
-	margin-bottom:0 !important;
-}
-
-input{
-	border-bottom: none !important;
-	box-shadow: none !important;
-}
-.container{
-	width:80% !important;
-	max-width:85% !important;
-}
-
-/*//correccion a conflictos con materialize*/

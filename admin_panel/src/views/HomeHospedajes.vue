@@ -228,7 +228,7 @@
                             </v-chip>
                           </v-img>
                         </v-col>
-                        <v-col cols="8">
+                        <v-col cols="8" style="padding:0">
                           <v-card-title>
                             <span>{{ho.nombre}}</span>
                             <v-spacer></v-spacer>
@@ -252,7 +252,7 @@
                               <span class="grey--text">Telefono: </span><span>{{ho.telefono}}</span> 
                             </div>
                           </v-card-text>
-                          <v-card-actions>
+                          <v-card-actions class="pa-3">
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Wi-Fi')"><v-icon left>mdi-wifi</v-icon> Wifi &nbsp;&nbsp;&nbsp;&nbsp;</span> 
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Garaje')"><v-icon left>mdi-garage-variant</v-icon> Garaje &nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Restaurant')"><v-icon left>mdi-silverware</v-icon> Restaurant</span>
