@@ -8,6 +8,7 @@ import HomeHospedajes from '@/views/HomeHospedajes.vue';
 import HomeHospedaje from '@/views/HomeHospedaje.vue';
 import HomeAtractivo from '@/views/HomeAtractivo.vue';
 import HomeAtractivos from '@/views/HomeAtractivos.vue';
+import HomeResenas from '@/views/HomeResenas.vue';
 import About from '@/views/About.vue';
 import Inicio from '@/views/Inicio.vue';
 import Login from '@/views/Login.vue';
@@ -37,6 +38,7 @@ const routes = [
       { path: "/SiteNoticias", name: "homeNoticias", component: HomeNoticias},
       { path: '/SiteHospedajes', name: 'homeHospedajes', component: HomeHospedajes},
       { path: '/SiteHospedaje/:id', name: 'homeHospedaje', component: HomeHospedaje},
+      { path: "/HomeResenas", name: "homeResenas", component: HomeResenas}
     ]
   },
   {
