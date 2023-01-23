@@ -29,8 +29,8 @@
                             <v-col cols="12" md="4" sm="6">
                                 <div class="text-left">
                                     <br>
-                                    <span class="text-h3 font-weight-black" style="color:#021F3C">{{title_atractivo}}</span><br>
-                                    <span class="text-subtitle-2 grey--text">Copacabana</span><br>
+                                    <span class="title-box" style="color:#021F3C">{{title_atractivo}}</span><br>
+                                    <span class="subtitle-box">Municipio de Copacabana</span><br>
                                 </div>        
                             </v-col>
                             <v-col v-for="(item, index) in filterAtractivos" cols="12" :md="calcule_col(index)" sm="6" :key="item.id">
@@ -50,7 +50,7 @@
                                                     <v-row>
                                                         <v-col cols="12" md="10">
                                                             <span class="font-weight-black" style="font-size: 2rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{item.nombre}}</span><br>
-						                                    <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{item.comunidad}} - {{item.ubicacion}}</span>
+						                                    <span class="text-subtitle-1" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{item.descripcion}}</span>
                                                         </v-col>
                                                         <v-col cols="12" md="2"></v-col>
                                                     </v-row>

@@ -170,7 +170,8 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <span class="text-h5">Descripción</span><br><br>
+                <span class="title-box">Descripción</span><br>
+							  <hr class="separador-hr"><br>
                 <div v-html="hospedaje.informacion">
                 </div>
                 <br>
@@ -184,7 +185,7 @@
             <v-row>
               <v-col cols="12">
                 <br>
-                <span class="text-h5">Lo que este lugar ofrece</span><br><br>
+                <span class="text-h5 font-weight-medium">Lo que este lugar ofrece</span><br><br>
               </v-col>
             </v-row>
             <v-row dense>
@@ -222,6 +223,7 @@
                 <v-col cols="12" md="8">
                   <div>
                     <span class="text-h5">Te pueden gustar estos hospedajes similares</span>
+                    <hr class="separador-hr">
                   </div>
                 </v-col>
                 <v-col cols="12" md="4">

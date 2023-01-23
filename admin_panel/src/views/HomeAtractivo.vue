@@ -28,8 +28,8 @@
 					<v-col cols="10">
 						<div class="text-left">
 							<br>
-							<span class="text-h4 font-weight-black" style="color:#0099ff">Descripción</span><br>
-							<span class="text-subtitle-2 grey--text">{{data_atractivo.nombre}}</span><br>
+							<span class="title-box">Descripción</span><br>
+							<hr class="separador-hr">
 						</div>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
@@ -43,8 +43,8 @@
 					<v-col cols="12">
 						<div class="text-center">
 							<br>
-							<span class="text-h4 font-weight-black" style="color:#0099ff">Galeria de Imagenes</span><br>
-							<span class="text-subtitle-2 grey--text">{{data_atractivo.nombre}}</span><br>
+							<span class="subtitle-box">{{data_atractivo.nombre}}</span><br>
+							<span class="title-box">Galeria de Imagenes</span><br>
 						</div>
 					</v-col>
 					<v-col cols="12" md="1">

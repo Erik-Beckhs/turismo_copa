@@ -11,7 +11,29 @@
           <!--span>COPACABANA ES TU DESTINO</span-->
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <div class="d-none d-sm-none d-md-flex">
+        <v-toolbar-items class="d-none d-sm-none d-md-flex">
+            <router-link class="underline-none" to="/" v-slot="{ navigate }">
+              <v-btn text @click="navigate" value="home">
+                inicio
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
+              <v-btn text @click="navigate" value="HomeAtractivos">
+                atractivos turísticos
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
+              <v-btn text @click="navigate" value="SiteHospedajes">
+                hospedajes
+              </v-btn>
+            </router-link>
+            <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
+              <v-btn text @click="navigate" value="SiteNoticias">
+                noticias
+              </v-btn>
+            </router-link>
+        </v-toolbar-items>
+        <!-- <div class="d-none d-sm-none d-md-flex">
           <v-btn-toggle
             v-model="active_rute"
             color="blue"
@@ -38,7 +60,7 @@
               </v-btn>
             </router-link>
           </v-btn-toggle>
-        </div>
+        </div> -->
       </v-app-bar>
       <v-navigation-drawer
         v-model="drawer"

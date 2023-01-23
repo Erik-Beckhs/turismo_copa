@@ -27,9 +27,9 @@
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Precio por noche</span><br><br>
+                          <span class="text-subtitle-1 font-weight-medium" style="color:#021F3C">Precio por noche</span><br><br>
                           <div class="text-center">
-                            <span class="text-subtitle-2 font-weight-black" style="color:#021F3C">{{form_filter.rango_precio[0]}} $ - {{form_filter.rango_precio[1]}} $</span>
+                            <span class="text-subtitle-2 font-weight-medium" style="color:#021F3C">{{form_filter.rango_precio[0]}} $ - {{form_filter.rango_precio[1]}} $</span>
                           </div>
                           <v-range-slider
                             v-model="form_filter.rango_precio"
@@ -38,7 +38,7 @@
                           ></v-range-slider>
                         </v-col>
                         <v-col cols="12">
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Servicios que debe incluir</span><br>
+                          <span class="text-subtitle-1 font-weight-medium" style="color:#021F3C">Servicios que debe incluir</span><br>
                           <v-checkbox
                             v-model="form_filter.servicios"
                             label="Wifi"
@@ -66,7 +66,7 @@
                         </v-col>
                         <v-col cols="12">
                           <br>
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Tipo de hospedaje</span><br>
+                          <span class="text-subtitle-1 font-weight-medium" style="color:#021F3C">Tipo de hospedaje</span><br>
                           <v-checkbox
                             v-model="form_filter.tipo"
                             label="Hotel"
@@ -106,7 +106,7 @@
                         </v-col>
                         <v-col cols="12">
                           <br>
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Categoria</span><br>
+                          <span class="text-subtitle-1 font-weight-medium" style="color:#021F3C">Categoria</span><br>
                           <v-checkbox
                             v-model="form_filter.categoria"
                             value="5"
@@ -197,8 +197,8 @@
           <v-col cols="12" md="9">
             <v-container>
               <div class="text-left">
-                <span class="text-h4 font-weight-black" style="color:#0099ff">Hospedajes</span><br>
-                <span class="text-subtitle-2 grey--text">Copacabana municipio turístico de Bolivia</span><br><br>
+                <span class="title-box">Hospedajes</span><br>
+                <hr class="separador-hr">
               </div>
               <v-row v-if="filter_list.length==0">
                 <v-col cols="12">
@@ -228,11 +228,11 @@
                             </v-chip>
                           </v-img>
                         </v-col>
-                        <v-col cols="8">
+                        <v-col cols="8" style="padding:0">
                           <v-card-title>
                             <span>{{ho.nombre}}</span>
                             <v-spacer></v-spacer>
-                            <span class="font-weight-bold">Desde ${{ho.precio_min}}  </span>&nbsp;noche
+                            <span class="font-weight-medium">Desde ${{ho.precio_min}}  </span>&nbsp;noche
                           </v-card-title>
                           <v-card-subtitle>
                             <v-rating
@@ -252,7 +252,7 @@
                               <span class="grey--text">Telefono: </span><span>{{ho.telefono}}</span> 
                             </div>
                           </v-card-text>
-                          <v-card-actions>
+                          <v-card-actions class="pa-3">
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Wi-Fi')"><v-icon left>mdi-wifi</v-icon> Wifi &nbsp;&nbsp;&nbsp;&nbsp;</span> 
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Garaje')"><v-icon left>mdi-garage-variant</v-icon> Garaje &nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Restaurant')"><v-icon left>mdi-silverware</v-icon> Restaurant</span>

@@ -8,8 +8,9 @@
 						<v-row>
 							<v-col cols="8" md="8">
 								<div class="text-left">
-									<span class="text-h4 font-weight-black" style="color:#0099ff">Noticias</span><br>
-									<span class="text-subtitle-2 grey--text">Copacabana municipio turístico de Bolivia</span><br>
+									<span class="subtitle-box">Copacabana municipio turístico de Bolivia</span><br>
+									<span class="title-box">Noticias</span><br>
+									<hr class="separador-hr">
 								</div>
 							</v-col>
 							<v-col cols="4" md="4">
