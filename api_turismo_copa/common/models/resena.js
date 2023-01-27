@@ -12,7 +12,7 @@ module.exports = function(Resena) {
               else {
                 console.log(fileObject.files.file[0]);
                 instance.updateAttributes({
-                  img: `/api/containers/multimedia/download/${fileObject.files.file[0].name}`
+                  img_user: `/api/containers/multimedia/download/${fileObject.files.file[0].name}`
                 }, function(err, instance) {
                   if (err) return cb(err);
                   cb(null, fileObject.files.file[0]);

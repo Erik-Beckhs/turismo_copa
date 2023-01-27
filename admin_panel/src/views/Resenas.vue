@@ -45,26 +45,25 @@
           <v-list-item-title>
           <v-icon>mdi-eye-outline</v-icon>
           Ver Reseña
+          <v-divider class="mt-2"></v-divider>
           </v-list-item-title>
         </v-list-item>
-          <v-divider></v-divider>
          <v-list-item
           @click="aprobarResena(item.id)"
         >
           <v-list-item-title>
           <v-icon>mdi-check</v-icon>
           Aprobar
-          <v-divider></v-divider>
+          <v-divider class="mt-2"></v-divider>
           </v-list-item-title>
         </v-list-item>
-          <v-divider></v-divider>
+          
         <v-list-item
         @click="eliminarResena(item.id, 1)"
         >
           <v-list-item-title>
           <v-icon>mdi-delete</v-icon>
           Eliminar
-          <v-divider></v-divider>
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -150,7 +149,6 @@
 
   <v-card
     :loading="loading"
-    
   >
     <template slot="progress">
       <v-progress-linear
@@ -159,11 +157,10 @@
         indeterminate
       ></v-progress-linear>
     </template>
-
-    <v-img
-      height="250"
-      :src="$Api_url_media+resena.img_user"
+    <v-img v-if="resena.img_user.length>0"
+      :src="$Api_url_media+resena.img_user" height="300" 
     ></v-img>
+    <v-img  height="300" v-else src="@/assets/user2.png"/>
 
     <v-card-title>{{resena.autor}}</v-card-title>
 

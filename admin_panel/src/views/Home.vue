@@ -641,20 +641,29 @@
 				<v-row>
 					<div class="col-12">
 						<div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms" style="color:#fff;">
-							<h3>Últimas Reseñas</h3>
+							<p class="fs-2">Últimas Reseñas</p>
 							<span>Comparte tu experiencia y ayuda a cientos de personas que pretenden visitar el Santuario</span>
 						</div>
 					</div>	
 				</v-row>
 				<v-row>
 					<!-- Single Testimonials Area -->
-					<div class="col-12 col-md-6" v-for="resena in resenas" :key="resena.id">
+					<div class="col-12 col-md-6" v-for="resena in list_resenas" :key="resena.id">
 						<div class="resena mb-100 d-flex wow fadeInUp" data-wow-delay="400ms">
 							<div class="img-thumb">
-								<img width="50" src="@/assets/user2.png" alt="">
+								<img v-if="resena.img_user" width="55" height="55" :src="$Api_url_media+resena.img_user" />
+								<img v-else width="55" height="55" src="@/assets/user2.png" />
 							</div>
 							<div class="resena-contenido">
-								<h5>{{resena.titulo}}</h5>
+								<p class="text-h5">{{resena.titulo}}</p>
+								<v-rating
+								:value="resena.rating"
+								color="amber"
+								dense
+								half-increments
+								readonly
+								size="14"
+								></v-rating>
 								<p>{{resena.contenido}}</p>
 								<h6><span>{{resena.autor}},</span> {{resena.fecha_publicacion}}</h6>
 							</div>
@@ -1108,35 +1117,35 @@ export default {
 			v => !!v || 'El campo es requerido'
 		],
 		contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
-		resenas:[
-			{
-				id:1,
-				titulo:'Hermoso Lugar',
-				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-				autor:'Carla Rimba',
-				fecha_publicacion:'19/11/2022'
-			},
-			{
-				id:2,
-				titulo:'Hermoso Lugar',
-				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-				autor:'Carla Rimba',
-				fecha_publicacion:'19/11/2022'
-			},
-			{
-				id:3,
-				titulo:'Hermoso Lugar',
-				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-				autor:'Carla Rimba',
-				fecha_publicacion:'19/11/2022'
-			},
-			{
-				id:4,
-				titulo:'Hermoso Lugar',
-				contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-				autor:'Carla Rimba',
-				fecha_publicacion:'19/11/2022'
-			},
+		list_resenas:[
+			// {
+			// 	id:1,
+			// 	titulo:'Hermoso Lugar',
+			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+			// 	autor:'Carla Rimba',
+			// 	fecha_publicacion:'19/11/2022'
+			// },
+			// {
+			// 	id:2,
+			// 	titulo:'Hermoso Lugar',
+			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+			// 	autor:'Carla Rimba',
+			// 	fecha_publicacion:'19/11/2022'
+			// },
+			// {
+			// 	id:3,
+			// 	titulo:'Hermoso Lugar',
+			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+			// 	autor:'Carla Rimba',
+			// 	fecha_publicacion:'19/11/2022'
+			// },
+			// {
+			// 	id:4,
+			// 	titulo:'Hermoso Lugar',
+			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
+			// 	autor:'Carla Rimba',
+			// 	fecha_publicacion:'19/11/2022'
+			// },
 		],
 		dialog_resena :false,
 		resena:{
@@ -1144,7 +1153,7 @@ export default {
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:'',
-			rating:5, 
+			rating:0, 
 			estado:0, 
 			img_user:''
 		},
@@ -1186,6 +1195,7 @@ export default {
 		this.get_actividades();
 		this.get_hospedajes();
 		this.get_noticias();
+		this.get_resenas();
   },
   methods:{
 	limpiarResena(){
@@ -1247,8 +1257,9 @@ export default {
 		ResenaService.saveResena(this.resena)
 		.then(response=>{
 			let id_resena = response.data.id;
-			console.log(response.data);
-			if(dataimagen!=null) {this.guardaImagenUser(id_resena, dataimagen);}
+			if(dataimagen!=null) {
+				this.guardaImagenUser(id_resena, dataimagen);
+				}
 			this.$swal.fire(
 			'Buen trabajo!',
 			'Tu reseña ha sido registrada y esta a la espera de su aprobación, agradecemos tu gentil colaboración',
@@ -1275,6 +1286,11 @@ export default {
 	get_eventos(){
 		SiteServices.getEventosLimit(8).then(response=>{
 			this.list_eventos=response.data;
+			this.list_eventos.forEach(element=>{
+				let fecha = new Date(element.fecha);
+				element.fecha = this.fecha_literal(fecha);
+			})
+			console.log(this.list_eventos);
 		})
 	},
 	get_atractivos(){
@@ -1292,6 +1308,21 @@ export default {
 			this.list_noticias=response.data;
 		})
 	},
+	get_resenas(){
+		SiteServices.getResenaLimit(4).then(response=>{
+			this.list_resenas=response.data;
+			this.list_resenas.forEach(element=>{
+			var fecha = new Date(element.fecha_publicacion);
+			element.fecha_publicacion = this.ordenaFecha(fecha);
+			})
+		})
+	},
+	ordenaFecha(fecha){
+      let dia = ('0'+fecha.getDate()).slice(-2);
+      let mes = ('0'+(fecha.getMonth()+1)).slice(-2);
+      let anio = fecha.getFullYear();
+      return `${dia}-${mes}-${anio}`;
+     },
     activa_inicio(){
       var wow = new WOW({ scrollContainer: "#scrolling-body"});
       wow.init();
@@ -1306,6 +1337,50 @@ export default {
           this.bg = 'transparent';
       }
     },
+	fecha_literal(fecha){
+		let dia = ('0'+(fecha.getDate()+1)).slice(-2);
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+		}
+		return `${dia} de ${mesLiteral}`;
+	}
   },
   components: {
 	'carousel-3d': Carousel3d,

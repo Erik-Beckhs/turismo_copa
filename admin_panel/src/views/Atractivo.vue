@@ -13,87 +13,128 @@
     <v-row>
       <v-col cols="8">
         <v-card-title>Datos del Atractivo</v-card-title>
-        <v-col cols="12 pa-0">
+        <v-row>
+          <v-col cols="12" class="px-3">
           <v-text-field
             v-model="atractivo.nombre"
-            :rules="nameRules"
-            label="Nombre"
-            required
+            :rules="camposRules"
+            hide-details="true"
             outlined
-          ></v-text-field>
+          >
+          <template #label>
+            Nombre <span class="red--text"><strong>*</strong></span>
+          </template>
+          </v-text-field>
         </v-col>
-        <v-col cols="12 pa-0">
+        </v-row>
+       <v-row>
+         <v-col cols="12" class="px-3">
           <v-text-field
             v-model="atractivo.descripcion"
             label="Descripción"
-            required
+            hide-details="true"
             outlined
           ></v-text-field>
         </v-col>
+       </v-row>
         <v-row>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6" class="px-3">
             <v-text-field
               v-model="atractivo.ubicacion"
-              :rules="nameRules"
-              label="Ubicación"
-              required
+              :rules="campo_atractivoos"
+              hide-details="true"
               outlined
-            ></v-text-field>
+            >
+            <template #label>
+            Ubicación <span class="red--text"><strong>*</strong></span>
+          </template>
+            </v-text-field>
           </v-col>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6" class="px-3">
             <v-select
               v-model="atractivo.comunidad"
               :items="comunidades"
-              label="Comunidad"
-              required
+              :rules="camposRules"
+              hide-details="true"
               outlined
-            ></v-select>
+            >
+            <template #label>
+            Comunidad <span class="red--text"><strong>*</strong></span>
+          </template>
+            </v-select>
           </v-col>
         </v-row>
-        <v-col cols="12 pa-0">
-          <v-text-field
-            v-model="atractivo.como_llegar"
-            label="Cómo Llegar"
-            required
-            outlined
-          ></v-text-field>
-        </v-col>
         <v-row>
-          <v-col cols="6" class="py-0 px-3">
+          <v-col cols="12" class="px-3">
+            <v-text-field
+              v-model="atractivo.como_llegar"
+              label="Cómo Llegar"
+              outlined
+              hide-details="true"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" class="px-3">
             <v-select
             v-model="atractivo.categoria"
             :items="categorias"
             label="Categoria"
-            required
+            :rules="camposRules"
+            hide-details="true"
             outlined
-        ></v-select>
+        >
+        <template #label>
+            Categoria <span class="red--text"><strong>*</strong></span>
+        </template>
+        </v-select>
         </v-col>
-          <v-col cols="6" class="py-0 px-3">
+          <v-col cols="6" class="px-3">
                <v-select
                 v-model="atractivo.jerarquia"
                 :items="jerarquias"
                 label="Jerarquía"
-                required
+                hide-details="true"
                 outlined
             ></v-select>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="6" class="py-0 px-3">
+          <v-col cols="12" class="px-3">
+            <v-text-field
+              v-model="atractivo.fecha"
+              :rules="camposRules"
+              hide-details="true"
+              outlined
+              type="date"
+              v-if="atractivo.categoria == 'Eventos Programados'"
+            >
+            <template #label>
+              Fecha de Evento Programado <span class="red--text"><strong>*</strong></span>
+            </template>
+            </v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" class="px-3">
            <v-select
               v-model="atractivo.tipo"
               :items="tipos_atractivo"
-              label="Tipo"
-              required
+              :rules="camposRules"
+              hide-details="true"
               outlined
-          ></v-select>
+          >
+          <template #label>
+            Tipo <span class="red--text"><strong>*</strong></span>
+          </template>
+          </v-select>
         </v-col>
-          <v-col cols="6" class="py-0 px-3">
+          <v-col cols="6" class="px-3">
             <v-select
               v-model="atractivo.subtipo"
               :items="subtipos_atractivo"
               label="Sub Tipo"
-              required
+              hide-details="true"
               outlined
           ></v-select>
           </v-col>
@@ -241,8 +282,8 @@ export default {
       jerarquias:['I', 'II', 'III', 'IV', 'V'],
       tipos_atractivo:ItemService.listTipoAtractivos(),
       subtipos_atractivo:ItemService.listSubTipoAtractivos(),
-      nameRules: [
-        v => !!v || 'Name is required',
+      camposRules: [
+        v => !!v || 'El campo es obligatorio',
       ],
     }
   },
