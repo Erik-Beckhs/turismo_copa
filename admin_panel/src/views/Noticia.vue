@@ -205,24 +205,6 @@ export default {
           timer: 1500
         })
      },
-    uploadImageSuccess(formData, index, fileList) {
-      console.log('data', formData, index, fileList)
-      //console.log(formData);
-      // Upload image api
-      // axios.post('http://your-url-upload', formData).then(response => {
-      //   console.log(response)
-      // })
-    },
-    beforeRemove (index, done, fileList) {
-      console.log('index', index, fileList)
-      var r = confirm("remove image")
-      if (r == true) {
-        done()
-      }
-    },
-    editImage (formData, index, fileList) {
-      console.log('edit data', formData, index, fileList)
-    },
     guardar(){
       this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
     },

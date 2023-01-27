@@ -19,7 +19,7 @@
       "type": "string",
       "required": true
     },
-    "descripcion": {
+    "contenido": {
       "type": "string",
       "required": true
     },
@@ -30,7 +30,7 @@
     "estado": {
       "type": "string"
     },
-    "imagen": {
+    "img_user": {
       "type": "string"
     },
     "rating": {

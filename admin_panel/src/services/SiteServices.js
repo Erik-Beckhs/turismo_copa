@@ -27,5 +27,8 @@ export default {
     },
     getDataId(module, id){
         return Api().get(`/${module}/${id}`);
-    }
+    },
+    getResenaLimit(limit){
+        return Api().get(`/resenas?filter[limit]=${limit}&filter[where][and][0][estado]=1`);
+    },
 }
