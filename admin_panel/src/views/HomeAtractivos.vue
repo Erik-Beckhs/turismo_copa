@@ -205,7 +205,7 @@ export default {
     filterAtractivos(){
         return this.list_atractivos.filter(elem => {
         	if (elem.categoria == this.filtro_tab) return true;
-            else if(this.filtro_tab=='') return true;
+          else if(this.filtro_tab=='' && elem.categoria!=='Eventos Programados' && elem.categoria!=='Actividades Que Hacer') return true;
     	});
     },
     title_atractivo(){

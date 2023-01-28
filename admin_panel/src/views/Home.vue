@@ -186,55 +186,15 @@
 			</v-row>
 			<v-row>
 				<v-col cols="12">
-					<carousel-3d autoplay :autoplayTimeout="3000" :perspective="0" :space="400" :display="5" :height="400" class="carousel center-align">
-						<slide :index="0">
-							<div class="carousel-item">
+					<carousel-3d v-if="list_actividades.length > 0" autoplay :autoplayTimeout="3000" :perspective="0" :space="400" :display="list_actividades.length" :height="400" class="carousel center-align">
+						<slide v-for="(act ,index) in list_actividades" :key="index" :index="index">
+							<div :id="'Carouseldiv'+index" class="carousel-item">
 								<p class="titulo">
-									Gastronomía
+									{{act.nombre}}
 								</p>
 								<hr class="linea-card">
-								<p class="subtitulo">Disfruta la Comida</p>
-								<img src="@/assets/img/trucha.jpg" alt="">
-							</div>
-						</slide>
-						<slide :index="1">
-							<div class="carousel-item">
-								<p class="titulo">
-									Rutas
-								</p>
-								<hr class="linea-card">
-								<p class="subtitulo">Nuevas Experiencias</p>
-								<img src="@/assets/img/a33.jpg" alt="">
-							</div>
-						</slide>
-						<slide :index="2">
-							<div class="carousel-item">
-								<p class="titulo">
-									Cultura
-								</p>
-								<hr class="linea-card">
-								<p class="subtitulo">Aprende mas sobre Copacabana</p>
-								<img src="@/assets/img/koya.jpg" alt="">
-							</div>
-						</slide>
-						<slide :index="3">
-							<div class="carousel-item">
-								<p class="titulo">
-									Deporte y Aventura
-								</p>
-								<hr class="linea-card">
-								<p class="subtitulo">Disfruta la adrenalina</p>
-								<img src="@/assets/img/zipline.jpg" alt="">
-							</div>
-						</slide>
-						<slide :index="4">
-							<div class="carousel-item">
-								<p class="titulo">
-									Turismo Urbano
-								</p>
-								<hr class="linea-card">
-								<p class="subtitulo">Lo que estabas buscando</p>
-								<img src="@/assets/img/turismo.jpg" alt="">
+								<p @click="openLink('HomeAtractivo', act.id)" class="subtitulo pointer">{{act.descripcion}}</p>
+								<img :src="$Api_url_media+act.img_principal">
 							</div>
 						</slide>
 					</carousel-3d>
@@ -308,23 +268,23 @@
 		<v-container style="padding-bottom: 60px;">
 			<v-row>
 				<v-col cols="12">
-					<carousel-3d :controls-visible="true" :controls-prev-html="'&#10092; '" :controls-next-html="'&#10093;'" 
-               :controls-width="30" :controls-height="60" :clickable="false" :disable3d="true" :height="400" :space="380" :border="0">
-						<slide :index="0">
+					<carousel-3d v-if="list_eventos.length > 0" :controls-visible="true" :controls-prev-html="'&#10092; '" :controls-next-html="'&#10093;'" 
+               			:controls-width="30" :controls-height="60" :clickable="false" :disable3d="true" :height="400" :space="380" :border="0">
+						<slide v-for="(evt ,index) in list_eventos" :key="index" :index="index">
 							<div class="slick">
 								<div>
-									<a href="/">
+									<a @click="openLink('HomeAtractivo', evt.id)">
 										<div>
-											<h4><small>24 de Enero</small>Alasitas</h4>
+											<h4><small>{{evt.fecha}}</small>{{evt.nombre}}</h4>
 										</div>
 										<picture>
-											<img src="@/assets/img/eventos/alasita.jpg" alt="Image">
+											<img :src="$Api_url_media+evt.img_principal" alt="Image">
 										</picture>
 									</a>
 								</div>
 							</div>
 						</slide>
-						<slide :index="1">
+						<!-- <slide :index="1">
 							<div class="slick">
 								<div>
 									<a href="/">
@@ -407,7 +367,7 @@
 								</a>
 							</div>
 						</div>
-						</slide>
+						</slide> -->
 					</carousel-3d>
 				</v-col>
 			</v-row>
@@ -688,12 +648,6 @@
 			<v-flex class="mx-15">
 				<v-row>
 					<v-col cols="12" md="6">
-						<span class="fs-2-5">
-							Escribenos
-						</span><br>
-						<span class="fs-1 grey--text">
-							Para nosotros es importante comunicarnos con nuestros visitantes
-						</span>
 						<v-row>
 							<v-col cols="3" class="pt-15">
 								<v-img class="mx-auto" src="@/assets/img/escudo.png" width="250">
@@ -706,34 +660,36 @@
 										Copacabana
 									</span><br><br>
 									<p>
-										<v-icon color="blue lighten-2">mdi-map-marker</v-icon>&nbsp;
+										<v-icon color="blue">mdi-map-marker</v-icon>&nbsp;
 										Plaza 2 de Febrero, Copacabana Bolivia
 									</p>
 									<p>
-										<v-icon color="blue lighten-2">mdi-email</v-icon>&nbsp;
+										<v-icon color="blue">mdi-email</v-icon>&nbsp;
 										copacabanasomostudestino@gmail.com
 									</p>
 									<p>
-										<v-icon color="blue lighten-2">mdi-phone</v-icon>&nbsp;
+										<v-icon color="blue">mdi-phone</v-icon>&nbsp;
 										61216696
 									</p>
 								</v-container>
-								<v-container class="ms-15">
-									<div class="fs-1-5 justify-center">
+								<v-row>
+									<v-col cols="12">
+										<div class="fs-1-5 justify-center">
 										Encuentranos también en:
-									</div>
-									<v-row class="justify-center mt-3">
-										<v-list-item-avatar>
-											<v-img src="@/assets/img/social/facebook.png"></v-img>
-										</v-list-item-avatar>
-										<v-list-item-avatar>
-											<v-img src="@/assets/img/social/instagram.png"></v-img>
-										</v-list-item-avatar>
-										<v-list-item-avatar>
-											<v-img src="@/assets/img/social/whatsapp.jpg"></v-img>
-										</v-list-item-avatar>
-									</v-row>
-								</v-container>
+										</div>
+										<div class="text-left">
+											<v-list-item-avatar color="indigo">
+												<v-icon dark>mdi-facebook</v-icon>
+											</v-list-item-avatar>
+											<v-list-item-avatar color="pink">
+												<v-icon dark>mdi-instagram</v-icon>
+											</v-list-item-avatar>
+											<v-list-item-avatar color="green">
+												<v-icon dark>mdi-whatsapp</v-icon>
+											</v-list-item-avatar>
+										</div>
+									</v-col>
+								</v-row>
 							</v-col>
 						</v-row>				
 					</v-col>
@@ -1192,12 +1148,15 @@ export default {
 		this.scroll_ini();
 		this.get_atractivos();
 		this.get_eventos();
-		this.get_actividades();
 		this.get_hospedajes();
 		this.get_noticias();
-		this.get_resenas();
+		this.get_resenas();	
+		this.get_actividades();
   },
   methods:{
+	openLink(module, id){
+		this.$router.replace('/'+module+'/'+id);
+	},
 	limpiarResena(){
 		this.resena = {
 			autor:'',
@@ -1279,7 +1238,7 @@ export default {
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},
 	get_actividades(){
-		SiteServices.getActividadLimit(4).then(response=>{
+		SiteServices.getActividad().then(response=>{
 			this.list_actividades=response.data;
 		})
 	},
@@ -1287,10 +1246,11 @@ export default {
 		SiteServices.getEventosLimit(8).then(response=>{
 			this.list_eventos=response.data;
 			this.list_eventos.forEach(element=>{
-				let fecha = new Date(element.fecha);
-				element.fecha = this.fecha_literal(fecha);
+				if(element.fecha!=null){
+					let fecha = new Date(element.fecha);
+					element.fecha = this.fecha_literal(fecha);
+				}
 			})
-			console.log(this.list_eventos);
 		})
 	},
 	get_atractivos(){
