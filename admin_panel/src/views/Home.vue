@@ -227,7 +227,7 @@
 						<slide :index="4">
 							<div class="carousel-item">
 								<p class="titulo">
-									Turismo Urbano
+									Turismo Comunitario
 								</p>
 								<hr class="linea-card">
 								<p class="subtitulo">Lo que estabas buscando</p>
