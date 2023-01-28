@@ -6,7 +6,9 @@
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
 						<span class="font-weight-black" style="font-size: 3rem; text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{data_atractivo.nombre}}</span><br>
-						<span class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{data_atractivo.comunidad}} - {{data_atractivo.ubicacion}}</span>
+						<span v-if="data_atractivo.categoria=='Eventos Programados'" class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{formatdate(data_atractivo.fecha)}}</span>
+						<span v-else-if="data_atractivo.categoria=='Actividades Que Hacer'" class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);"></span>
+						<span v-else class="text-h6" style="text-shadow: 0 2px 4px rgb(0 0 0 / 50%);">{{data_atractivo.comunidad}} - {{data_atractivo.ubicacion}}</span>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 				</v-row>
@@ -134,6 +136,52 @@ export default {
 		this.getMultimediaGaleria();
   },
   methods:{
+	formatdate(fecha){
+		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+		var fecha  = new Date(fecha); 
+		let dia = ('0'+(fecha.getDate()+1)).slice(-2);
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+		}
+		return `${dia} de ${mesLiteral}`;
+	},
 	get_atractivo(){
 		SiteServices.getDataId('atractivos', this.$route.params.id).then(response=>{
 			this.data_atractivo=response.data;
