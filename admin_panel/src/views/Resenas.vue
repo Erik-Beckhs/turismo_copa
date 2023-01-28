@@ -23,6 +23,9 @@
      <template v-slot:[`item.id`]="{ index }">
       <span>{{index + 1}}</span>
     </template>
+    <template v-slot:[`item.fecha_publicacion`]="{ item }">
+      <span>{{item.fecha_publicacion | fecha_literal}}</span>
+    </template>
      <template v-slot:[`item.estado`]="{ item }">
      
       <v-menu offset-y>
@@ -102,6 +105,9 @@
     >
     <template v-slot:[`item.id`]="{ index }">
       <span>{{index + 1}}</span>
+    </template>
+     <template v-slot:[`item.fecha_publicacion`]="{ item }">
+      <span>{{item.fecha_publicacion | fecha_literal}}</span>
     </template>
         <template v-slot:[`item.estado`]="{ item }">
 
@@ -184,7 +190,7 @@
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        {{resena.fecha_publicacion}}
+        {{resena.fecha_publicacion | fecha_literal}}
       </div>
 
      <v-card-title class="ps-0">{{resena.titulo}}</v-card-title>
@@ -267,14 +273,66 @@ export default {
         return resenas.filter(element=>element.estado == 1);
     }
   },
+  filters:{
+    fecha_literal:function(value){
+		let fecha_literal ='';
+		if (value){
+		let fecha = new Date(value);
+		let dia = ('0'+(fecha.getDate())).slice(-2);
+    	let anio = fecha.getFullYear();
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+			} 
+			fecha_literal = `${dia} de ${mesLiteral} de ${anio}`;
+		}
+		return fecha_literal;
+	},
+  },
   methods:{
      getResenas(){
       ResenasService.getResenas().then(response=>{
         this.resenas_list = response.data;
-        this.resenas_list.forEach(element=>{
-          var fecha = new Date(element.fecha_publicacion);
-          element.fecha_publicacion = this.ordenaFecha(fecha);
-        })
+        // this.resenas_list.forEach(element=>{
+        //   var fecha = new Date(element.fecha_publicacion);
+        //   element.fecha_publicacion = this.ordenaFecha(fecha);
+        // })
       })
      },
      ordenaFecha(fecha){

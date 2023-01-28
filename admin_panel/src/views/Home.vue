@@ -156,10 +156,7 @@
 						</div>
 						<br>
 						<p class="color-content">
-							Copacabana, en la actualidad, es considerada como uno de los más importantes destinos turísticos de Bolivia, por su exuberante belleza natural, sus atractivos  de  tipo  arqueológico,  cultural  y  por  el  estilo  de  vida  de  su  población,  que mantiene  aún  costumbres  auténticas  no  afectadas  por  el  consumismo  y  por  los  nuevos hábitos del mundo occidental.
-						</p>
-						<p class="color-content">
-							Esta ubicada a 150 Km de la Ciudad de La Paz, las empresas de transporte hacen sus salidas diarias desde el Cementerio General de la Ciudad de La Paz o la terminal interprovincial de la ciudad de El Alto, el tiempo de viaje tiene una duración de de 3 horas y media. También existen algunas agencias de viajes que organizan el traslado particular a Copacabana.
+							Copacabana se encuentra a orillas del Lago Titicaca, cuna de las más importantes civilizaciones andinas. En el Municipio existen 33 comunidades campesinas originarias con un total aproximado de 15000 habitantes, en su mayoria de origen Aymara y Quechua. El Lago Titicaca, considerado sagrado por sus habitantes, fue habitado por las culturas prehispánicas Chiripa, Wancarani, Tihuanaco, Inca, Aymara y otras, en distintos periodos.
 						</p>
 					</div>
 				</v-col>
@@ -250,9 +247,10 @@
 			<v-row>
 				<v-col cols="12">
 					<div class="text-left">
-						<span class="subtitle-box">VEN Y DISFRUTA</span><br>
+						<span class="subtitle-box">MARAVILLATE</span><br>
 						<span class="fs-2">Visita nuestros Atractivos Turísticos</span>
 						<hr class="separador-hr">
+						<span class="fs-1">Maravillate con los paisajes hermosos del lago navegable más alto del mundo</span><br>
 					</div>
 				</v-col>
 			</v-row>
@@ -272,7 +270,7 @@
 										</h2>
 										<p>{{atr.descripcion}}</p>
 										<router-link class="underline-none" :to="'/HomeAtractivo/'+atr.id" v-slot="{ navigate }">
-											<a @click="navigate">View more</a>
+											<a @click="navigate">Ver Más</a>
 										</router-link>
 									</figcaption> 
 								</figure>
@@ -300,7 +298,7 @@
 						<span class="subtitle-box">CULTURA</span><br>
 						<span class="fs-2">Disfruta nuestros Eventos Programados</span>
 						<hr class="separador-hr">
-						<span class="fs-1 grey--text">Fiestas patronales, ferias, ceremonias, entre otras actividades</span><br>
+						<span class="fs-1">Sé parte de las festividades que combinan la fé religiosa con las tradiciones andinas</span><br>
 					</div>
 				</v-col>
 			</v-row>
@@ -582,7 +580,7 @@
 							<span class="subtitle-box">MANTENTE INFORMADO</span><br>
 							<span class="fs-2">Noticias Relevantes del Municipio</span>
 							<hr class="separador-hr">
-							<span class="fs-1 grey--text">Aquí encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span>
+							<span class="fs-1">Aquí encontraras información relevante acerca de las actividades mancomunadas que lleva adelante el Gobierno Autonómo Municipal de Copacabana juntamente a la Dirección de Turismo Copacabana y la población en general</span>
 						</div>
 					</v-col>
 					<v-col cols="4" md="4">
@@ -665,7 +663,7 @@
 								size="14"
 								></v-rating>
 								<p>{{resena.contenido}}</p>
-								<h6><span>{{resena.autor}},</span> {{resena.fecha_publicacion}}</h6>
+								<h6><span>{{resena.autor}},</span> {{resena.fecha_publicacion | fecha_literal}}</h6>
 							</div>
 						</div>
 					</div>
@@ -1152,7 +1150,7 @@ export default {
 			autor:'',
 			titulo:'',
 			contenido:'',
-			fecha_publicacion:'',
+			fecha_publicacion:new Date().toISOString(),
 			rating:0, 
 			estado:0, 
 			img_user:''
@@ -1197,13 +1195,65 @@ export default {
 		this.get_noticias();
 		this.get_resenas();
   },
+  filters:{
+	fecha_literal:function(value){
+		let fecha_literal ='';
+		if (value){
+		let fecha = new Date(value);
+		let dia = ('0'+(fecha.getDate())).slice(-2);
+    	let anio = fecha.getFullYear();
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+			} 
+			fecha_literal = `${dia} de ${mesLiteral} de ${anio}`;
+		}
+		return fecha_literal;
+	},
+  },
   methods:{
 	limpiarResena(){
 		this.resena = {
 			autor:'',
 			titulo:'',
 			contenido:'',
-			fecha_publicacion:'',
+			fecha_publicacion:new Date().toISOString(),
 			rating:5, 
 			estado:0, 
 			img_user:''
@@ -1253,7 +1303,7 @@ export default {
 		var dataimagen=this.FormDataImage('file_imagen_principal', this.resena.img_user);
       	//this.resena.img_user="";
 
-		this.resena.fecha_publicacion = new Date().toISOString();
+		//this.resena.fecha_publicacion = new Date().toISOString();
 		ResenaService.saveResena(this.resena)
 		.then(response=>{
 			let id_resena = response.data.id;
@@ -1286,11 +1336,11 @@ export default {
 	get_eventos(){
 		SiteServices.getEventosLimit(8).then(response=>{
 			this.list_eventos=response.data;
-			this.list_eventos.forEach(element=>{
-				let fecha = new Date(element.fecha);
-				element.fecha = this.fecha_literal(fecha);
-			})
-			console.log(this.list_eventos);
+			// this.list_eventos.forEach(element=>{
+			// 	let fecha = new Date(element.fecha);
+			// 	element.fecha = this.fecha_literal(fecha);
+			// })
+			//console.log(this.list_eventos);
 		})
 	},
 	get_atractivos(){
@@ -1311,10 +1361,10 @@ export default {
 	get_resenas(){
 		SiteServices.getResenaLimit(4).then(response=>{
 			this.list_resenas=response.data;
-			this.list_resenas.forEach(element=>{
-			var fecha = new Date(element.fecha_publicacion);
-			element.fecha_publicacion = this.ordenaFecha(fecha);
-			})
+			// this.list_resenas.forEach(element=>{
+			// var fecha = new Date(element.fecha_publicacion);
+			// element.fecha_publicacion = this.ordenaFecha(fecha);
+			// })
 		})
 	},
 	ordenaFecha(fecha){
@@ -1337,50 +1387,6 @@ export default {
           this.bg = 'transparent';
       }
     },
-	fecha_literal(fecha){
-		let dia = ('0'+(fecha.getDate()+1)).slice(-2);
-		let mes = fecha.getMonth()+1;
-		let mesLiteral = '';
-		switch(mes){
-			case 1:
-				mesLiteral = 'Enero';
-				break;
-			case 2:
-				mesLiteral = 'Febrero';
-				break;
-			case 3:
-				mesLiteral = 'Marzo';
-				break;
-			case 4:
-				mesLiteral = 'Abril';
-				break;
-			case 5:
-				mesLiteral = 'Mayo';
-				break;
-			case 6:
-				mesLiteral = 'Junio';
-				break;
-			case 7:
-				mesLiteral = 'Julio';
-				break;
-			case 8:
-				mesLiteral = 'Agosto';
-				break;
-			case 9:
-				mesLiteral = 'Septiembre';
-				break;
-			case 10:
-				mesLiteral = 'Octubre';
-				break;
-			case 11:
-				mesLiteral = 'Noviembre';
-				break;
-			case 12:
-				mesLiteral = 'Diciembre';
-				break;
-		}
-		return `${dia} de ${mesLiteral}`;
-	}
   },
   components: {
 	'carousel-3d': Carousel3d,

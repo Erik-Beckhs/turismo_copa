@@ -1,276 +1,164 @@
 <template>
   <div id="div_hospedajes" style="background: #F7F7F7;">
-    <v-row>
+    <v-dialog
+      v-model="dialog_resena"
+      max-width="900"
+    >
+      <v-card class="pa-3">
+	  <v-form 
+	  ref="form"
+      v-model="valid"
+      lazy-validation
+	  >
+        <v-card-title class="text-h5 pb-0">
+          Nueva Reseña
+        </v-card-title>
+		<v-card-subtitle class="mt-1 fs-1 pb-0">
+			Para nosotros y los visitantes es importante conocer la experiencia que tuviste visitando nuestro Santuario
+		</v-card-subtitle>
+		<p class="ms-6 text-subtitle-1 grey--text">
+			<v-icon>mdi-calendar</v-icon>&nbsp;
+			Fecha: {{resena.fecha_publicacion | fecha_literal}}
+		</p>
+		<v-divider></v-divider>
+        <v-card-text>
+			<v-card outlined class="pa-1">
+			<v-row>
+					<v-col cols="4">
+						<v-img class="mx-auto" v-if="image_user!=''" width="190" :src="image_user"/>
+						<v-img class="mx-auto" v-else width="190" src="@/assets/user2.png"/>
+						<v-col cols="12" class="pt-3">
+							<v-file-input
+							id="file_imagen_principal"
+							label="Cambiar Foto"
+							prepend-icon="mdi-camera"
+							@change="updateFile"
+							outlined
+							dense
+							>
+								<template v-slot:selection="{ text }">
+									<v-chip
+										small
+										label
+										color="primary"
+									>
+										{{ text }}
+									</v-chip>
+								</template>
+							</v-file-input>
+						</v-col>
+					</v-col>
+					<v-col cols="8">
+						<v-col cols="12">
+							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Autor" v-model="resena.autor" />
+						</v-col>
+						<v-col cols="12" class="py-3">
+							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
+						</v-col>
+						<v-col cols="12">
+							<v-textarea
+							label="Contenido"
+							outlined
+							counter
+							v-model="resena.contenido"
+							:rows="4"
+							:rules="contenidoRules"
+							></v-textarea>
+						</v-col>
+					</v-col>
+			</v-row>
+		  <v-divider></v-divider>
+		  <v-card-subtitle class="fs-1 text-center">Califique su experiencia de visita en el Santuario de Copacabana</v-card-subtitle>
+		  <v-row>
+		  	<v-rating
+			v-model="resena.rating"
+			background-color="orange lighten-3"
+			color="orange"
+			large
+			class="mx-auto"
+			></v-rating>
+		  </v-row>
+			</v-card>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog_resena = false"
+          >
+            Cancelar
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="validateResena"
+          >
+            Guardar
+          </v-btn>
+        </v-card-actions>
+		</v-form>
+      </v-card>
+    </v-dialog>
+
+    <v-container>
+      <v-row>
       <v-col cols="12">
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="1"></v-col>
-      <v-col cols="12" md="10">
-        <v-row>
-          <v-col cols="12" md="3"> 
-            <v-row>
-              <v-col cols="12" class="pa-6">
-                <v-card>
-                  <v-card-title>
-                    Filtros
-                  </v-card-title>
-                  <v-card-text class="pa-8">
-                      <v-row dense>
-                        <v-col cols="12">
-                          <v-text-field
-                            placeholder="Buscar por nombre"
-                            outlined
-                            rounded
-                            v-model="form_filter.buscar"
-                            dense
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Precio por noche</span><br><br>
-                          <div class="text-center">
-                            <span class="text-subtitle-2 font-weight-black" style="color:#021F3C">{{form_filter.rango_precio[0]}} $ - {{form_filter.rango_precio[1]}} $</span>
-                          </div>
-                          <v-range-slider
-                            v-model="form_filter.rango_precio"
-                            max="500"
-                            min="0"
-                          ></v-range-slider>
-                        </v-col>
-                        <v-col cols="12">
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Servicios que debe incluir</span><br>
-                          <v-checkbox
-                            v-model="form_filter.servicios"
-                            label="Wifi"
-                            value="Wi-Fi"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.servicios"
-                            label="Garaje"
-                            value="Garaje"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.servicios"
-                            label="Restaurant"
-                            value="Restaurant"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.servicios"
-                            label="Habitacion Familiar"
-                            value="Habitacion Familiar"
-                            hide-details
-                          ></v-checkbox>
-                        </v-col>
-                        <v-col cols="12">
-                          <br>
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Tipo de hospedaje</span><br>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Hotel"
-                            value="Hotel"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Hostal"
-                            value="Hostal"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Alojamiento"
-                            value="Alojamiento"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Residencial"
-                            value="Residencial"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Cabaña"
-                            value="Cabaña"
-                            hide-details
-                          ></v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.tipo"
-                            label="Casa Compartida"
-                            value="Casa Compartida"
-                            hide-details
-                          ></v-checkbox>
-                        </v-col>
-                        <v-col cols="12">
-                          <br>
-                          <span class="text-subtitle-1 font-weight-black" style="color:#021F3C">Categoria</span><br>
-                          <v-checkbox
-                            v-model="form_filter.categoria"
-                            value="5"
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <v-rating
-                              :value="5"
-                              color="amber"
-                              dense
-                              half-increments
-                              readonly
-                              size="14"
-                              ></v-rating>
-                            </template>
-                          </v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.categoria"
-                            value="4"
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <v-rating
-                              :value="4"
-                              color="amber"
-                              dense
-                              half-increments
-                              readonly
-                              size="14"
-                              ></v-rating>
-                            </template>
-                          </v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.categoria"
-                            value="3"
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <v-rating
-                              :value="3"
-                              color="amber"
-                              dense
-                              half-increments
-                              readonly
-                              size="14"
-                              ></v-rating>
-                            </template>
-                          </v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.categoria"
-                            value="2"
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <v-rating
-                              :value="2"
-                              color="amber"
-                              dense
-                              half-increments
-                              readonly
-                              size="14"
-                              ></v-rating>
-                            </template>
-                          </v-checkbox>
-                          <v-checkbox
-                            v-model="form_filter.categoria"
-                            value="1"
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <v-rating
-                              :value="1"
-                              color="amber"
-                              dense
-                              half-increments
-                              readonly
-                              size="14"
-                              ></v-rating>
-                            </template>
-                          </v-checkbox>
-                        </v-col>
-                      </v-row>
-                  </v-card-text>
-                </v-card>  
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12" md="9">
-            <v-container>
-              <div class="text-left">
-                <span class="text-h4 font-weight-black" style="color:#0099ff">Hospedajes</span><br>
-                <span class="text-subtitle-2 grey--text">Copacabana municipio turístico de Bolivia</span><br><br>
-              </div>
-              <v-row v-if="filter_list.length==0">
-                <v-col cols="12">
-                  <v-card class="card_transparent" color="transparent" :height="altura_ini_p">
-                    <v-row
-                      class="fill-height"
-                      align="center"
-                      justify="center"
-                    >
-                      <div class="grey--text text-h5">
-                        No se encontro resultados
-                      </div>
-                    </v-row>
-                  </v-card>
-                </v-col>
-              </v-row>
-              <v-row v-else v-for="ho in filter_list" :key="ho.id"> 
-                <v-col cols="12">
-                  <br>
-                  <v-card>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="4" style="padding:0">
-                          <v-img class="white--text align-end" aspect-ratio="1.7" :src="$Api_url_media+ho.img_principal">
-                            <v-chip class="ma-2" color="blue" label small text-color="white">
-                              {{ho.tipo}}
-                            </v-chip>
-                          </v-img>
-                        </v-col>
-                        <v-col cols="8">
-                          <v-card-title>
-                            <span>{{ho.nombre}}</span>
-                            <v-spacer></v-spacer>
-                            <span class="font-weight-bold">Desde ${{ho.precio_min}}  </span>&nbsp;noche
-                          </v-card-title>
-                          <v-card-subtitle>
-                            <v-rating
-                            :value="ho.categoria"
-                            color="amber"
-                            dense
-                            half-increments
-                            readonly
-                            size="14"
-                            ></v-rating>
-                          </v-card-subtitle>
-                          <v-card-text>
-                            <div class="my-2">
-                              <span class="grey--text">Ubicación: </span><span>{{ho.direccion}}</span>
-                            </div>
-                            <div class="mb-2">
-                              <span class="grey--text">Telefono: </span><span>{{ho.telefono}}</span> 
-                            </div>
-                          </v-card-text>
-                          <v-card-actions>
-                            <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Wi-Fi')"><v-icon left>mdi-wifi</v-icon> Wifi &nbsp;&nbsp;&nbsp;&nbsp;</span> 
-                            <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Garaje')"><v-icon left>mdi-garage-variant</v-icon> Garaje &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span class="grey--text" v-if="ho.servicios.some(el => el.servicio === 'Restaurant')"><v-icon left>mdi-silverware</v-icon> Restaurant</span>
-                            <v-spacer></v-spacer>
-                            <v-btn color="orange" dark small>Ver mas</v-btn>
-                          </v-card-actions>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-col>
-        </v-row>    
-      </v-col>
-      <v-col cols="12" md="1"></v-col>
-    </v-row> 
+        <v-col cols="7">
+          <v-card class="py-5 px-8">
+                <v-row class="my-5">
+                  <span class="text-h5">
+                  Listado de Reseñas
+                </span>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" dark @click="dialog_resena = true">
+                  <v-icon>mdi-pencil</v-icon>
+                  <span>Escribir Reseña</span>
+                </v-btn>
+                </v-row>
+                <v-list four-line v-if="resenas.length>0">
+                  <template class="d-flex">
+                    <v-list-item v-for="item in resenas" :key="item.id">
+
+                      <v-list-item-avatar class="align-self-start" size="60" v-if="item.img_user!=''">
+                        <v-img :src="$Api_url_media+item.img_user"></v-img>
+                      </v-list-item-avatar>
+
+                      <v-list-item-avatar class="align-self-start" size="60" v-else>
+                        <v-img src="@/assets/user2.png"></v-img>
+                      </v-list-item-avatar>
+
+                      <v-list-item-content>
+                        <v-list-item-title v-html="item.autor"></v-list-item-title>
+                        <v-list-item-subtitle>{{item.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
+                          <v-rating
+                          v-model="item.rating"
+                          background-color="orange lighten-3"
+                          color="orange"
+                          small
+                          dense
+                          readonly
+                        ></v-rating>
+                        <v-card-title class="text-h6 ps-0 py-1">{{item.titulo}}</v-card-title>
+                        <span class="fs-0-9" style="line-height:1.3rem;">{{item.contenido}}</span>
+                        <v-divider class="mt-2"></v-divider>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
+                </v-list>
+                <v-row class="text-h5 my-10" v-else>
+                    <span class="mx-auto grey--text">Todavía no existen reseñas aprobadas</span> 
+                </v-row>
+          </v-card>
+        </v-col>
+    </v-row>
+    </v-container>
   </div>
 </template>
 <style scoped>
@@ -279,96 +167,178 @@
   }
 </style>
 <script>
-// @ is an alias to /src
-import WOW from '@/plugins/wow.min.js';
-import SiteServices from '@/services/SiteServices';
-// var wow = new WOW({ scrollContainer: "#scrolling-body"});
+import ResenaService from '@/services/ResenasService'
+
 export default {
   name: 'HomeResenas',
   data(){
     return{
-      form_filter:{
-        buscar:'',
-        rango_precio:[0,500],
-        servicios:[],
-        tipo:[],
-        categoria:[]
-      },
-      list_hospedajes:[],
-      bg:'transparent',
-      altura_ini_p:500,
-	    drawer:false,
+      resenas:[],
+      resena:{
+			autor:'',
+			titulo:'',
+			contenido:'',
+			fecha_publicacion:new Date().toISOString(),
+			rating:0, 
+			estado:0, 
+			img_user:''
+		},
+      contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
+      dialog_resena:false,
+      valid:true,
+      image_user:'',
+      camposRules: [
+        v => !!v || 'El campo es requerido'
+      ],
+      dialog_resena:false
     }
   },
   mounted(){	
-		this.altura_ini_p=(window.innerHeight)-64;
-    	window.onscroll = () => {
-			this.changeColor();
-		};
-		setTimeout(() => (this.activa_inicio()), 1000);	
-    this.scroll_ini();
-    this.get_hospedajes();
+    this.get_resenas();
   },
   computed:{
-    filter_list(){
-      let aux_list=[];
-      aux_list= this.list_hospedajes.filter(elem => {
-        	if (elem.nombre.toLowerCase().includes(this.form_filter.buscar.toLowerCase())) return true;
-          else if(this.form_filter.buscar=='') return true;
-    	});
-      aux_list=aux_list.filter(elem => {
-        	if (elem.precio_min >= this.form_filter.rango_precio[0] && elem.precio_min <= this.form_filter.rango_precio[1] ) return true;
-    	});
-      aux_list=aux_list.filter(elem => {
-        if(this.form_filter.tipo.length==0) return true;
-        for (let index = 0; index < this.form_filter.tipo.length; index++) {
-          if(elem.tipo==this.form_filter.tipo[index]) return true;
-        }
-    	});
-      aux_list=aux_list.filter(elem => {
-        if(this.form_filter.categoria.length==0) return true;
-        for (let index = 0; index < this.form_filter.categoria.length; index++) {
-          if(elem.categoria==this.form_filter.categoria[index]) return true;
-        }
-    	});
-      aux_list=aux_list.filter(elem => {
-        if(this.form_filter.servicios.length==0) return true;
-        let aux_cuenta=0;
-        for (let index = 0; index < this.form_filter.servicios.length; index++) {
-          if(elem.servicios.some(el => el.servicio === this.form_filter.servicios[index])) aux_cuenta++;
-        }
-        if(aux_cuenta==this.form_filter.servicios.length){
-          return true;
-        }
-    	});
-      return aux_list;
-    }
+
+  },
+  filters:{
+	    fecha_literal:function(value){
+		let fecha_literal ='';
+		if (value){
+		let fecha = new Date(value);
+		let dia = ('0'+(fecha.getDate())).slice(-2);
+    	let anio = fecha.getFullYear();
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+			} 
+			fecha_literal = `${dia} de ${mesLiteral} de ${anio}`;
+		}
+		return fecha_literal;
+	},
   },
   methods:{
-    get_hospedajes(){
-      SiteServices.getAllHospedaje().then(response=>{
-        this.list_hospedajes=response.data;
+    get_resenas(){
+      ResenaService.getResenas().then(response=>{
+        this.resenas = response.data;
+        //ordenar por fecha de manera descendente
+        this.resenas.sort((x, y) => y.fecha_publicacion.localeCompare(x.fecha_publicacion));
+        // this.resenas.forEach(element=>{
+        //   element.fecha_publicacion = this.fecha_literal(element.fecha_publicacion)
+        // })
       })
     },
-    scroll_ini(){
-      document.querySelector('#scrolling-body').scrollTo(0,0);
+  	limpiarResena(){
+		this.resena = {
+			autor:'',
+			titulo:'',
+			contenido:'',
+			fecha_publicacion:new Date().toISOString(),
+			rating:5, 
+			estado:0, 
+			img_user:''
+		};
+		this.image_user='';
+	},
+	toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
     },
-    activa_inicio(){
-      var wow = new WOW({ scrollContainer: "#scrolling-body"});
-      wow.init();
-    },
-    changeColor() {
-      if (
-          document.body.scrollTop > 100 ||
-          document.documentElement.scrollTop > 100
-      ) {
-          this.bg = 'white';
-      } else {
-          this.bg = 'transparent';
+
+	updateFile(event) {
+      if(event!=null){
+        // generamos un nuevo nombre de imagen
+        var fileName = event.name;
+        var extFile = fileName.split('.').pop();
+        this.resena.img_user=(Math.random().toString(16).slice(2)) +'.'+ extFile;
+        // para la visualizacion convertimos la imagen
+        const file = event; 
+        this.toBase64(file).then(base64 => {
+          this.image_user=base64;
+        });
+      }else{
+        this.image_user='';
       }
     },
-  },
-  components: {
+	validateResena(){
+		if(this.$refs.form.validate()){
+			this.guardaResena()
+		}
+	},
+	 FormDataImage(id_element, nombre_archivo){
+      const fileinput= document.getElementById(id_element);
+      if(fileinput.files.length!=0){
+        const formData = new FormData();
+        formData.append('file', fileinput.files[0], nombre_archivo);
+        return formData;
+      }else{
+        return null;
+      }
+    },
+	guardaResena(){
+		var dataimagen=this.FormDataImage('file_imagen_principal', this.resena.img_user);
+      	//this.resena.img_user="";
+
+		//this.resena.fecha_publicacion = new Date().toISOString();
+		ResenaService.saveResena(this.resena)
+		.then(response=>{
+			let id_resena = response.data.id;
+			if(dataimagen!=null) {
+				this.guardaImagenUser(id_resena, dataimagen);
+				}
+			this.$swal.fire(
+			'Buen trabajo!',
+			'Tu reseña ha sido registrada y esta a la espera de su aprobación, agradecemos tu gentil colaboración',
+			'success'
+			);
+			this.limpiarResena();
+			this.dialog_resena = false;
+		})
+	},
+	guardaImagenUser(id_resena, dataimagen){
+      ResenaService.saveImage(id_resena, dataimagen).then(response=>{
+        console.log(response.data);
+        this.image_user='';
+      })
+    },
   }
 }
 </script>
