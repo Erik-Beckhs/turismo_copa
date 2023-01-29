@@ -17,13 +17,19 @@
 		<v-container>
 			<v-flex>
 				<v-row>
-					<v-col cols="12"><br></v-col>
+					<v-col cols="12"></v-col>
 				</v-row>
 				<v-row>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
-						<span class="text-h5 font-weight-light">{{data_atractivo.descripcion}}</span>
-						<br><br>
+						<div v-if="data_atractivo.como_llegar!=''">
+							<v-icon left color="grey">mdi-map-marker-star</v-icon>
+							<span class="font-weight-medium grey--text">Cómo llegar: </span><span class="grey--text">{{data_atractivo.como_llegar}}</span>
+							<br><br>
+						</div>
+						<div>
+							<span class="text-h5 font-weight-light">{{data_atractivo.descripcion}}</span>	
+						</div>
 					</v-col>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="1"></v-col>
