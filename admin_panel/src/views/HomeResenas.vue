@@ -200,7 +200,7 @@ export default {
 
   },
   filters:{
-	    fecha_literal:function(value){
+	fecha_literal:function(value){
 		let fecha_literal ='';
 		if (value){
 		let fecha = new Date(value);

@@ -108,7 +108,7 @@
 			<source src="@/assets/video/principal.mp4" type="video/mp4">
 		</video>
 		<nav class="d-none d-sm-none d-md-flex">
-			<img src="@/assets/logo_copa.png" class="logo">
+			<img src="@/assets/copa_destino.png" class="logo">
 			<ul>
 				<li>
 					<router-link class="underline-none" to="/" v-slot="{ navigate }">
@@ -273,7 +273,7 @@
 								<div>
 									<a @click="openLink('HomeAtractivo', evt.id)">
 										<div>
-											<h4><small>{{evt.fecha}}</small>{{evt.nombre}}</h4>
+											<h4><small>{{evt.fecha | fecha_literal_mes}}</small>{{evt.nombre}}</h4>
 										</div>
 										<picture>
 											<img :src="$Api_url_media+evt.img_principal" alt="Image">
@@ -412,7 +412,7 @@
 										</v-img>
 										<v-card-text>
 											<div>
-												<span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
+												<span class="text-subtitle-1 font-weight-bold">{{ho.tipo}} {{ho.nombre}}</span>	
 											</div>
 											<div class="row">
 												<div class="col-12">
@@ -560,7 +560,7 @@
 							<v-card-text>
 								<div>
 									<v-chip color="green" label x-small text-color="white">
-										Cultura
+										{{not.categoria}}
 									</v-chip><br>
 									<span class="text-subtitle-1 font-weight-bold">{{not.titulo}}</span>	
 								</div>
@@ -569,6 +569,7 @@
 										<div class="grey--text font-weight-light text-truncate">
 											{{not.entrada}}
 										</div>
+										<p class="text-caption">Fecha: {{not.fecha_publicacion | fecha_literal}}</p>
 									</div>	
 								</div>
 							</v-card-text>
@@ -659,7 +660,7 @@
 									</span><br><br>
 									<p>
 										<v-icon color="blue">mdi-map-marker</v-icon>&nbsp;
-										Plaza 2 de Febrero, Copacabana Bolivia
+										Plaza Sucre, Copacabana Bolivia
 									</p>
 									<p>
 										<v-icon color="blue">mdi-email</v-icon>&nbsp;
@@ -667,7 +668,7 @@
 									</p>
 									<p>
 										<v-icon color="blue">mdi-phone</v-icon>&nbsp;
-										61216696
+										73212536
 									</p>
 								</v-container>
 								<v-row>
@@ -1202,6 +1203,55 @@ export default {
 		}
 		return fecha_literal;
 	},
+	fecha_literal_mes:function(value){
+		let fecha_literal ='';
+		if (value){
+		let fecha = new Date(value);
+		let dia = ('0'+(fecha.getDate()+1)).slice(-2);
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+			} 
+			fecha_literal = `${dia} de ${mesLiteral}`;
+		}
+		return fecha_literal;
+	},
   },
   methods:{
 	openLink(module, id){
@@ -1310,7 +1360,7 @@ export default {
 		})
 	},
 	get_hospedajes(){
-		SiteServices.getDataLimit('hospedajes', 8).then(response=>{
+		SiteServices.getDataLimit('hospedajes', 15).then(response=>{
 			this.list_hospedaje=response.data;
 		})
 	},
