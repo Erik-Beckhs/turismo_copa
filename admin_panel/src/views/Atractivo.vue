@@ -4,15 +4,31 @@
     <v-container>
     <v-card-title>
     <v-icon>mdi-bank</v-icon>
-      <span class="ms-2">{{edicion}} Atractivo</span>
+      <span class="ms-2 text-h5">{{edicion}} Atractivo</span>
     </v-card-title>
     <v-card-subtitle class="grey--text">
-      A continuación ingrese información general del atractivo, además de los artículos recomendados a llevar por el turista.
+      A continuación ingrese información general del atractivo, la información a solicitar cambiará según la categoría elegida
     </v-card-subtitle>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
-        <v-card-title>Datos del Atractivo</v-card-title>
+        <v-card-title class="text-subtitle-1">Datos del Atractivo</v-card-title>
+        <v-row>
+          <v-col cols="12" class="px-3">
+            <v-select
+            v-model="atractivo.categoria"
+            :items="categorias"
+            label="Categoria"
+            :rules="camposRules"
+            hide-details="true"
+            outlined
+        >
+        <template #label>
+            Categoria <span class="red--text"><strong>*</strong></span>
+        </template>
+        </v-select>
+        </v-col>
+        </v-row>
         <v-row>
           <v-col cols="12" class="px-3">
           <v-text-field
@@ -41,7 +57,7 @@
           <v-col cols="6" class="px-3">
             <v-text-field
               v-model="atractivo.ubicacion"
-              :rules="campo_atractivoos"
+              :rules="camposRules"
               hide-details="true"
               outlined
             >
@@ -64,7 +80,7 @@
             </v-select>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="atractivo.categoria != 'Actividades Que Hacer' && atractivo.categoria != 'Eventos Programados'">
           <v-col cols="12" class="px-3">
             <v-text-field
               v-model="atractivo.como_llegar"
@@ -74,22 +90,9 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="6" class="px-3">
-            <v-select
-            v-model="atractivo.categoria"
-            :items="categorias"
-            label="Categoria"
-            :rules="camposRules"
-            hide-details="true"
-            outlined
-        >
-        <template #label>
-            Categoria <span class="red--text"><strong>*</strong></span>
-        </template>
-        </v-select>
-        </v-col>
-          <v-col cols="6" class="px-3">
+        <v-row v-if="atractivo.categoria != 'Actividades Que Hacer' && atractivo.categoria != 'Eventos Programados'">
+
+          <v-col cols="12" class="px-3">
                <v-select
                 v-model="atractivo.jerarquia"
                 :items="jerarquias"
@@ -115,7 +118,7 @@
             </v-text-field>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="atractivo.categoria != 'Actividades Que Hacer' && atractivo.categoria != 'Eventos Programados'">
           <v-col cols="6" class="px-3">
            <v-select
               v-model="atractivo.tipo"
@@ -139,17 +142,14 @@
           ></v-select>
           </v-col>
         </v-row>
-        <v-col cols="12" class="px-0 py-0">
-            <v-card-title>Información</v-card-title>
+        <v-col cols="12" class="text-subtitle-1">
+            <v-card-title class="text-subtitle-1">Información</v-card-title>
             <vue-editor v-model="atractivo.informacion" />
         </v-col>
       </v-col>
       <v-col cols="4" class="pa-5" style="border-left:1px solid #efefef;">
-          <v-card-title class="py-0">
-            Imagenes
-          </v-card-title>
           <v-col cols="12">
-            <v-card-title class="py-0">
+            <v-card-title class="py-0 text-subtitle-1">
                 Imagen Principal
             </v-card-title>
             <v-img v-if="view_image_atractivo!=''" :src="view_image_atractivo"/>
@@ -175,7 +175,7 @@
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
-            <v-card-title class="py-0">
+            <v-card-title class="py-0 text-subtitle-1">
                Galería de Imagenes
             </v-card-title>
             <vue-upload-multiple-image
@@ -197,11 +197,11 @@
           </v-col>
       </v-col>
     </v-row>
-    <v-divider></v-divider>
+    <!--<v-divider></v-divider>
     <v-row class="mb-7 mt-5">
       <v-card-title>
         <v-icon>mdi-bag-personal</v-icon>
-        <span class="ms-2">Artículos a llevar</span>
+        <span class="ms-2 text-subtitle-1">Artículos a llevar</span>
       </v-card-title>
 
      <v-container class="pl-15">
@@ -216,7 +216,8 @@
             </div>
       </v-flex>
      </v-container>
-    </v-row>
+    </v-row>-->
+
     <v-divider></v-divider>
     <v-col cols="12" class="text-right">
       <v-btn tile color="primary" class="mx-1" @click="guardar">
@@ -323,16 +324,25 @@ export default {
         AtractivoService.getAtractivo(id).then(response=>{
           this.getMultimediaGaleria();
           this.atractivo = response.data;
+          if(this.atractivo.fecha){
+            this.atractivo.fecha = this.ordenaFecha(this.atractivo.fecha);
+          }
           this.view_image_atractivo=this.$Api_url_media+this.atractivo.img_principal;
           AtractivoService.getArticulosAtractivo(id).then(response=>{
             if(response.data.length > 0){
-              //var articulos_response = response.data;
               this.load_articulos(response.data);
               
             }
           }).catch(error=>console.log(error));
         })
     },
+    ordenaFecha(fecha_atractivo){
+      let fecha = new Date(fecha_atractivo);
+      let dia = ('0'+(fecha.getDate()+1)).slice(-2);
+      let mes = ('0'+(fecha.getMonth()+1)).slice(-2);
+      let anio = fecha.getFullYear();
+      return `${anio}-${mes}-${dia}`;
+     },
     getMultimediaGaleria(){
       MultimediaService.getMultimedia('atractivos', this.id_atractivo).then(response=>{
         this.multimedia_data=response.data;

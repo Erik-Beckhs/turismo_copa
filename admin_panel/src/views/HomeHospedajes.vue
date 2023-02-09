@@ -209,7 +209,7 @@
                       justify="center"
                     >
                       <div class="grey--text text-h5">
-                        No se encontro resultados
+                        No se encontró resultados
                       </div>
                     </v-row>
                   </v-card>
@@ -230,7 +230,7 @@
                         </v-col>
                         <v-col cols="8" style="padding:0">
                           <v-card-title>
-                            <span>{{ho.nombre}}</span>
+                            <span>{{ho.tipo}} {{ho.nombre}}</span>
                             <v-spacer></v-spacer>
                             <span class="font-weight-medium">Desde ${{ho.precio_min}}  </span>&nbsp;noche
                           </v-card-title>
