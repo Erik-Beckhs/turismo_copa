@@ -176,14 +176,14 @@
               Cambiar Contraseña
           </v-list-item-title>
         </v-list-item>
-        <v-list-item link>
+        <!--<v-list-item link>
           <v-list-item-icon>
             <v-icon>mdi-cog</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
             Configuraciones
           </v-list-item-title>
-        </v-list-item>
+        </v-list-item>-->
         <v-list-item link @click="salir">
           <v-list-item-icon>
             <v-icon>mdi-logout</v-icon>
