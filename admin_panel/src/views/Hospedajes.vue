@@ -35,6 +35,15 @@
     <template v-slot:[`item.precio_min`]="{ index }">
       <span>{{index + 1}}</span>
     </template>
+    <template v-slot:[`item.categoria`]="{ item }">
+      <v-rating
+        :value="item.categoria"
+        color="orange"
+        dense
+        readonly
+        size="14"
+        ></v-rating>
+    </template>
     <template v-slot:[`item.id`]="{ item }">
         <v-btn
         class="mx-1"
@@ -84,12 +93,12 @@ export default {
             align: 'start',
             value: 'precio_min',
           },
+          { text: 'Tipo', value: 'tipo' },
           { text: 'Nombre', value: 'nombre' },
           { text: 'Responsable', value: 'titular' },
           { text: 'Categoria', value: 'categoria' },
           { text: 'Dirección', value: 'direccion' },
           { text: 'Telefono', value: 'telefono' },
-          { text: 'Tipo', value: 'tipo' },
           { text: 'Acciones', value: 'id' },
         ],
         hospedajes_list:[],
@@ -137,18 +146,6 @@ export default {
         }
       })
      },
-    //  eliminar(id){
-    //     axios.delete(`http://localhost:3000/api/atractivos/${id}`)
-    //     .then(response => {
-    //       if(response){
-    //         this.notification('El atractivo fue eliminado', 'info');
-    //         this.getAtractivos(); 
-    //       }
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    //  },
       notification(title, icon){
           this.$swal.fire({
           position: 'top-end',

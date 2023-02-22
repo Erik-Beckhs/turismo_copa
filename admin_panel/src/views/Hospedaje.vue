@@ -4,7 +4,7 @@
     <v-container>
     <v-card-title>
     <v-icon>mdi-bed</v-icon>
-    <span class="ms-2">{{edicion}} Hospedaje</span>
+    <span class="ms-2 text-h5">{{edicion}} Hospedaje</span>
     </v-card-title>
     <v-card-subtitle class="grey--text">
       A continuación ingrese información general del hospedaje, además de los tipos de habitación y los servicios que ofrece.
@@ -12,72 +12,76 @@
     <v-divider></v-divider>
     <v-row>
       <v-col cols="8">
-        <v-card-title>Datos del Hospedaje</v-card-title>
-        <v-col cols="12" class="pa-0">
+        <v-card-title class="text-subtitle-1">Datos del Hospedaje</v-card-title>
+        <v-row>
+          <v-col cols="12">
           <v-text-field
             v-model="hospedaje.nombre"
-            :rules="nameRules"
+            :rules="camposRules"
             label="Nombre"
-            required
             outlined
+            hide-details="true"
           ></v-text-field>
         </v-col>
+        </v-row>
         <v-row>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6">
             <v-text-field
               v-model="hospedaje.direccion"
-              :rules="nameRules"
+              hide-details="true"
               label="Direccion"
-              required
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="6" class="px-3 py-0">
-                <v-text-field
+          <v-col cols="6">
+              <v-text-field
               v-model="hospedaje.telefono"
               label="Telefono"
               outlined
+              hide-details="true"
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6">
              <v-select
               v-model="hospedaje.categoria"
               :items="categorias"
               label="Categoria"
+              hide-details="true"
               outlined
         ></v-select>
           </v-col>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6">
             <v-select
               v-model="hospedaje.tipo"
               :items="tipos"
               label="Tipo"
-              required
+              hide-details="true"
               outlined
             ></v-select>
           </v-col>
         </v-row>
          <v-row>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6">
             <v-text-field
               v-model="hospedaje.precio_min"
               label="Precio Mínimo"
-              required
+              hide-details="true"
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="6" class="px-3 py-0">
+          <v-col cols="6">
                 <v-text-field
               v-model="hospedaje.precio_max"
               label="Precio Máximo"
-              required
+              hide-details="true"
               outlined
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-col cols="12" class="pa-0">
+        <v-row>
+          <v-col cols="12">
           <v-text-field
             v-model="hospedaje.titular"
             label="Responsable"
@@ -85,18 +89,17 @@
             outlined
           ></v-text-field>
         </v-col>
-        <v-col cols="12" class="px-0 py-0">
-              <v-card-title>Información</v-card-title>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+              <span  class="text-subtitle-1">Información</span>
             <vue-editor v-model="hospedaje.informacion" />
         </v-col>
-
+        </v-row>
       </v-col>
       <v-col cols="4" class="pa-5">
-          <v-card-title class="py-0">
-            Imagenes
-          </v-card-title>
           <v-col cols="12">
-            <v-card-title class="py-0">
+            <v-card-title class="py-0 text-subtitle-1">
                 Imagen Principal
             </v-card-title>
              <v-img v-if="view_image_hospedaje!=''" :src="view_image_hospedaje"/>
@@ -119,7 +122,7 @@
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
-            <v-card-title class="py-0">
+            <v-card-title class="py-0 text-subtitle-1">
                Galería de Imagenes
             </v-card-title>
             <vue-upload-multiple-image
@@ -139,7 +142,7 @@
           </v-col>
       </v-col>
       </v-row>
-          <v-card-title>
+          <v-card-title class="text-subtitle-1">
             Redes Sociales
           </v-card-title>
         <v-row>
@@ -172,7 +175,7 @@
     <v-row class="my-2">
     <v-card-title class="mb-4">
       <v-icon>mdi-bed</v-icon>
-      <span class="ms-2">Tipos de Habitación</span>
+      <span class="ms-2 text-subtitle-1">Tipos de Habitación</span>
     </v-card-title>
 
      <v-container class="ps-15">
@@ -192,7 +195,7 @@
     <v-row class="my-2">
     <v-card-title class="mb-4">
       <v-icon>mdi-coffee</v-icon>
-      <span class="ms-2">Servicios de la Propiedad</span>
+      <span class="ms-2 text-subtitle-1">Servicios de la Propiedad</span>
     </v-card-title>
 
      <v-container class="ps-15">
@@ -212,7 +215,7 @@
     <v-row class="my-2">
     <v-card-title class="mb-4">
       <v-icon>mdi-book-music</v-icon>
-      <span class="ms-2">Servicios a la Habitación</span>
+      <span class="ms-2 text-subtitle-1">Servicios a la Habitación</span>
     </v-card-title>
 
      <v-container class="ps-15">
@@ -293,8 +296,8 @@ export default {
       servicios:ItemService.listServiciosHospedaje(),
       servicios_propiedad:[],
       servicios_habitacion:[],
-      nameRules: [
-        v => !!v || 'El nombre es requerido',
+      camposRules: [
+        v => !!v || 'Campo obligatorio',
       ],
       files_multimedia:[],
       multimedia_data:[],

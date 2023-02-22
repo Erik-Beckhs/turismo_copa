@@ -5,8 +5,8 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
         <v-toolbar-title class="font-weight-light">
           <v-img
-            src="../assets/logo_copa.png"
-            width="120"
+            src="../assets/copa_destino.png"
+            width="100"
           ></v-img>
           <!--span>COPACABANA ES TU DESTINO</span-->
         </v-toolbar-title>
