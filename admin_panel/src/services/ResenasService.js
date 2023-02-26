@@ -10,8 +10,8 @@ export default {
     aprobarResena(id, estado){
         return Api().patch(`/resenas/${id}`, estado);
     },
-    countResenas(){
-        return Api().get(`/resenas/count`);
+    countResenas(estado){
+        return Api().get(`/resenas/count?where[estado]=${estado}`);
     }, 
     saveImage(id, dataimage){
         return Api().post(`/resenas/${id}/image`, dataimage, {
