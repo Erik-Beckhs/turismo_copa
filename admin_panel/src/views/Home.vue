@@ -105,7 +105,7 @@
     </v-dialog>
 	<div class="hero">
 		<video autoplay loop muted plays-inline class="back-video">
-			<source src="@/assets/video/principal.mp4" type="video/mp4">
+			<source src="@/assets/video/video_principal.mp4" type="video/mp4">
 		</video>
 		<nav class="d-none d-sm-none d-md-flex">
 			<img src="@/assets/copa_destino.png" class="logo">
@@ -1073,34 +1073,6 @@ export default {
 		],
 		contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
 		list_resenas:[
-			// {
-			// 	id:1,
-			// 	titulo:'Hermoso Lugar',
-			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-			// 	autor:'Carla Rimba',
-			// 	fecha_publicacion:'19/11/2022'
-			// },
-			// {
-			// 	id:2,
-			// 	titulo:'Hermoso Lugar',
-			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-			// 	autor:'Carla Rimba',
-			// 	fecha_publicacion:'19/11/2022'
-			// },
-			// {
-			// 	id:3,
-			// 	titulo:'Hermoso Lugar',
-			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-			// 	autor:'Carla Rimba',
-			// 	fecha_publicacion:'19/11/2022'
-			// },
-			// {
-			// 	id:4,
-			// 	titulo:'Hermoso Lugar',
-			// 	contenido:'La gente es muy amable, la comida exquisita y los atractivos son una bellez',
-			// 	autor:'Carla Rimba',
-			// 	fecha_publicacion:'19/11/2022'
-			// },
 		],
 		dialog_resena :false,
 		resena:{
@@ -1338,7 +1310,7 @@ export default {
 		document.querySelector('#scrolling-body').scrollTo(0,0);
 	},
 	get_actividades(){
-		SiteServices.getActividad().then(response=>{
+		SiteServices.getActividad(5).then(response=>{
 			this.list_actividades=response.data;
 		})
 	},

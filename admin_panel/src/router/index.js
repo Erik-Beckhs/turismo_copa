@@ -22,6 +22,8 @@ import Eventos from '@/views/Eventos.vue';
 import Evento from '@/views/Evento.vue';
 import Noticias from '@/views/Noticias.vue';
 import Noticia from '@/views/Noticia.vue';
+import NotFound from '@/views/PageNotFound.vue';
+
 
 Vue.use(VueRouter)
 
@@ -63,6 +65,11 @@ const routes = [
       { path: "/noticia/:id", name: "noticia", component: Noticia },
       { path: "/perfil", name: "perfil", component: Perfil },
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound
   },
 ]
 

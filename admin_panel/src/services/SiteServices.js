@@ -13,8 +13,8 @@ export default {
     getEventosLimit(limit){
         return Api().get(`/atractivos?filter[limit]=${limit}&filter[where][and][0][categoria]=Eventos%20Programados`);
     },
-    getActividad(){
-        return Api().get(`/atractivos?filter[where][and][0][categoria]=Actividades%20Que%20Hacer`);
+    getActividad(limit){
+        return Api().get(`/atractivos?filter[limit]=${limit}&filter[where][and][0][categoria]=Actividades%20Que%20Hacer`);
     },
     getActividadCount(){
         return Api().get(`/atractivos/count?where[categoria]=Actividades%20Que%20Hacer`);
