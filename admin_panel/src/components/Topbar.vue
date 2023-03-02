@@ -50,7 +50,6 @@
           <v-subheader
             v-if="item.header"
             :key="item.header"
-            v-text="item.header"
           ></v-subheader>
 
           <v-divider

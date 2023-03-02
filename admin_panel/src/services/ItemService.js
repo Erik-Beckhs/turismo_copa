@@ -145,6 +145,7 @@ export default {
         'Museos y Salas de Exposición',
         'Folklore Espiritual Mental',
         'Folklore Social',
+        'Lugares de Observación',
         'Artísticos'
         ];
     },
@@ -156,6 +157,7 @@ export default {
             'Centros Poblados y Ciudades',
             'Monumentos, edificios y obras de arquitectura',
             'Religioso',
+            'Flora y Fauna',
             'Arqueológico',
             'Manifestaciones y creencias populares',
             'Comidas y bebidas',
