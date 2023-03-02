@@ -34,5 +34,8 @@ export default {
     },
     countAtractivos(){
         return Api().get(`/atractivos/count`);
-    }
+    },
+    countEventos(){
+        return Api().get(`/atractivos/count?where[categoria]=Eventos%20Programados`);
+    },
 }
