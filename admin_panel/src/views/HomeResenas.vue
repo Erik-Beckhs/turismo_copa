@@ -24,7 +24,7 @@
         <v-card-text>
 			<v-card outlined class="pa-1">
 			<v-row>
-					<v-col cols="4">
+					<v-col cols="12" md="4">
 						<v-img class="mx-auto" v-if="image_user!=''" width="190" :src="image_user"/>
 						<v-img class="mx-auto" v-else width="190" src="@/assets/user2.png"/>
 						<v-col cols="12" class="pt-3">
@@ -48,7 +48,7 @@
 							</v-file-input>
 						</v-col>
 					</v-col>
-					<v-col cols="8">
+					<v-col cols="12" md="8">
 						<v-col cols="12">
 							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Autor" v-model="resena.autor" />
 						</v-col>
@@ -85,7 +85,7 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="green darken-1"
+            color="blue darken-1"
             text
             @click="dialog_resena = false"
           >
@@ -93,8 +93,8 @@
           </v-btn>
 
           <v-btn
-            color="green darken-1"
-            text
+            color="blue darken-1"
+			dark
             @click="validateResena"
           >
             Guardar
@@ -107,57 +107,57 @@
     <v-container>
       <v-row>
       <v-col cols="12">
-      </v-col>
-    </v-row>
-    <v-row>
-        <v-col cols="7">
-          <v-card class="py-5 px-8">
-                <v-row class="my-5">
-                  <span class="text-h5">
-                  Listado de Reseñas
-                </span>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" dark @click="dialog_resena = true">
-                  <v-icon>mdi-pencil</v-icon>
-                  <span>Escribir Reseña</span>
-                </v-btn>
-                </v-row>
-                <v-list four-line v-if="resenas.length>0">
-                  <template class="d-flex">
-                    <v-list-item v-for="item in resenas" :key="item.id">
+		</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12">
+			<v-card class="py-5 px-8">
+					<v-row class="my-5">
+					<span class="text-h5">
+					Listado de Reseñas
+					</span>
+					<v-spacer></v-spacer>
+					<v-btn color="primary" dark @click="dialog_resena = true">
+					<v-icon>mdi-pencil</v-icon>
+					<span>Escribir Reseña</span>
+					</v-btn>
+					</v-row>
+					<v-list four-line v-if="resenas.length>0">
+					<template class="d-flex">
+						<v-list-item v-for="item in resenas" :key="item.id">
 
-                      <v-list-item-avatar class="align-self-start" size="60" v-if="item.img_user!=''">
-                        <v-img :src="$Api_url_media+item.img_user"></v-img>
-                      </v-list-item-avatar>
+						<v-list-item-avatar class="align-self-start" size="60" v-if="item.img_user!=''">
+							<v-img :src="$Api_url_media+item.img_user"></v-img>
+						</v-list-item-avatar>
 
-                      <v-list-item-avatar class="align-self-start" size="60" v-else>
-                        <v-img src="@/assets/user2.png"></v-img>
-                      </v-list-item-avatar>
+						<v-list-item-avatar class="align-self-start" size="60" v-else>
+							<v-img src="@/assets/user2.png"></v-img>
+						</v-list-item-avatar>
 
-                      <v-list-item-content>
-                        <v-list-item-title v-html="item.autor"></v-list-item-title>
-                        <v-list-item-subtitle>{{item.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
-                          <v-rating
-                          v-model="item.rating"
-                          background-color="orange lighten-3"
-                          color="orange"
-                          small
-                          dense
-                          readonly
-                        ></v-rating>
-                        <v-card-title class="text-h6 ps-0 py-1">{{item.titulo}}</v-card-title>
-                        <span class="fs-0-9" style="line-height:1.3rem;">{{item.contenido}}</span>
-                        <v-divider class="mt-2"></v-divider>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </template>
-                </v-list>
-                <v-row class="text-h5 my-10" v-else>
-                    <span class="mx-auto grey--text">Todavía no existen reseñas aprobadas</span> 
-                </v-row>
-          </v-card>
-        </v-col>
-    </v-row>
+						<v-list-item-content>
+							<v-list-item-title v-html="item.autor"></v-list-item-title>
+							<v-list-item-subtitle>{{item.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
+							<v-rating
+							v-model="item.rating"
+							background-color="orange lighten-3"
+							color="orange"
+							small
+							dense
+							readonly
+							></v-rating>
+							<span class="text-subtitle-2 ps-0 py-1">{{item.titulo}}</span><br>
+							<span class="fs-0-9" style="line-height:1.3rem;">{{item.contenido}}</span>
+							<v-divider class="mt-2"></v-divider>
+						</v-list-item-content>
+						</v-list-item>
+					</template>
+					</v-list>
+					<v-row class="text-h5 my-10" v-else>
+						<span class="mx-auto grey--text">Todavía no existen reseñas aprobadas</span> 
+					</v-row>
+			</v-card>
+			</v-col>
+		</v-row>
     </v-container>
   </div>
 </template>

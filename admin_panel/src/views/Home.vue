@@ -160,7 +160,7 @@
 						</p>
 					</div>
 				</v-col>
-				<v-col cols="12" md="6" sm="6" lg="5" xl="5" class="pt-10 ms-10">
+				<v-col cols="12" md="6" sm="6" lg="5" xl="5" class="pr-10 pl-10">
 					<v-img width="600" class="wow fadeInRight img-sepia" src="../assets/copaini.png"></v-img>
 				</v-col>
 			</v-row>
@@ -282,90 +282,6 @@
 								</div>
 							</div>
 						</slide>
-						<!-- <slide :index="1">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>2 de Febrero</small>Entronización de la Virgen de la Candelaria</h4>
-										<picture>
-											<img src="@/assets/img/eventos/virgen.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="2">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>20 de Abril</small>Semana Santa</h4>
-										<picture>
-											<img src="@/assets/img/eventos/semana.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="3">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>3 de Mayo</small>Fiesta del Señor de Kolquepata</h4>
-										<picture>
-											<img src="@/assets/img/eventos/mayo.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="4">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>6 de Junio</small>Aniversario de la Provincia Manco Kapac</h4>
-										<picture>
-											<img src="@/assets/img/eventos/desfileee.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="5">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>21 de Junio</small>Año Nuevo Aymara</h4>
-										<picture>
-											<img src="@/assets/img/eventos/nuevo.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="6">
-							<div class="slick">
-								<div>
-									<a href="/">
-										<h4><small>6 de Agosto</small>Fiesta Internacional Bolivia Perú</h4>
-										<picture>
-											<img src="@/assets/img/eventos/agosto.jpg" alt="Image">
-										</picture>
-									</a>
-								</div>
-							</div>
-						</slide>
-						<slide :index="7">
-							<div class="slick">
-							<div>
-								<a href="/">
-									<h4><small>2 de Noviembre</small>Fiesta de Todos los Santos</h4>
-									<picture>
-										<img src="@/assets/img/a4.jpg" alt="Image">
-									</picture>
-								</a>
-							</div>
-						</div>
-						</slide> -->
 					</carousel-3d>
 				</v-col>
 			</v-row>
@@ -472,7 +388,7 @@
 								<div style="background: rgba(247,247,247,0.9);" class="pa-4">
 									<v-flex class="my-5">
 										<v-row dense>
-											<v-col cols="3">
+											<v-col cols="6" md="3">
 												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
@@ -485,7 +401,7 @@
 													<span class="fs-0-9 grey--text">Diferentes formas de llegar</span>
 												</div>
 											</v-col>
-											<v-col cols="3">
+											<v-col cols="6" md="3">
 												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
@@ -498,7 +414,7 @@
 													<span class="fs-0-9 grey--text">Destinos perfectamente comunicados</span>
 												</div>
 											</v-col>
-											<v-col cols="3">
+											<v-col cols="6" md="3">
 												<div class="text-center pointer">
 													<v-avatar size="128" tile>
 													<img
@@ -509,7 +425,7 @@
 													<span class="fs-0-9 grey--text">Localiza lo que te interesa</span>
 												</div>
 											</v-col>
-											<v-col cols="3">
+											<v-col cols="6" md="3">
 												<div class="text-center pointer">
 													<v-avatar size="128" @click="dialog_resena=true" tile>
 													<img
@@ -594,65 +510,80 @@
 			</v-flex>
 		</v-container>
 	</div>
-	<div id="resenas">	
-		<div class="bg pa-15">
-			<v-container>
+	<div id="resenas" style="background: #F7F7F7;">	
+		<v-container style="padding-top: 60px;">
+			<v-flex class="my-10">
 				<v-row>
-					<div class="col-12">
-						<div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms" style="color:#fff;">
-							<p class="fs-2">Últimas Reseñas</p>
-							<span>Comparte tu experiencia y ayuda a cientos de personas que pretenden visitar el Santuario</span>
+					<v-col cols="12"  md="6">
+						<div>
+							<span class="fs-2 font-weight-bold">Últimas Reseñas</span>
+							<br>
+							<span class="fs-1">Comparte tu experiencia y ayuda a cientos de personas que pretenden visitar la belleza de Copacabana</span>
 						</div>
-					</div>	
-				</v-row>
-				<v-row>
-					<!-- Single Testimonials Area -->
-					<div class="col-12 col-md-6" v-for="resena in list_resenas" :key="resena.id">
-						<div class="resena mb-100 d-flex wow fadeInUp" data-wow-delay="400ms">
-							<div class="img-thumb">
-								<img v-if="resena.img_user" width="55" height="55" :src="$Api_url_media+resena.img_user" />
-								<img v-else width="55" height="55" src="@/assets/user2.png" />
-							</div>
-							<div class="resena-contenido">
-								<p class="text-h5">{{resena.titulo}}</p>
-								<v-rating
-								:value="resena.rating"
-								color="amber"
-								dense
-								half-increments
-								readonly
-								size="14"
-								></v-rating>
-								<p>{{resena.contenido}}</p>
-								<h6><span>{{resena.autor}},</span> {{resena.fecha_publicacion | fecha_literal}}</h6>
-							</div>
-						</div>
-					</div>
-				</v-row>
-				<v-row class="mt-7">
-					<v-col cols="12">
-						<div class="text-center">
-							<router-link class="underline-none" to="/HomeResenas" v-slot="{ navigate }">
-								<v-btn @click="navigate" rounded large color="white" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
-							</router-link>
+						<div class="pa-10 wow fadeInLeft">
+							<v-img src="@/assets/resenas1.png"></v-img>
 						</div>
 					</v-col>
-				</v-row>
-			</v-container>
-		</div>
-	</div>
+					<v-col cols="12" md="6">
+						<div class="mb-4" v-for="resena in list_resenas" :key="resena.id">
+							<v-card class="wow fadeInUp" data-wow-delay="400ms">
+								<v-card-text>
+									<v-list four-line>
+										<template class="d-flex">
+											<v-list-item>
+												<v-list-item-avatar class="align-self-start" size="60" v-if="resena.img_user">
+													<v-img :src="$Api_url_media+resena.img_user"></v-img>
+												</v-list-item-avatar>
 
-	<div id="div_nosotros" style="background: #F7F7F7;">
+												<v-list-item-avatar class="align-self-start" size="60" v-else>
+													<v-img src="@/assets/user2.png"></v-img>
+												</v-list-item-avatar>
+
+												<v-list-item-content>
+													<v-list-item-title v-html="resena.autor"></v-list-item-title>
+													<v-list-item-subtitle>{{resena.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
+													<v-rating
+													v-model="resena.rating"
+													background-color="orange lighten-3"
+													color="orange"
+													small
+													dense
+													readonly
+													></v-rating>
+													<span class="text-subtitle-2 ps-0 py-1">{{resena.titulo}}</span><br>
+													<span class="fs-0-9" style="line-height:1.3rem;">{{resena.contenido}}</span>
+												</v-list-item-content>
+											</v-list-item>
+										</template>
+									</v-list>
+								</v-card-text>
+							</v-card>	
+						</div>
+						<v-row class="mt-7">
+							<v-col cols="12">
+								<div class="text-center">
+									<router-link class="underline-none" to="/HomeResenas" v-slot="{ navigate }">
+										<v-btn @click="navigate" rounded large color="grey" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
+									</router-link>
+								</div>
+							</v-col>
+						</v-row>
+					</v-col>
+				</v-row>
+			</v-flex>
+		</v-container>
+	</div>
+	<div id="div_nosotros">
 		<v-container style="padding-top: 60px;">
 			<v-flex class="mx-15">
 				<v-row>
 					<v-col cols="12" md="6">
 						<v-row>
-							<v-col cols="3" class="pt-15">
+							<v-col cols="3" md="3" class="pt-15 d-none d-sm-flex">
 								<v-img class="mx-auto" src="@/assets/img/escudo.png" width="250">
 								</v-img>
 							</v-col>
-							<v-col cols="9">
+							<v-col cols="12" md="9">
 								<v-container class="mt-5">
 									<span class="fs-2">
 										Dirección de Turismo <br>
@@ -707,7 +638,7 @@
 		background-color: transparent;
 	}
 	.banner-rotated .custom-title {
-		font-size: 120px;
+		font-size: 6.5vw;
 		font-weight: 500;
 		font-family: 'Mega-Fresh';
     	transform: rotate(-3deg);
@@ -795,7 +726,7 @@
 		text-align: center;	
 	}
 	.content h1{
-		font-size:250px;
+		font-size:20vw;
 		color:#fff;
 		font-weight:500;
 		position:relative;
@@ -806,7 +737,7 @@
 		color:#fff;
 		position:relative;
 		font-weight:500;
-		font-size: 1.5rem;
+		font-size: 1.5em;
 	}
 	.content a{
 		text-decoration: none;
@@ -1004,7 +935,7 @@ a{
 
 .bg
 {
-  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../assets/basilica.jpg);
+  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../assets/turismo.jpg);
   background-size: cover;
 }
 
@@ -1041,11 +972,11 @@ a{
     font-weight: 500;
     font-size: 15px; }
     .resena .resena-contenido h6 span {
-      color: #69bc5f; }
+      color: #0099ff; }
   .resena:hover .img-thumb {
-    border-color: #69bc5f; }
+    border-color: #0099ff; }
   .resena:hover .resena-contenido h5 {
-    color: #69bc5f; }
+    color: #0099ff; }
 /*///////Reseñas*/
 
 

@@ -9,13 +9,13 @@
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col cols="12" :md="[(multimedia_data.length>=5) ? 6:12]">
                 <v-card class="rounded-xl" @click="dialog_img=true">
                   <v-img height="500" aspect-ratio="1" :src="$Api_url_media+hospedaje.img_principal">
                   </v-img>  
                 </v-card>
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="6" v-if="multimedia_data.length>=5">
                 <v-row dense>
                   <v-col cols="12" md="6">
                     <v-card class="rounded-tl-xl" @click="dialog_img=true">
