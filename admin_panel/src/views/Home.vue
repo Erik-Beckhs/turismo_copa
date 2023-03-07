@@ -108,7 +108,7 @@
 			<source src="@/assets/video/video_principal.mp4" type="video/mp4">
 		</video>
 		<nav class="d-none d-sm-none d-md-flex">
-			<img src="@/assets/copa_destino.png" class="logo">
+			<img src="@/assets/copa_logo.png" class="logo">
 			<ul>
 				<li>
 					<router-link class="underline-none" to="/" v-slot="{ navigate }">

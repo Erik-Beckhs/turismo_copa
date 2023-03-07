@@ -19,9 +19,9 @@
 
                     <v-list-item-avatar
                         tile
-                        size="200"
+                        size="250"
                     >
-                    <v-img src="@/assets/copa_destino.png" alt="Copacabana">
+                    <v-img src="@/assets/img/escudo.png" alt="Copacabana">
                     </v-img>
                     </v-list-item-avatar>
                     </v-list-item>
