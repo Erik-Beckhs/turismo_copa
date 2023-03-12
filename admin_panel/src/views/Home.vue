@@ -390,15 +390,17 @@
 										<v-row dense>
 											<v-col cols="6" md="3">
 												<div class="text-center pointer">
-													<v-avatar size="128" tile>
+												<router-link class="underline-none" :to="'/HomeComoLlegar/'" v-slot="{ navigate }">
+													<v-avatar @click="navigate" size="128" tile>
 													<img
 														src="@/assets/flaticon/escuela-de-autobuses.png"
 														alt="como llegar"
 													>
 													</v-avatar><br>
-													<span class="fs-1 mt-3">Como llegar a <br>
+													<span class="fs-1 mt-3">Cómo llegar a <br>
 													Copacabana</span><br>
 													<span class="fs-0-9 grey--text">Diferentes formas de llegar</span>
+												</router-link>
 												</div>
 											</v-col>
 											<v-col cols="6" md="3">
@@ -516,8 +518,8 @@
 				<v-row>
 					<v-col cols="12"  md="6">
 						<div>
-							<span class="fs-2 font-weight-bold">Últimas Reseñas</span>
-							<br>
+							<span class="fs-2">Últimas Reseñas</span>
+							<hr class="separador-hr">
 							<span class="fs-1">Comparte tu experiencia y ayuda a cientos de personas que pretenden visitar la belleza de Copacabana</span>
 						</div>
 						<div class="pa-10 wow fadeInLeft">
@@ -540,7 +542,7 @@
 												</v-list-item-avatar>
 
 												<v-list-item-content>
-													<v-list-item-title v-html="resena.autor"></v-list-item-title>
+													<v-list-item-title>{{resena.autor}}</v-list-item-title>
 													<v-list-item-subtitle>{{resena.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
 													<v-rating
 													v-model="resena.rating"
@@ -563,7 +565,7 @@
 							<v-col cols="12">
 								<div class="text-center">
 									<router-link class="underline-none" to="/HomeResenas" v-slot="{ navigate }">
-										<v-btn @click="navigate" rounded large color="grey" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
+										<v-btn @click="navigate" rounded large color="primary" outlined><v-icon left>mdi-arrow-right</v-icon>ver todo</v-btn>
 									</router-link>
 								</div>
 							</v-col>
@@ -586,7 +588,7 @@
 							<v-col cols="12" md="9">
 								<v-container class="mt-5">
 									<span class="fs-2">
-										Dirección de Turismo <br>
+										Dirección de Cultura y Turismo <br>
 										Copacabana
 									</span><br><br>
 									<p>
@@ -609,13 +611,15 @@
 										</div>
 										<div class="text-left">
 											<v-list-item-avatar color="indigo">
-												<v-icon dark>mdi-facebook</v-icon>
+												<a target="_blank" href="https://www.facebook.com/Copacabanagam"><v-icon dark>mdi-facebook</v-icon></a>
 											</v-list-item-avatar>
 											<v-list-item-avatar color="pink">
 												<v-icon dark>mdi-instagram</v-icon>
 											</v-list-item-avatar>
 											<v-list-item-avatar color="green">
-												<v-icon dark>mdi-whatsapp</v-icon>
+												<a target="_blank" href="https://wa.link/a5ooci">
+													<v-icon dark>mdi-whatsapp</v-icon>
+												</a>
 											</v-list-item-avatar>
 										</div>
 									</v-col>
