@@ -23,6 +23,7 @@ import Evento from '@/views/Evento.vue';
 import Noticias from '@/views/Noticias.vue';
 import Noticia from '@/views/Noticia.vue';
 import NotFound from '@/views/PageNotFound.vue';
+import HomeComoLlegar from '@/views/HomeComoLlegar.vue';
 
 
 Vue.use(VueRouter)
@@ -40,7 +41,8 @@ const routes = [
       { path: "/SiteNoticias", name: "homeNoticias", component: HomeNoticias},
       { path: '/SiteHospedajes', name: 'homeHospedajes', component: HomeHospedajes},
       { path: '/SiteHospedaje/:id', name: 'homeHospedaje', component: HomeHospedaje},
-      { path: "/HomeResenas", name: "homeResenas", component: HomeResenas}
+      { path: "/HomeResenas", name: "homeResenas", component: HomeResenas},
+      { path: "/HomeComoLlegar", name: "homeLlegar", component: HomeComoLlegar},
     ]
   },
   {

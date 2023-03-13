@@ -5,7 +5,7 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-md-none"></v-app-bar-nav-icon>
         <v-toolbar-title class="font-weight-light">
           <v-img
-            src="../assets/copa_destino.png"
+            src="../assets/copa_logo.png"
             width="100"
           ></v-img>
           <!--span>COPACABANA ES TU DESTINO</span-->
@@ -33,34 +33,6 @@
               </v-btn>
             </router-link>
         </v-toolbar-items>
-        <!-- <div class="d-none d-sm-none d-md-flex">
-          <v-btn-toggle
-            v-model="active_rute"
-            color="blue"
-            group
-          >
-            <router-link class="underline-none" to="/" v-slot="{ navigate }">
-              <v-btn @click="navigate" value="home">
-                inicio
-              </v-btn>
-            </router-link>
-            <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-              <v-btn @click="navigate" value="HomeAtractivos">
-                atractivos turísticos
-              </v-btn>
-            </router-link>
-            <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
-              <v-btn @click="navigate" value="SiteHospedajes">
-                hospedajes
-              </v-btn>
-            </router-link>
-            <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
-              <v-btn @click="navigate" value="SiteNoticias">
-                noticias
-              </v-btn>
-            </router-link>
-          </v-btn-toggle>
-        </div> -->
       </v-app-bar>
       <v-navigation-drawer
         v-model="drawer"
@@ -75,22 +47,22 @@
             active-class="deep-blue--text text--accent-4"
           >
             <router-link class="underline-none" to="/" v-slot="{ navigate }">
-              <v-list-item @click="navigate" >
+              <v-list-item @click="navigate">
                 <v-list-item-title>INICIO</v-list-item-title>
               </v-list-item>
             </router-link>
             <router-link class="underline-none" to="/HomeAtractivos" v-slot="{ navigate }">
-              <v-list-item @click="navigate" >
+              <v-list-item @click="navigate">
                 <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
               </v-list-item>
             </router-link>
             <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
-              <v-list-item @click="navigate" >
+              <v-list-item @click="navigate">
                 <v-list-item-title>HOSPEDAJES</v-list-item-title>
               </v-list-item>
             </router-link>
             <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
-              <v-list-item @click="navigate" >
+              <v-list-item @click="navigate">
                 <v-list-item-title>NOTICIAS</v-list-item-title>
               </v-list-item>
             </router-link>
