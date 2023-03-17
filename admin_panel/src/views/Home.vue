@@ -185,12 +185,12 @@
 				<v-col cols="12">
 					<carousel-3d v-if="list_actividades.length > 0" autoplay :autoplayTimeout="3000" :perspective="0" :space="400" :display="list_actividades.length" :height="400" class="carousel center-align">
 						<slide v-for="(act ,index) in list_actividades" :key="index" :index="index">
-							<div :id="'Carouseldiv'+index" class="carousel-item">
+							<div @click="openLink('HomeAtractivo', act.id)" :id="'Carouseldiv'+index" class="carousel-item pointer">
 								<p class="titulo">
 									{{act.nombre}}
 								</p>
 								<hr class="linea-card">
-								<p @click="openLink('HomeAtractivo', act.id)" class="subtitulo pointer">{{act.descripcion}}</p>
+								<p class="subtitulo">{{act.descripcion}}</p>
 								<img :src="$Api_url_media+act.img_principal">
 							</div>
 						</slide>
