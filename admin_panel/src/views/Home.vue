@@ -405,15 +405,16 @@
 											</v-col>
 											<v-col cols="6" md="3">
 												<div class="text-center pointer">
-													<v-avatar size="128" tile>
+												<router-link class="underline-none" :to="'/HomeConociendoCopacabana/'" v-slot="{ navigate }">
+													<v-avatar  @click="navigate" size="128" tile>
 													<img
 														src="@/assets/flaticon/lancha-rapida.png"
-														alt="como moverse"
+														alt="conociendo Copacabana"
 													>
 													</v-avatar><br>
-													<span class="fs-1 mt-3">Como viajar por <br>
-													Copacabana</span><br>
-													<span class="fs-0-9 grey--text">Destinos perfectamente comunicados</span>
+													<span class="fs-1 mt-3">Conociendo Copacabana en un Día</span><br>
+													<span class="fs-0-9 grey--text">Tus mejores vacaciones</span>
+												</router-link>
 												</div>
 											</v-col>
 											<v-col cols="6" md="3">
