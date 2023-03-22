@@ -67,7 +67,7 @@
               <v-list-item-title>
               {{item.autor}} <br>
               <span class="text-caption">
-                {{item.fecha_publicacion}}
+                {{item.fecha_publicacion | fecha_literal}}
               </span>
               </v-list-item-title>
               <v-list-item-subtitle
@@ -407,13 +407,73 @@ export default {
     this.getResenas();
     this.getCurrentUser();
   },
-  computed:{
-    
+  filters:{
+    fecha_literal:function(value){
+		let fecha_literal ='';
+		if (value){
+		let fecha = new Date(value);
+		let dia = ('0'+(fecha.getDate())).slice(-2);
+    	let anio = fecha.getFullYear();
+		let mes = fecha.getMonth()+1;
+		let mesLiteral = '';
+		switch(mes){
+			case 1:
+				mesLiteral = 'Enero';
+				break;
+			case 2:
+				mesLiteral = 'Febrero';
+				break;
+			case 3:
+				mesLiteral = 'Marzo';
+				break;
+			case 4:
+				mesLiteral = 'Abril';
+				break;
+			case 5:
+				mesLiteral = 'Mayo';
+				break;
+			case 6:
+				mesLiteral = 'Junio';
+				break;
+			case 7:
+				mesLiteral = 'Julio';
+				break;
+			case 8:
+				mesLiteral = 'Agosto';
+				break;
+			case 9:
+				mesLiteral = 'Septiembre';
+				break;
+			case 10:
+				mesLiteral = 'Octubre';
+				break;
+			case 11:
+				mesLiteral = 'Noviembre';
+				break;
+			case 12:
+				mesLiteral = 'Diciembre';
+				break;
+			} 
+			fecha_literal = `${dia} de ${mesLiteral} de ${anio}`;
+		}
+		return fecha_literal;
+	},
   },
   methods:{
+    convierteFecha(fecha){
+       let date = new Date(fecha);
+       let dia = ('0'+date.getDate()).slice(-2);
+       let mes = ('0'+date.getMonth() + 1).slice(-2);
+       let anio = date.getFullYear();
+       return `${anio}-${mes}-${dia}`;
+    },
     getResenas(){
       ResenasService.getResenas().then(response=>{
         this.resenas_list = response.data;
+        // this.resenas_list.forEach(element=>{
+        //     element.fecha_publicacion = this.convierteFecha(element.fecha_publicacion);
+        // })
+        //console.log(this.resenas_list);
         this.resenasSinAprobar();
       })
     },
