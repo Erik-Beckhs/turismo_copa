@@ -24,7 +24,7 @@ import Noticias from '@/views/Noticias.vue';
 import Noticia from '@/views/Noticia.vue';
 import NotFound from '@/views/PageNotFound.vue';
 import HomeComoLlegar from '@/views/HomeComoLlegar.vue';
-
+import HomeConociendoCopacabana from '@/views/HomeConociendoCopacabana.vue';
 
 Vue.use(VueRouter)
 
@@ -43,6 +43,7 @@ const routes = [
       { path: '/SiteHospedaje/:id', name: 'homeHospedaje', component: HomeHospedaje},
       { path: "/HomeResenas", name: "homeResenas", component: HomeResenas},
       { path: "/HomeComoLlegar", name: "homeLlegar", component: HomeComoLlegar},
+      { path: "/HomeConociendoCopacabana", name: "homeConociendo", component: HomeConociendoCopacabana},
     ]
   },
   {
