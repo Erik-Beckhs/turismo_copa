@@ -91,7 +91,7 @@ export default {
   },
   methods:{
 	get_noticias(){
-		SiteServices.getDataAll('noticias').then(response=>{
+		SiteServices.getNoticiasOrder().then(response=>{
 			this.data_noticias=response.data;
 		})
 	},

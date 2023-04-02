@@ -412,7 +412,7 @@
 														alt="conociendo Copacabana"
 													>
 													</v-avatar><br>
-													<span class="fs-1 mt-3">Conociendo Copacabana en un Día</span><br>
+													<span class="fs-1 mt-3">Conociendo Copacabana  <br> en un Día</span><br>
 													<span class="fs-0-9 grey--text">Tus mejores vacaciones</span>
 												</router-link>
 												</div>
@@ -1273,7 +1273,7 @@ export default {
 		})
 	},
 	get_noticias(){
-		SiteServices.getDataLimit('noticias', 4).then(response=>{
+		SiteServices.getNoticiasLimitAndOrder(4).then(response=>{
 			this.list_noticias=response.data;
 		})
 	},
