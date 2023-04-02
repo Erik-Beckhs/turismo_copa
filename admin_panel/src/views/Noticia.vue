@@ -157,6 +157,7 @@ export default {
       else{
         this.noticia.fecha_publicacion = this.Today();
       }
+      console.log(this.noticia.fecha_publicacion);
   },
   methods:{
     toBase64(file) {
@@ -246,7 +247,7 @@ export default {
     Today(){
       const fecha = new Date();
       let dia = ('0'+fecha.getDate()).slice(-2);
-      let mes = ('0'+fecha.getMonth()+1).slice(-2);
+      let mes = ('0'+(fecha.getMonth()+1)).slice(-2);
       let anio = fecha.getFullYear();
       return `${anio}-${mes}-${dia}`;
     }
