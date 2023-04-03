@@ -135,7 +135,7 @@
 						</v-list-item-avatar>
 
 						<v-list-item-content>
-							<v-list-item-title v-html="item.autor"></v-list-item-title>
+							<v-list-item-title>{{item.autor}}</v-list-item-title>
 							<v-list-item-subtitle>{{item.fecha_publicacion | fecha_literal}}</v-list-item-subtitle>
 							<v-rating
 							v-model="item.rating"
@@ -253,7 +253,7 @@ export default {
   },
   methods:{
     get_resenas(){
-      ResenaService.getResenas().then(response=>{
+      ResenaService.getResenasAprobadas().then(response=>{
         this.resenas = response.data;
         //ordenar por fecha de manera descendente
         this.resenas.sort((x, y) => y.fecha_publicacion.localeCompare(x.fecha_publicacion));

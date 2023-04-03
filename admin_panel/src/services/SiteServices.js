@@ -19,6 +19,12 @@ export default {
     getActividadCount(){
         return Api().get(`/atractivos/count?where[categoria]=Actividades%20Que%20Hacer`);
     },
+    getNoticiasLimitAndOrder(limit){
+        return Api().get(`/noticias?filter[limit]=${limit}&filter[order][0]=id DESC`);
+    },
+    getNoticiasOrder(){
+        return Api().get(`/noticias?filter[order][0]=id DESC`);
+    },
     getDataLimit(module, limit){
         return Api().get(`/${module}?filter[limit]=${limit}`);
     },
@@ -32,6 +38,6 @@ export default {
         return Api().get(`/${module}/${id}`);
     },
     getResenaLimit(limit){
-        return Api().get(`/resenas?filter[limit]=${limit}&filter[where][and][0][estado]=1`);
+        return Api().get(`/resenas?filter[limit]=${limit}&filter[where][and][0][estado]=1&filter[order][0]=id DESC`);
     },
 }

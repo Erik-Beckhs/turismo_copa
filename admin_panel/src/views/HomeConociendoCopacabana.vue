@@ -38,9 +38,14 @@
                               max-width="600"
                               src="@/assets/img/10252016104040-basílica-santuario-copacabana.jpg"
                             ></v-img>
-                            <p><span class="font-weight-bold">Plaza Principal</span>
+                            <p><span class="font-weight-bold">Observatorio Astronómico</span>
                                 que se encuentra al sur de la población, a unos 20 minutos de la plaza principal. Allí está emplazado el observatorio astronómico de Copacabana.
                             </p>
+                            <v-img
+                              class="mx-auto my-3"
+                              max-width="600"
+                              src="@/assets/img/observatorio.jpg"
+                            ></v-img>
                             <p><span class="font-weight-bold">El Calvario</span>
                                 es un reto porque deberás trepar unos cuantos metros. Vale la pena por las vistas increíbles que tendrás desde allí. A lo largo de este cerro, se encuentran las 14 estaciones del Vía Crucis. Te recomendamos llegar para el atardecer, ya que la vista del lago en esa hora de la tarde es inigualable.
                             </p>
