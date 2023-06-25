@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(Hospedaje) {
-    Hospedaje.uploadImage = function(id, req, res, cb) {
-        Hospedaje.findById(id, function(err, instance) {
+module.exports = function(Guia) {
+    Guia.uploadImage = function(id, req, res, cb) {
+        Guia.findById(id, function(err, instance) {
           var storage = require('loopback-component-storage');
           var storageService = storage.StorageService({provider:'filesystem', root:'./server/storage'});
           storageService.upload(req, res, {container: 'multimedia'}, function(err, fileObject) {
@@ -12,8 +12,7 @@ module.exports = function(Hospedaje) {
               else {
                 console.log(fileObject.files.file[0]);
                 instance.updateAttributes({
-                  img_principal: `/api/containers/multimedia/download/${fileObject.files.file[0].name}`
-                  
+                  img: `/api/containers/multimedia/download/${fileObject.files.file[0].name}`
                 }, function(err, instance) {
                   if (err) return cb(err);
                   cb(null, fileObject.files.file[0]);
@@ -22,10 +21,10 @@ module.exports = function(Hospedaje) {
           });
         });
       };
-      Hospedaje.remoteMethod(
+      Guia.remoteMethod(
         'uploadImage',
         {
-          description: 'Sube una imagen para el Hospedaje',
+          description: 'Sube una imagen para la Noticia',
           accepts: [
               {arg: 'id', type: 'string'},
               {arg: 'req', type: 'object', 'http': {source: 'req'}},

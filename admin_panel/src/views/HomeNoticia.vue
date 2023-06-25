@@ -37,8 +37,9 @@
                             </v-col>
                         </v-row>
                         <v-row>
-							<v-col cols="12">
-								<div v-html="data_noticia.contenido"></div>
+							<v-col cols="12" >
+								<div v-if="data_noticia.contenido" v-html="data_noticia.contenido"></div>
+								<div v-else class="grey--text">Sin Información</div>
 							</v-col>	
 						</v-row>
                         <v-row>

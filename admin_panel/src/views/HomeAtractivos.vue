@@ -58,7 +58,7 @@
                                             </v-img>
                                         </v-card>
                                     </v-hover>
-						        </router-link>    
+						                      </router-link>    
                             </v-col>
                         </v-row>
 					</v-col>
@@ -215,7 +215,7 @@ export default {
     }
   },
   components: {
-	ViewGallery,
+	  ViewGallery,
   }
 }
 </script>

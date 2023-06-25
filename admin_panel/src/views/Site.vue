@@ -27,6 +27,50 @@
                 hospedajes
               </v-btn>
             </router-link>
+					<v-menu offset-y>
+						<template v-slot:activator="{ on, attrs }">
+								<v-btn
+                  text
+                  v-bind="attrs"
+                  v-on="on"
+                  >
+                  servicios
+                  <v-icon>
+                    mdi-menu-down
+                  </v-icon>
+								</v-btn>
+						</template>
+						<v-list>
+            <router-link to="/HomeServices/1" class="underline-none item-service">
+							<v-list-item class="list-item-service">
+                <v-list-item-title class="font-weight-medium cursor">
+                  TRANSPORTE
+                </v-list-item-title>
+                </v-list-item>
+              </router-link>
+							<router-link to="/HomeServices/2" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor">
+                  RESTAURANTE
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+							<router-link to="/HomeServices/3" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor">
+                  AGENCIA DE VIAJE
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+              <router-link to="/HomeGuides" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor">
+                  GUÍAS DE TURISMO
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+						</v-list>
+					</v-menu>
             <router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
               <v-btn text @click="navigate" value="SiteNoticias">
                 noticias
@@ -56,6 +100,52 @@
                 <v-list-item-title>ATRACTIVOS TURÍSTICOS</v-list-item-title>
               </v-list-item>
             </router-link>
+            <v-menu offset-y>
+						<template v-slot:activator="{ on, attrs }">
+								<v-btn
+                  text
+                  v-bind="attrs"
+                  v-on="on"
+                  class="ps-2"
+                  >
+                  <span class="text-caption font-weight-medium">SERVICIOS</span>
+                  <v-spacer></v-spacer>
+                  <v-icon class="ms-4">
+                    mdi-menu-down
+                  </v-icon>
+								</v-btn>
+						</template>
+						<v-list>
+							<router-link to="/HomeServices/1" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor text-caption font-weight-medium">
+                  TRANSPORTE
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+							<router-link to="/HomeServices/2" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor text-caption font-weight-medium">
+                  RESTAURANTES
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+							<router-link to="/HomeServices/3" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor text-caption font-weight-medium">
+                  AGENCIAS DE VIAJE
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+              <router-link to="/HomeGuides" class="underline-none item-service">
+                <v-list-item class="list-item-service">
+                  <v-list-item-title class="font-weight-medium cursor text-caption font-weight-medium">
+                  GUÍAS DE TURISMO
+                  </v-list-item-title>
+                </v-list-item>
+							</router-link>
+						</v-list>
+					</v-menu>
             <router-link class="underline-none" to="/SiteHospedajes" v-slot="{ navigate }">
               <v-list-item @click="navigate">
                 <v-list-item-title>HOSPEDAJES</v-list-item-title>
@@ -88,12 +178,11 @@
                           </v-icon>
                       </v-btn>
                   </v-card-text>
-                  <v-card-text class="white--text pt-0">
-                      Página web elaborada en colaboración del Gobierno Autónomo Municipal de Copacabana  - COPACABANA ES TU DESTINO
+                  <v-card-text class="white--text py-0">
+                      Sitio web elaborado por Erik Maquera en colaboración con el Gobierno Autónomo Municipal de Copacabana y la Dirección de Cultura y Turismo Copacabana
                   </v-card-text>
-                  <v-divider></v-divider>
                   <v-card-text class="white--text">
-                      {{ new Date().getFullYear() }} — <strong>Todos los derechos reservados</strong>
+                      {{ new Date().getFullYear() }} COPACABANA SOMOS TU DESTINO.  <span>Todos los derechos reservados</span>
                   </v-card-text>
                   </v-card>
 
@@ -132,6 +221,14 @@
 }
 .curved-div-footer svg {
   display: block;
+}
+
+.item-service{
+  text-decoration: none;
+  color:black !important;
+}
+.list-item-service:hover{
+  background-color:rgb(236, 236, 231);
 }
 </style>
 <script>

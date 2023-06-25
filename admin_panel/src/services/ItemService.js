@@ -165,7 +165,7 @@ export default {
         ];
     },
     listComunidades(){
-        return ['Varias', 'Kusijata', 'Marca Kosco', 'Sampaya', 'Locka', 'Copacabana', 'Chisi'];
+        return ['Otros', 'Kusijata', 'Marca Kosco', 'Kasani', 'Sampaya', 'Locka', 'Copacabana', 'Chisi', 'Isla del Sol', 'Isla de la Luna'];
     },
     listTiposHabitacion(){
         return [
@@ -234,5 +234,42 @@ export default {
             'Científica',
             'Servicio Público'
           ];
-    }
+    },
+    listTipoServicios(){
+        return [
+            {value:1, text:'Transporte'},
+            {value:2, text:'Restaurante'},
+            {value:3, text:'Agencia de Viaje'}
+        ]
+    }, 
+    listFormasPago(){
+        return [
+            {pago:'Efectivo', selected:false},
+            {pago:'QR', selected:false},
+            {pago:'Depósito', selected:false},
+            {pago:'Transferencia', selected:false}
+        ];
+    },
+    listIdiomas(){
+        return [
+            {idioma:'Español', selected:false},
+            {idioma:'Ingles', selected:false},
+            {idioma:'Frances', selected:false},
+            {idioma:'Aleman', selected:false},
+            {idioma:'Mandarin', selected:false},
+        ];
+    },
+    listTipoGuias(){
+        return [
+            {tipo:'Guía de Traslado', selected:false},
+            {tipo:'Guía de Tours', selected:false},
+            {tipo:'Guía coordinador', selected:false}
+        ];
+    },
+    // listHoras(){
+    //     return ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+    // },
+    // listMinutos(){
+    //     return ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26'];
+    // }
 }

@@ -43,7 +43,8 @@
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="1"></v-col>
 					<v-col cols="12" md="10">
-						<div v-html="data_atractivo.informacion"></div>
+						<div v-if="data_atractivo.informacion" v-html="data_atractivo.informacion"></div>
+						<div v-else class="grey--text">Sin Información</div>
 						<div v-if="data_atractivo.como_llegar">
 							<span class="text-h6">Como Llegar? </span>
 							{{data_atractivo.como_llegar}}

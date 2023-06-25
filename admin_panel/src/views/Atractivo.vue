@@ -10,6 +10,11 @@
       A continuación ingrese información general del atractivo, la información a solicitar cambiará según la categoría elegida
     </v-card-subtitle>
     <v-divider></v-divider>
+    <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+    >
     <v-row>
       <v-col cols="8">
         <v-card-title class="text-subtitle-1">Datos del Atractivo</v-card-title>
@@ -23,9 +28,6 @@
             hide-details="true"
             outlined
         >
-        <template #label>
-            Categoria <span class="red--text"><strong>*</strong></span>
-        </template>
         </v-select>
         </v-col>
         </v-row>
@@ -36,10 +38,8 @@
             :rules="camposRules"
             hide-details="true"
             outlined
+            label='Nombre'
           >
-          <template #label>
-            Nombre <span class="red--text"><strong>*</strong></span>
-          </template>
           </v-text-field>
         </v-col>
         </v-row>
@@ -60,10 +60,8 @@
               :rules="camposRules"
               hide-details="true"
               outlined
+              label="Ubicación"
             >
-            <template #label>
-            Ubicación <span class="red--text"><strong>*</strong></span>
-          </template>
             </v-text-field>
           </v-col>
           <v-col cols="6" class="px-3">
@@ -73,10 +71,8 @@
               :rules="camposRules"
               hide-details="true"
               outlined
+              label="Comunidad"
             >
-            <template #label>
-            Comunidad <span class="red--text"><strong>*</strong></span>
-          </template>
             </v-select>
           </v-col>
         </v-row>
@@ -91,7 +87,6 @@
           </v-col>
         </v-row>
         <v-row v-if="atractivo.categoria != 'Actividades Que Hacer' && atractivo.categoria != 'Eventos Programados'">
-
           <v-col cols="12" class="px-3">
                <v-select
                 v-model="atractivo.jerarquia"
@@ -110,26 +105,22 @@
               hide-details="true"
               outlined
               type="date"
+              label="Fecha de Evento Programado"
               v-if="atractivo.categoria == 'Eventos Programados'"
             >
-            <template #label>
-              Fecha de Evento Programado <span class="red--text"><strong>*</strong></span>
-            </template>
             </v-text-field>
           </v-col>
         </v-row>
         <v-row v-if="atractivo.categoria != 'Actividades Que Hacer' && atractivo.categoria != 'Eventos Programados'">
-          <v-col cols="6" class="px-3">
+         <v-col cols="6" class="px-3">
            <v-select
               v-model="atractivo.tipo"
               :items="tipos_atractivo"
               :rules="camposRules"
+              label="Tipo"
               hide-details="true"
               outlined
           >
-          <template #label>
-            Tipo <span class="red--text"><strong>*</strong></span>
-          </template>
           </v-select>
         </v-col>
           <v-col cols="6" class="px-3">
@@ -169,9 +160,6 @@
                   </v-chip>
                 </template>
               </v-file-input>
-            <!-- <input type="file" ref="img_principal" @input="updateFile"/> -->
-            
-            <!-- <ImgPrincipal @estado="estado_img=$event" @imagen="atractivo.img_principal=$event" /> -->
           </v-col>
           <v-divider></v-divider>
           <v-col cols="12" class="text-center">
@@ -197,26 +185,6 @@
           </v-col>
       </v-col>
     </v-row>
-    <!--<v-divider></v-divider>
-    <v-row class="mb-7 mt-5">
-      <v-card-title>
-        <v-icon>mdi-bag-personal</v-icon>
-        <span class="ms-2 text-subtitle-1">Artículos a llevar</span>
-      </v-card-title>
-
-     <v-container class="pl-15">
-      <v-flex xs12 md12 class="greyBorder">
-            <div class="mx-4">
-              <v-layout row wrap>
-                    <v-flex v-for="(category,index) in articulos" :key="articulos[index].value" xs3>
-                      <v-checkbox light :label="category.articulo" v-model="category.selected" class="mt-0">
-                      </v-checkbox>
-                    </v-flex>
-              </v-layout>
-            </div>
-      </v-flex>
-     </v-container>
-    </v-row>-->
 
     <v-divider></v-divider>
     <v-col cols="12" class="text-right">
@@ -231,6 +199,7 @@
       </v-btn>
       </router-link>
     </v-col>
+    </v-form>
     </v-container>
   </v-card>
   </div>
@@ -286,6 +255,7 @@ export default {
       camposRules: [
         v => !!v || 'El campo es obligatorio',
       ],
+      valid: true,
     }
   },
   mounted(){
@@ -427,14 +397,22 @@ export default {
       }
     },
     guardar(){
-      var articulos_seleccionados = this.articulos.filter(element=>element.selected==true);
-      //console.log(this.id_atractivo);
-
-      if(this.id_atractivo != 0){
-        this.editaAtractivo(articulos_seleccionados);
+      if(this.$refs.form.validate()){
+        if(this.view_image_atractivo){
+          if(this.atractivo.informacion){
+            var articulos_seleccionados = this.articulos.filter(element=>element.selected==true);
+            this.id_atractivo == 0?this.guardaAtractivo(articulos_seleccionados):this.editaAtractivo(articulos_seleccionados);
+          }
+          else{
+            this.notification("La información del atractivo es obligatoria", "warning");
+          }
+        }
+        else{
+          this.notification("Debe elegir la imagen principal del atractivo", "warning");
+        }
       }
       else{
-        this.guardaAtractivo(articulos_seleccionados);
+        this.notification('Existen campos obligatorios', 'warning');
       }
     },
     FormDataImage(id_element, nombre_archivo){

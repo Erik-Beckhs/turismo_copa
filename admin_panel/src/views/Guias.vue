@@ -1,12 +1,12 @@
 <template>
-  <div class="atractivos mx-15 my-7">
-    <v-card class="pa-5">
+  <div class="guias">
+    <v-card class="pa-5 mx-15 my-7">
     <v-container>
       <v-card-title class="text-h5">
-      <v-icon>mdi-bank</v-icon>
-        <span class="ms-3">Atractivos Turísticos</span>
+        <v-icon>mdi-account</v-icon>
+        <span class="ms-3">Guías</span>
       </v-card-title>
-      <hr class="line-blue" />
+      <hr class="line-blue">
     <v-row class="mx-3">
     <v-col cols="6">
     <v-text-field
@@ -18,32 +18,32 @@
       ></v-text-field>
     </v-col>
     <v-col cols="6" class="text-right">
-      <router-link to="/atractivo/0" class="underline-none">
-        <v-btn color="green" tile dark>
+      <v-btn 
+      @click="$router.push('guia/0')"
+      color="green" tile dark>
           <v-icon>mdi-plus</v-icon>
-          <span>Nuevo Atractivo</span>
-        </v-btn>
-      </router-link>
+          <span>Nuevo Guía</span>
+      </v-btn>
     </v-col>
     </v-row>
       
-
     <v-data-table
       :headers="headers"
-      :items="atractivos_list"
+      :items="guias_list"
       :search="search"
       class="mt-7"
     >
-    <template v-slot:[`item.subtipo`]="{ index }">
+    <template v-slot:[`item.sobre_mi`]="{ index }">
       <span>{{index + 1}}</span>
     </template>
+    
     <template v-slot:[`item.id`]="{ item }">
         <v-btn
         class="mx-1"
         fab
         dark
         small
-        @click="editarAtractivo(item.id)"
+        @click="editarGuia(item.id)"
         color="primary"
         >
         <v-icon dark>
@@ -55,7 +55,7 @@
         fab
         dark
         small
-        @click="eliminarAtractivo(item.id)"
+        @click="eliminarGuia(item.id)"
         color="red"
         >
         <v-icon dark>
@@ -69,11 +69,11 @@
   </div>
 </template>
 <script>
-//import axios from 'axios';
-import AtractivoService from '@/services/AtractivoService';
+
+import GuiaService from '@/services/GuiaService'
 
 export default {
-  name: 'Atractivos',
+  name: 'Guias',
   components: {
   }, 
   data(){
@@ -83,33 +83,35 @@ export default {
           {
             text: '#',
             align: 'start',
-            value: 'subtipo',
-            width: '5%'
+            value: 'sobre_mi',
           },
-          { text: 'Nombre', value: 'nombre', width: '15%' },
-          { text: 'Descripcion', value: 'descripcion', width:'20%' },
-          { text: 'Comunidad', value: 'comunidad', width: '15%' },
-          { text: 'Categoria', value: 'categoria', width: '15%' },
-          { text: 'Tipo', value: 'tipo', width: '15%' },
-          { text: 'Acciones', value: 'id', width: '10%' },
+          { text: 'Nombre', value: 'nombre' },
+          { text: 'Apellidos', value: 'apellidos' },
+          { text: 'Dirección', value: 'direccion' },
+          { text: 'Correo', value: 'correo' },
+          { text: 'Nro. de Celular', value: 'whatsapp' },
+           { text: 'Acciones', value: 'id' },
         ],
-        atractivos_list:[],
+        guias_list:[],
     }
   },
   mounted(){
     //console.log('carga');
-      this.getAtractivos();
+      this.getGuias();
   },
   methods:{
-     getAtractivos(){
-      AtractivoService.getAtractivos().then(response=>{
-        this.atractivos_list=response.data;
+     getGuias(){
+      GuiaService.getGuias()
+      .then(response => {
+        this.guias_list = response.data;
       })
+      .catch(error => console.log(error))
+      .finally(() => console.log('concluyó la petición'))
      },
-     editarAtractivo(id){
-        this.$router.replace('atractivo/'+id);
+     editarGuia(id){
+        this.$router.replace('guia/'+id);
      },
-     eliminarAtractivo(id){
+     eliminarGuia(id){
         this.$swal.fire({
         title: 'Eliminar registro',
         text: "Esta seguro que desea eliminar el registro?",
@@ -120,17 +122,18 @@ export default {
         confirmButtonText: 'Si, eliminar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.eliminar(id);
+          GuiaService.eliminarGuia(id).then((response)=>{
+            if(response.data.count>0){
+                  this.notification('Se eliminó el registro de manera exitosa', 'success');
+                  this.getGuias();
+            }
+            else{
+                this.notification('No existe el registro', 'info');
+            }
+
+          })
         }
       })
-     },
-     eliminar(id){
-        AtractivoService.deleteAllAtractivosArticulo(id).then(()=>{
-          AtractivoService.deleteAtractivo(id).then(()=>{
-            this.notification('El atractivo fue eliminado', 'info');
-            this.getAtractivos(); 
-          })
-        })
      },
       notification(title, icon){
           this.$swal.fire({
@@ -145,8 +148,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.underline-none{
-  text-decoration: none;
-}
-</style>

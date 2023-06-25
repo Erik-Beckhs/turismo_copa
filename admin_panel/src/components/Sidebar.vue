@@ -41,7 +41,8 @@ export default {
         ["mdi-book-open", "Reseñas", '/resenas'],
         ["mdi-bank", "Atractivos Turísticos", '/atractivos'],
         ["mdi-bed", "Hospedaje", '/hospedajes'],
-        //["mdi-calendar-blank-multiple", "Eventos Programados", '/eventos'],
+        ["mdi-taxi", "Servicios", '/servicios'],
+        ["mdi-account", "Guias de Turismo", '/guias'],
         ["mdi-newspaper-variant-multiple", "Noticias", '/noticias'],
       ],
     };

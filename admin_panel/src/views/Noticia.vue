@@ -2,110 +2,116 @@
   <div class="atractivo">
     <v-card class="pa-10">
     <v-container>
-    <v-card-title>
-    <v-icon>mdi-newspaper-variant-multiple</v-icon>
-    <span class="ms-2">{{estado_noticia}} Noticia</span>
+    <v-card-title class="text-h5">
+      <v-icon>mdi-newspaper-variant-multiple</v-icon>
+      <span class="ms-2">{{estado_noticia}} Noticia</span>
     </v-card-title>
     <v-card-subtitle class="grey--text">
       A continuación ingrese información de la noticia, su imagen principal y la categoría a la que pertenece.
     </v-card-subtitle>
     <v-divider></v-divider>
-    <v-row>
-      <v-col cols="8">
-        <v-card-title>Información</v-card-title>
-        <v-col cols="12" class="pa-0">
-          <v-text-field
-            v-model="noticia.titulo"
-            :rules="nameRules"
-            label="Titulo"
-            required
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-text-field
-            v-model="noticia.entrada"
-            label="Entrada"
-            required
-            outlined
-          ></v-text-field>
-        </v-col>
-         <v-col cols="12" class="pa-0">
-          <v-text-field
-            v-model="noticia.autor"
-            label="Autor"
-            required
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" class="px-0 pt-0 pb-5">
-            <v-card-title>Contenido</v-card-title>
-            <vue-editor v-model="noticia.contenido" />
-        </v-col>
-
-      </v-col>
-      <v-col cols="4" class="pa-5">
-          <v-card-title class="py-0">
-            Imagen
-          </v-card-title>
-          <v-col cols="12">
-            <v-img v-if="view_image_noticia!=''" :src="view_image_noticia"/>
-            <v-file-input
-                id="file_imagen_principal"
-                label="Cargar Imagen"
-                prepend-icon="mdi-paperclip"
-                @change="updateFile"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip
-                    small
-                    label
-                    color="primary"
-                  >
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
-
-            <!--<v-img v-show="estado_img==0 && noticia.img==''" src="@/assets/not_found.png" />
-            <v-img v-if="estado_img==0" :src="noticia.img"/>
-            <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>-->
-          </v-col>
-           <v-col cols="12" class="px-3 pt-5 pb-0">
+    <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+    >
+      <v-row>
+        <v-col cols="8">
+          <v-card-title class="text-subtitle-1">Información</v-card-title>
+          <v-col cols="12" class="pa-0">
             <v-text-field
-              v-model="noticia.fecha_publicacion"
+              v-model="noticia.titulo"
               :rules="nameRules"
-              label="Fecha de Publicación"
-              required
-              type="date"
+              label="Titulo"
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="12" class="px-3 py-0">
-            <v-select
-              v-model="noticia.categoria"
-              :items="categorias"
-              label="Categoria"
-              required
+          <v-col cols="12" class="pa-0">
+            <v-text-field
+              v-model="noticia.entrada"
+              :rules="nameRules"
+              label="Entrada"
               outlined
-            ></v-select>
+            ></v-text-field>
           </v-col>
-          <v-divider></v-divider>
-      </v-col>
-    </v-row>
-    <v-divider></v-divider>
-    <v-col cols="12" class="text-right">
-      <v-btn tile color="primary" class="mx-1" @click="guardar">
-        <v-icon>mdi-content-save</v-icon>
-        <span>Guardar</span>
-      </v-btn>
-      <router-link to="/noticias" class="underline-none">
-        <v-btn tile color="secondary" class="mx-1">
-        <v-icon>mdi-arrow-left-circle</v-icon>
-          <span>Cancelar</span>
+          <v-col cols="12" class="pa-0">
+            <v-text-field
+              v-model="noticia.autor"
+              :rules="nameRules"
+              label="Autor"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="px-0 pt-0 pb-5">
+              <v-card-title class="text-subtitle-1">Contenido</v-card-title>
+              <vue-editor v-model="noticia.contenido" />
+          </v-col>
+
+        </v-col>
+        <v-col cols="4" class="pa-5">
+            <v-card-title class="text-subtitle-1">
+              Imagen
+            </v-card-title>
+            <v-col cols="12">
+              <v-img v-if="view_image_noticia!=''" :src="view_image_noticia"/>
+              <v-file-input
+                  id="file_imagen_principal"
+                  label="Cargar Imagen"
+                  prepend-icon="mdi-paperclip"
+                  @change="updateFile"
+                >
+                  <template v-slot:selection="{ text }">
+                    <v-chip
+                      small
+                      label
+                      color="primary"
+                    >
+                      {{ text }}
+                    </v-chip>
+                  </template>
+                </v-file-input>
+
+              <!--<v-img v-show="estado_img==0 && noticia.img==''" src="@/assets/not_found.png" />
+              <v-img v-if="estado_img==0" :src="noticia.img"/>
+              <ImgPrincipal @estado="estado_img=$event" @imagen="noticia.img=$event"/>-->
+            </v-col>
+            <v-col cols="12" class="px-3 pt-5 pb-0">
+              <v-text-field
+                v-model="noticia.fecha_publicacion"
+                :rules="nameRules"
+                label="Fecha de Publicación"
+                required
+                type="date"
+                outlined
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" class="px-3 py-0">
+              <v-select
+                v-model="noticia.categoria"
+                :items="categorias"
+                :rules="nameRules"
+                label="Categoría"
+                required
+                outlined
+              ></v-select>
+            </v-col>
+            <v-divider></v-divider>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-col cols="12" class="text-right">
+        <v-btn tile color="primary" class="mx-1" @click="guardar">
+          <v-icon>mdi-content-save</v-icon>
+          <span>Guardar</span>
         </v-btn>
-      </router-link>
-    </v-col>
+        <router-link to="/noticias" class="underline-none">
+          <v-btn tile color="secondary" class="mx-1">
+          <v-icon>mdi-arrow-left-circle</v-icon>
+            <span>Cancelar</span>
+          </v-btn>
+        </router-link>
+      </v-col>
+    </v-form>
     </v-container>
   </v-card>
   </div>
@@ -146,6 +152,7 @@ export default {
       nameRules: [
         v => !!v || 'Campo requerido',
       ],
+      valid:true
     }
   },
   mounted(){
@@ -207,7 +214,21 @@ export default {
         })
      },
     guardar(){
-      this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
+      if(this.$refs.form.validate()){
+        if(!this.view_image_noticia){
+          this.notification("Debe cargar la imagen de la noticia","warning")
+          return;
+        }
+        if(this.noticia.contenido){
+          this.id_noticia!=0?this.editaNoticia():this.guardaNoticia();
+        }
+        else{
+          this.notification("El contenido de la noticia no puede estar vacio","warning")
+        }
+      }
+      else{
+        this.notification("Existen campos obligatorios", "warning");
+      }
     },
     editaNoticia(){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.noticia.img);
@@ -240,7 +261,7 @@ export default {
     },
     guardaImagenNoticia(id_noticia, dataimagen){
       NoticiaService.saveImage(id_noticia, dataimagen).then(response=>{
-        console.log(response.data);
+        //console.log(response.data);
         this.view_image_noticia='';
       })
     },

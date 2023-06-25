@@ -6,9 +6,9 @@
     >
       <v-card class="pa-3">
 	  <v-form 
-	  ref="form"
-      v-model="valid"
-      lazy-validation
+		ref="form"
+		v-model="valid"
+		lazy-validation
 	  >
         <v-card-title class="text-h5 pb-0">
           Nueva Reseña
@@ -23,8 +23,10 @@
 		<v-divider></v-divider>
         <v-card-text>
 			<v-card outlined class="pa-1">
-			<v-row>
-					<v-col cols="4">
+			<v-card-text>
+
+				<v-row>
+				<v-col cols="4">
 						<v-img class="mx-auto" v-if="image_user!=''" width="190" :src="image_user"/>
 						<v-img class="mx-auto" v-else width="190" src="@/assets/user2.png"/>
 						<v-col cols="12" class="pt-3">
@@ -47,35 +49,45 @@
 								</template>
 							</v-file-input>
 						</v-col>
-					</v-col>
-					<v-col cols="8">
-						<v-col cols="12">
-							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Autor" v-model="resena.autor" />
+				</v-col>
+				<v-col cols="8">
+						<v-col cols="12" class="py-0">
+							<v-text-field 
+							dense 
+							:rules="camposRules" 
+							outlined label="Autor" 
+							v-model="resena.autor" />
 						</v-col>
-						<v-col cols="12" class="py-3">
-							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
+						<v-col cols="12" class="py-0">
+							<v-text-field 
+							dense 
+							:rules="camposRules" 
+							outlined label="Titulo" 
+							v-model="resena.titulo" />
 						</v-col>
-						<v-col cols="12">
+						<v-col cols="12" class="py-0">
 							<v-textarea
-							label="Contenido"
-							outlined
-							counter
-							v-model="resena.contenido"
-							:rows="4"
-							:rules="contenidoRules"
+								label="Contenido"
+								outlined
+								counter
+								v-model="resena.contenido"
+								:rows="4"
+								:rules="contenidoRules"
 							></v-textarea>
 						</v-col>
-					</v-col>
-			</v-row>
+				</v-col>
+				</v-row>
+			</v-card-text>
 		  <v-divider></v-divider>
 		  <v-card-subtitle class="fs-1 text-center">Califique su experiencia de visita en el Santuario de Copacabana</v-card-subtitle>
 		  <v-row>
 		  	<v-rating
-			v-model="resena.rating"
-			background-color="orange lighten-3"
-			color="orange"
-			large
-			class="mx-auto"
+				v-model="resena.rating"
+				background-color="orange lighten-3"
+				color="orange"
+				large
+				class="mx-auto"
+				:rules="ratingRules"
 			></v-rating>
 		  </v-row>
 			</v-card>
@@ -83,7 +95,6 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn
             color="green darken-1"
             text
@@ -91,7 +102,6 @@
           >
             Cancelar
           </v-btn>
-
           <v-btn
             color="green darken-1"
             text
@@ -130,12 +140,61 @@
 					</router-link>
 				</li>
 				<li>
+					<v-menu offset-y>
+						<template v-slot:activator="{ on, attrs }">
+							<a href="#">
+								<span
+								v-bind="attrs"
+								v-on="on"
+								>
+								servicios
+								<v-icon class="color-white">
+									mdi-menu-down
+								</v-icon>
+								</span>
+								
+							</a>
+						</template>
+						<v-list>
+							<router-link to="/HomeServices/1">
+								<v-list-item>
+								<v-list-item-title class="font-weight-medium cursor">
+									TRANSPORTE
+								</v-list-item-title>
+								</v-list-item>
+							</router-link>
+							<router-link to="/HomeServices/2">
+								<v-list-item>
+									<v-list-item-title class="font-weight-medium cursor">
+									RESTAURANTE
+									</v-list-item-title>
+								</v-list-item>
+							</router-link>
+							<router-link to="/HomeServices/3">
+								<v-list-item>
+									<v-list-item-title class="font-weight-medium cursor">
+									AGENCIA DE VIAJE
+									</v-list-item-title>
+								</v-list-item>
+							</router-link>
+							<router-link to="/HomeGuides">
+								<v-list-item>
+									<v-list-item-title class="font-weight-medium cursor">
+									GUÍAS DE TURISMO
+									</v-list-item-title>
+								</v-list-item>
+							</router-link>
+						</v-list>
+					</v-menu>
+				</li>
+				<li>
 					<router-link class="underline-none" to="/SiteNoticias" v-slot="{ navigate }">
 						<a @click="navigate">
 							noticias
 						</a>
 					</router-link>
 				</li>
+				
 			</ul>
 		</nav>
 		<div class="content">
@@ -287,6 +346,92 @@
 			</v-row>
 		</v-container>
 	</div>
+	<div id="servicios" class="banner-rotated">
+		<v-img height="600" aspect-ratio="1.7" src="@/assets/img/a67.jpg">
+			<v-row>
+				<v-col cols="12" class="text-center">
+					<h2 class="titulo-portada custom-title container-fluid white--text">Servicios</h2>
+					<span class="text-h6 white--text">Variedad de servicios que se ajustan a tu presupuesto :</span>
+				</v-col>
+				<v-col cols="12">
+					<v-container>
+						<v-row>
+							<v-col cols="1"></v-col>
+							<v-col cols="10">
+								<div style="background: rgba(247,247,247,0.9);" class="pa-4">
+									<v-flex class="my-5">
+										<v-row dense>
+											<v-col cols="6" md="3">
+												<div class="text-center pointer">
+												<router-link class="underline-none" :to="`/HomeServices/${2}`" v-slot="{ navigate }">
+													<v-avatar @click="navigate" size="128" tile>
+													<img
+														src="@/assets/flaticon/menu.png"
+														alt="como llegar"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Restaurantes</span><br>
+													<span class="fs-0-9 grey--text">La mejor comida<br>
+													del lugar</span>
+												</router-link>
+												</div>
+											</v-col>
+											<v-col cols="6" md="3">
+												<div class="text-center pointer">
+												<router-link class="underline-none" :to="`/HomeServices/${1}`" v-slot="{ navigate }">
+													<v-avatar @click="navigate" size="128" tile>
+													<img
+														src="@/assets/flaticon/taxi.png"
+														alt="como llegar"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Transporte</span><br>
+													<span class="fs-0-9 grey--text">Seguridad y Compromiso<br>
+													Con nuestros pasajeros</span>
+												</router-link>
+												</div>
+											</v-col>
+											<v-col cols="6" md="3">
+												<div class="text-center pointer">
+												<router-link class="underline-none" :to="`/HomeServices/${3}`" v-slot="{ navigate }">
+													<v-avatar  @click="navigate" size="128" tile>
+													<img
+														src="@/assets/flaticon/travel-and-tourism.png"
+														alt="conociendo Copacabana"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Agencias de Viaje</span><br>
+													<span class="fs-0-9 grey--text">Te ayudamos a organizar el<br>
+													viaje de tus sueños</span>
+												</router-link>
+												</div>
+											</v-col>
+											<v-col cols="6" md="3">
+												<div class="text-center pointer">
+												<router-link class="underline-none" :to="`/HomeGuides/`" v-slot="{ navigate }">
+													<v-avatar  @click="navigate" size="128" tile>
+													<img
+														src="@/assets/flaticon/tour-guide.png"
+														alt="conociendo Copacabana"
+													>
+													</v-avatar><br>
+													<span class="fs-1 mt-3">Guías de Turismo</span><br>
+													<span class="fs-0-9 grey--text">Personal altamente<br>
+													capacitado</span>
+												</router-link>
+												</div>
+											</v-col>
+										</v-row>
+									</v-flex>
+								</div>
+							</v-col>
+							<v-col cols="1"></v-col>
+						</v-row>
+					</v-container>
+				</v-col>
+			</v-row>
+		</v-img>
+	</div>
 	<div id="div_hospedajes">
 		<v-container style="padding-top: 60px; padding-bottom: 40px;">
 			<v-flex>
@@ -349,7 +494,7 @@
 													></v-rating>
 												</div>
 												<div class="col-7" style="padding-top:0; padding-bottom:0;">
-													<div class="text-right">
+													<div class="text-right" v-if="ho.precio_min > 0">
 														<span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
 													</div>
 												</div>
@@ -916,6 +1061,9 @@ a{
     border: 0;
     cursor: pointer;
 }
+.cursor{
+	cursor:pointer;
+}
 .slick-arrow:focus{
     outline: 0;
 }
@@ -988,7 +1136,17 @@ a{
 #informacion_util img:hover {
 	filter: opacity(.5);
 	transition:all .3s ease;
-	}
+}
+
+#servicios img:hover {
+	filter: opacity(.5);
+	transition:all .3s ease;
+}
+
+.color-white{
+	color:#fff;
+}
+
 
 </style>
 <script>
@@ -1007,16 +1165,21 @@ export default {
 		camposRules: [
 			v => !!v || 'El campo es requerido'
 		],
-		contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
-		list_resenas:[
+		ratingRules:[
+			v => v > 0 || 'Calificación requerida'
 		],
+		contenidoRules: [
+			v => !!v || 'El campo es requerido',
+			v => v.length <= 600 || 'Max. 600 caracteres'
+		],
+		list_resenas:[],
 		dialog_resena :false,
 		resena:{
 			autor:'',
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:new Date().toISOString(),
-			rating:0, 
+			rating:3, 
 			estado:0, 
 			img_user:''
 		},
@@ -1162,6 +1325,15 @@ export default {
 	},
   },
   methods:{
+	 notification(title, icon){
+          this.$swal.fire({
+          position: 'top-end',
+          icon,
+          title,
+          showConfirmButton: false,
+          timer: 1500
+        })
+     },
 	openLink(module, id){
 		this.$router.replace('/'+module+'/'+id);
 	},
@@ -1171,7 +1343,7 @@ export default {
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:new Date().toISOString(),
-			rating:5, 
+			rating:3, 
 			estado:0, 
 			img_user:''
 		};
@@ -1203,8 +1375,14 @@ export default {
     },
 	validateResena(){
 		if(this.$refs.form.validate()){
-			this.guardaResena()
+			this.guardaResena();
 		}
+		else{
+			this.notification("Debe llenar los campos", "warning");
+		}
+	},
+	saludo(){
+		this.notification("Saludo", "success");
 	},
 	 FormDataImage(id_element, nombre_archivo){
       const fileinput= document.getElementById(id_element);
