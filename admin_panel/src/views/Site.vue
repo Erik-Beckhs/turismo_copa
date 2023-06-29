@@ -178,14 +178,16 @@
                           </v-icon>
                       </v-btn>
                   </v-card-text>
-                  <v-card-text class="white--text py-0">
+                  <v-card-text class="white--text font-weight-medium">
+                    ¡Advertencia! No autorizamos ni respaldamos hospedajes, restaurantes y demás servicios ajenos a nuestra sitio web. El uso de estos servicios ajenos es de responsabilidad directa del visitante
+                  </v-card-text>
+                  <v-card-text class="white--text pb-0">
                       Sitio web elaborado por Erik Maquera en colaboración con el Gobierno Autónomo Municipal de Copacabana y la Dirección de Cultura y Turismo Copacabana
                   </v-card-text>
-                  <v-card-text class="white--text">
+                  <v-card-text class="white--text pt-0 text-overline">
                       {{ new Date().getFullYear() }} COPACABANA SOMOS TU DESTINO.  <span>Todos los derechos reservados</span>
                   </v-card-text>
                   </v-card>
-
               </v-footer>
       </v-sheet>	
     </v-main>

@@ -4,29 +4,30 @@
 
    <v-dialog
       v-model="dialog_guia"
-      max-width="850"
-    > 
-        <v-card class="horizontal-card pa-3 rounded-lg">
+      max-width="900"
+          > 
+        <v-card class="horizontal-card pa-2 rounded-lg">
             <v-row no-gutters>
             <v-row class="justify-end pa-2">
                 <v-icon @click="dialog_guia = false">mdi-close</v-icon>
             </v-row>
-            <v-row>
-            <v-col cols="12" md="4" lg="4">
-                <v-img :src="$Api_url_media+guia.img" max-height="300"></v-img>
+            <v-row class="mt-0">
+            <v-col cols="12" md="4" lg="4" class="mt-0">
+                <v-img :src="$Api_url_media+guia.img" rounded-md :max-width="widthSize" class="mx-auto" height="300"></v-img>
             </v-col>
-            <v-col cols="12" md="8" lg="8">
+            <v-col cols="12" md="8" lg="8" class="mt-0">
                 <v-card-text>
-                <v-card-title class="text-h5 justify-center align-center">{{guia.nombre}} {{guia.apellidos}}</v-card-title>
-                <v-row class="my-2">
-                    <v-col cols="12" sm="6" md="6" lg="6" class="pb-0">
+                <v-card-title class="text-h5 justify-center align-center pt-0">{{guia.nombre}} {{guia.apellidos}}</v-card-title>
+                <div class="my-2">
+                    <v-col cols="12" class="py-0" v-if="guia.whatsapp">
                         <a class="underline-none" target="_blank" :href="guia.whatsapp | enlace_whatsapp">
                             <v-btn fab dark x-small color="green" class="my-1">
                                 <v-icon>mdi-whatsapp</v-icon>
                             </v-btn>
                           <span class="ps-2">{{guia.whatsapp}}</span>
                         </a>
-                        <br>
+                    </v-col>
+                    <v-col cols="12" class="py-0" v-if="guia.correo">
                         <a v-if="guia.correo" class="underline-none" target="_blank" :href="guia.correo | enlace_correo">
                             <v-btn fab color="red" dark x-small class="my-1">
                                 <v-icon>mdi-email-outline</v-icon>
@@ -34,61 +35,62 @@
                           <span class="ps-2">{{guia.correo}}</span>
                         </a>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6" lg="6" class="pb-0">
+                    <v-col cols="12" class="py-0" v-if="guia.direccion          ">
                         <a href="#" v-if="guia.direccion" class="underline-none">
                             <v-btn fab color="dark" dark x-small class="my-1">
                                 <v-icon>mdi-map-marker-outline</v-icon>
                             </v-btn>
                           <span class="ps-2">{{guia.direccion}}</span>
                         </a>
-                        <br>
+                    </v-col>
+                    <v-col cols="12" class="py-0" v-if="guia.facebook">
                         <a v-if="guia.facebook" :href="guia.facebook" target="_blank" class="underline-none">
                             <v-btn fab color="blue" dark x-small class="my-1">
                                 <v-icon>mdi-facebook</v-icon>
                             </v-btn>
-                          <span class="ps-2 dark--text">{{guia.facebook}}</span>
+                          <span class="ps-2 dark--text">Facebook</span>
                         </a>
-
                     </v-col>
-                </v-row>
+                </div>
                 <v-divider></v-divider>
                 <div class="text-subtitle-1 mt-2">Sobre Mi</div>
                     <div class="pa-1" v-html="guia.sobre_mi">
                 </div>
                 <v-divider></v-divider>
                 <v-row>
-                    <v-col cols="6">
-                        <v-list dense>
+                    <v-col cols="12" md="6" lg="6" class="pb-0">
+                        <v-card-content dense>
                             <v-subheader class="text-subtitle-1">IDIOMAS</v-subheader>
                                 <v-list-item
                                 v-for="(item, i) in guia.idiomas"
                                 :key="i"
+                                dense
                                 >
-                                <v-list-item-icon>
-                                    <v-icon color="green">mdi-check</v-icon>
-                                </v-list-item-icon>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{item.idioma}}</v-list-item-title>
-                                </v-list-item-content>
+                                    <v-list-item-icon>
+                                        <v-icon color="green">mdi-check</v-icon>
+                                    </v-list-item-icon > 
+                                    <v-list-item-content class="py-1">
+                                        <v-list-item-title>{{item.idioma}}</v-list-item-title>
+                                    </v-list-item-content>
                                 </v-list-item>
-                        </v-list>
+                        </v-card-content>
                     </v-col>
-                    <v-col cols="6">
-                         <v-list dense>
+                    <v-col cols="12" md="6" lg="6" class="pb-0">
+                         <v-card-content dense>
                             <v-subheader class="text-subtitle-1">TIPO DE GUÍA</v-subheader>
                                 <v-list-item
+                                dense
                                 v-for="(item, i) in guia.tipos"
                                 :key="i"
                                 >
-                                <v-list-item-icon>
-                                    <v-icon color="green">mdi-check</v-icon>
-                                </v-list-item-icon>
-                                <v-list-item-content>
-                                    <v-list-item-title>{{item.tipo}}</v-list-item-title>
-                                </v-list-item-content>
+                                    <v-list-item-icon>
+                                        <v-icon color="green">mdi-check</v-icon>
+                                    </v-list-item-icon>
+                                    <v-list-item-content class="py-1">
+                                        <v-list-item-title>{{item.tipo}}</v-list-item-title>
+                                    </v-list-item-content>
                                 </v-list-item>
-
-                        </v-list>
+                        </v-card-content>
                     </v-col>
                 </v-row>
                 </v-card-text>
@@ -233,7 +235,13 @@ export default {
             else{
                 return this.guias_list;
             }
-        }
+        },
+        widthSize(){
+            if(window.innerWidth < 559){
+                return (window.innerWidth - 120).toString();
+            }
+            return '500';
+        },        
     },
     methods: {
         get_guias(){
@@ -262,7 +270,7 @@ export default {
 
 <style scoped>
     .horizontal-card {
-    max-width: 850px;
+    max-width: 900px;
     margin: 0 auto;
     }
     .cursor{

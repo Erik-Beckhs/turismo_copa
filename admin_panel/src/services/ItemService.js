@@ -253,10 +253,11 @@ export default {
     listIdiomas(){
         return [
             {idioma:'Español', selected:false},
-            {idioma:'Ingles', selected:false},
-            {idioma:'Frances', selected:false},
-            {idioma:'Aleman', selected:false},
-            {idioma:'Mandarin', selected:false},
+            {idioma:'Inglés', selected:false},
+            {idioma:'Francés', selected:false},
+            {idioma:'Portugués', selected:false},
+            {idioma:'Alemán', selected:false},
+            {idioma:'Mandarín', selected:false},
         ];
     },
     listTipoGuias(){
