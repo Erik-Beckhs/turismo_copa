@@ -1,5 +1,38 @@
 <template>
   <div class="home">
+
+    <v-dialog
+      v-model="dialog_advertencia"
+      width="600"
+	  persistent
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          ¡Advertencia!
+        </v-card-title>
+
+        <v-card-text>
+          <p class="mt-3 text-subtitle-1">No autorizamos ni respaldamos los servicios turísticos no autorizados dentro de nuestro sitio web.</p>
+		  <p class="text-subtitle-1">Estimado visitante:</p>
+		  <p class="text-subtitle-1">Queremos informarte que únicamente nos hacemos responsables de los servicios turísticos que están debidamente autorizados y registrados en nuestro sitio web. El uso de los servicios turísticos ajenos, es de responsabilidad directa del visitante.</p>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog_advertencia = false"
+          >
+            Entiendo
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
     <v-dialog
       v-model="dialog_resena"
       max-width="900"
@@ -1160,6 +1193,7 @@ export default {
   name: 'Home',
   data(){
     return{
+		dialog_advertencia:false,
 		image_user:'',
 		valid: true,
 		camposRules: [
@@ -1222,6 +1256,8 @@ export default {
 		this.get_noticias();
 		this.get_resenas();	
 		this.get_actividades();
+
+		this.doOnce();
   },
   filters:{
 	fecha_literal:function(value){
@@ -1325,6 +1361,18 @@ export default {
 	},
   },
   methods:{
+	doOnce() {
+	if (!document.cookie.split("; ").find((row) => row.startsWith("gamcopacabana"))
+		) { 
+			let expires = "";
+			let date = new Date();
+            date.setTime(date.getTime() + (40*60*1000)); //40 minutos de para la expiracion de la cookie
+            expires = "expires=" + date.toUTCString();
+			document.cookie = `gamcopacabana=true; ${expires}; SameSite=None; Secure`;
+
+			this.dialog_advertencia = true;
+		}
+	},
 	 notification(title, icon){
           this.$swal.fire({
           position: 'top-end',

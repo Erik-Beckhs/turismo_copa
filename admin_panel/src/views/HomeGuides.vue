@@ -103,30 +103,62 @@
 		<v-container>
 			<v-flex>
 				<v-row>
-					<v-col cols="12" md="1"></v-col>
-					<v-col cols="10">
-                        <v-tabs v-model="tab_guias" color="blue" background-color="transparent">
-                            <v-tab href="#tab_guia" @click="filtro_tab=''">
-                                Listado de Guías
+                <v-row>
+                    <v-tabs v-model="tab_guias" color="blue" background-color="transparent">
+                            <v-tab class="text-caption font-weight-medium" href="#tab_guia" @click="filtro_tab=''">
+                               Listado de Guías
                             </v-tab>
-                            <v-tab href="#tab_guia_traslado" @click="filtro_tab='guia_traslado'">
-                                Guías de Traslado
+                            <v-tab class="text-caption font-weight-medium" href="#tab_guia_nacional" @click="filtro_tab='guia_nacional'">
+                                Guías Nacionales
                             </v-tab>
-                            <v-tab href="#tab_guia_tours" @click="filtro_tab='guia_tours'">
-                                Guías de Tours
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_comunitario" @click="filtro_tab='guia_comunitario'"> 
+                                Guías Comunitarios o Locales
                             </v-tab>
-                            <v-tab href="#tab_guia_coordinación" @click="filtro_tab='guia_coordinacion'">
-                                Guías de coordinación
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_fijo" @click="filtro_tab='guia_fijo'">
+                                Guías Fijos o de Sitio
+                            </v-tab>
+                            <v-tab class="text-caption font-weight-medium" href="#tab_guia_departamental" @click="filtro_tab='guia_departamental'">
+                                Guías Departamentales
+                            </v-tab>
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_montana" @click="filtro_tab='guia_montana'">
+                                Guías de Montaña
+                            </v-tab>
+                            <v-tab class="text-caption font-weight-medium" href="#tab_guia_trekking" @click="filtro_tab='guia_trekking'">
+                                Guías de Trekking
+                            </v-tab>
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_naturaleza" @click="filtro_tab='guia_naturaleza'">
+                               Guías de Naturaleza
+                            </v-tab>
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_deporte" @click="filtro_tab='guia_deporte'">
+                                Guías de Deportes Extremos
+                            </v-tab>
+                            <v-tab  class="text-caption font-weight-medium" href="#tab_guia_cultural" @click="filtro_tab='guia_cultural'">
+                                Guías Culturales
                             </v-tab>
                         </v-tabs>
+                </v-row>
+					<v-col cols="12" md="1"></v-col>
+					<v-col cols="10">
                         <v-tabs-items v-model="tab_guias">
                             <v-tab-item value="tab_guia">
                             </v-tab-item>
-                            <v-tab-item value="tab_guia_traslado">
+                            <v-tab-item value="tab_guia_nacional">
                             </v-tab-item>
-                            <v-tab-item value="tab_guia_tours">
+                            <v-tab-item value="tab_guia_comunitario">
                             </v-tab-item>
-                            <v-tab-item value="tab_guia_coordinación">
+                            <v-tab-item value="tab_guia_fijo">
+                            </v-tab-item>
+                             <v-tab-item value="tab_guia_departamental">
+                            </v-tab-item>
+                            <v-tab-item value="tab_guia_montana">
+                            </v-tab-item>
+                            <v-tab-item value="tab_guia_trekking">
+                            </v-tab-item>
+                             <v-tab-item value="tab_guia_naturaleza">
+                            </v-tab-item>
+                            <v-tab-item value="tab_guia_deporte">
+                            </v-tab-item>
+                            <v-tab-item value="tab_guia_cultural">
                             </v-tab-item>
                         </v-tabs-items>
                         <v-row>
@@ -137,7 +169,7 @@
                                 </div>        
                             </v-col>
                             <v-col cols="12">
-                                <v-row class="pt-5 justify-center align-center">
+                                <v-row class="pt-5 justify-center align-center" v-if="guias.length>0">
                                     <v-col v-for="item in guias" :key="item.id" cols="auto" class="mx-2 cursor">
                                         <div class="justify-center align-center">
                                             <v-avatar size="150" @click="open_dialog(item)">
@@ -155,9 +187,13 @@
                                         </div>
                                     </v-col>
                                 </v-row>
+                                <v-row v-else class="justify-center align-center">
+                                    <p class="mt-10 grey--text"><v-icon>mdi-emoticon-sad-outline</v-icon> No se encontraron registros</p>
+                                </v-row>
                             </v-col>
                         </v-row>
 					</v-col>
+                    <v-col cols="12" md="1"></v-col>
 				</v-row>
                 
 			</v-flex>
@@ -187,18 +223,24 @@ export default {
 
     computed:{
         title_guia(){
-            if (this.filtro_tab=='guia_traslado') return 'Guías de Traslado';
-            else if(this.filtro_tab=='guia_tours') return 'Guías de Tours';
-            else if(this.filtro_tab=='guia_coordinacion') return 'Guías de Coordinación';
+            if (this.filtro_tab=='guia_nacional') return 'Guías Nacionales';
+            else if(this.filtro_tab=='guia_comunitario') return 'Guías Comunitarios o Locales';
+            else if(this.filtro_tab=='guia_fijo') return 'Guía Fijo o de Sitios';
+            if (this.filtro_tab=='guia_departamental') return 'Guías Departamentales';
+            else if(this.filtro_tab=='guia_montana') return 'Guías de Montaña';
+            else if(this.filtro_tab=='guia_trekking') return 'Guías de Trekking';
+            if (this.filtro_tab=='guia_naturaleza') return 'Guías de Naturaleza';
+            else if(this.filtro_tab=='guia_deporte') return 'Guías de Deportes Extremos';
+            else if(this.filtro_tab=='guia_cultural') return 'Guías Culturales';
             else return 'Listado de Guías';
         },
         guias(){
-            if (this.filtro_tab=='guia_traslado'){
+            if (this.filtro_tab=='guia_nacional'){
                 const guias_auxi = [];
                 this.guias_list.forEach(element => {
                     if(element.tipos.length > 0) {
                         let result_array = [];
-                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Traslado'));
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía Nacional'));
                         if (result_array != undefined){
                             guias_auxi.push(element)
                         }
@@ -206,12 +248,12 @@ export default {
                 });
                 return guias_auxi;
             }
-            if (this.filtro_tab=='guia_tours'){
+            if (this.filtro_tab=='guia_comunitario'){
                 const guias_auxi = [];
                 this.guias_list.forEach(element => {
                     if(element.tipos.length > 0) {
                         let result_array = [];
-                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Tours'));
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía Comunitario o Local'));
                         if (result_array != undefined){
                             guias_auxi.push(element)
                         }
@@ -219,12 +261,90 @@ export default {
                 });
                 return guias_auxi;
             }
-            if (this.filtro_tab=='guia_coordinacion'){
+            if (this.filtro_tab=='guia_fijo'){
                 const guias_auxi = [];
                 this.guias_list.forEach(element => {
                     if(element.tipos.length > 0) {
                         let result_array = [];
-                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía coordinador'));
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía Fijo o de Sitio'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+              if (this.filtro_tab=='guia_departamental'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía Departamental'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+            if (this.filtro_tab=='guia_montana'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Montaña'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+            if (this.filtro_tab=='guia_trekking'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Trekking'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+              if (this.filtro_tab=='guia_naturaleza'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Naturaleza'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+            if (this.filtro_tab=='guia_deporte'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía de Deportes Extremos'));
+                        if (result_array != undefined){
+                            guias_auxi.push(element)
+                        }
+                    }
+                });
+                return guias_auxi;
+            }
+            if (this.filtro_tab=='guia_cultural'){
+                const guias_auxi = [];
+                this.guias_list.forEach(element => {
+                    if(element.tipos.length > 0) {
+                        let result_array = [];
+                        result_array = element.tipos.find(tipo => (tipo.tipo=='Guía Cultural'));
                         if (result_array != undefined){
                             guias_auxi.push(element)
                         }

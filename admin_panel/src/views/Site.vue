@@ -172,14 +172,13 @@
 
                 <v-card flat tile class="white--text text-center" color="#0099ff" style="width:100%;">
                   <v-card-text>
-                      <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
-                          <v-icon size="24px">
-                              {{ icon }}
-                          </v-icon>
+                      <v-btn v-for="item in redes_sociales" :key="item" class="mx-4 white--text" icon>
+                          <a :href="item.enlace">
+                            <v-icon color="white" size="24px">
+                              {{ item.icon }}
+                            </v-icon>
+                          </a>
                       </v-btn>
-                  </v-card-text>
-                  <v-card-text class="white--text font-weight-medium">
-                    ¡Advertencia! No autorizamos ni respaldamos hospedajes, restaurantes y demás servicios ajenos a nuestra sitio web. El uso de estos servicios ajenos es de responsabilidad directa del visitante
                   </v-card-text>
                   <v-card-text class="white--text pb-0">
                       Sitio web elaborado por Erik Maquera en colaboración con el Gobierno Autónomo Municipal de Copacabana y la Dirección de Cultura y Turismo Copacabana
@@ -246,12 +245,12 @@ export default {
       bg:'transparent',
       altura_ini_p:500,
 	    drawer:false,
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
-        ],
+      redes_sociales: [
+        {icon:'mdi-facebook', enlace:'#'},
+        {icon:'mdi-twitter', enlace:'#'},
+        {icon:'mdi-linkedin', enlace:'#'},
+        {icon:'mdi-instagram', enlace:'#'},
+      ],
       items: [
           {
             src: 'https://www.incaworldbolivia.com/fotos/0915201694507-Isla-del-sol-Bolivia.jpg',

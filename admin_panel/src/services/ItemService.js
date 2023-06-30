@@ -262,9 +262,15 @@ export default {
     },
     listTipoGuias(){
         return [
-            {tipo:'Guía de Traslado', selected:false},
-            {tipo:'Guía de Tours', selected:false},
-            {tipo:'Guía coordinador', selected:false}
+            {tipo:'Guía Nacional', selected:false},
+            {tipo:'Guía Comunitario o Local', selected:false},
+            {tipo:'Guía Fijo o de Sitio', selected:false},
+            {tipo:'Guía Departamental', selected:false},
+            {tipo:'Guía de Montaña', selected:false},
+            {tipo:'Guía de Trekking', selected:false},
+            {tipo:'Guía de Naturaleza', selected:false},
+            {tipo:'Guía de Deportes Extremos', selected:false},
+            {tipo:'Guía Cultural', selected:false}
         ];
     },
     // listHoras(){
