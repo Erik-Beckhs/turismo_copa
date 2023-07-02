@@ -20,5 +20,7 @@
     "cors": false
   },
   "legacyExplorer": false,
-  "components": ["storage"]
+  "components": [
+    "storage"
+  ]
 }

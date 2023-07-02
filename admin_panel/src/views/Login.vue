@@ -23,7 +23,7 @@
                 :rules="emailRules"
                 type="email"
                 label="Email"
-                placeholder="Email"
+
                 prepend-inner-icon="mdi-account"
                 required
               />
@@ -32,7 +32,7 @@
                       :rules="passwordRules"
                       :type="passwordShow?'text':'password'"
                       label="Password"
-                      placeholder="Password"
+            
                       prepend-inner-icon="mdi-key"
                       :append-icon="passwordShow ? 'mdi-eye':'mdi-eye-off'"
                       @click:append="passwordShow = !passwordShow"
@@ -60,7 +60,6 @@ import AuthService from '@/services/AuthService'
 
 export default {
   name: 'Login',
-
 
   data: () => ({
     loading:false,

@@ -339,7 +339,7 @@ export default {
         for (let index = 0; index < this.form_filter.servicios.length; index++) {
           if(elem.servicios.some(el => el.servicio === this.form_filter.servicios[index])) aux_cuenta++;
         }
-        if(aux_cuenta==this.form_filter.servicios.length){
+        if(aux_cuenta == this.form_filter.servicios.length){
           return true;
         }
     	});

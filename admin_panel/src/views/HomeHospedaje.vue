@@ -71,7 +71,7 @@
                     align="center"
                     justify="end"
                   >
-                    <div>
+                    <div v-if="hospedaje.precio_min > 0">
                       <span class="font-weight-bold text-h5">Desde ${{hospedaje.precio_min}}  </span>&nbsp;noche
                     </div>
                   </v-row>  
@@ -79,16 +79,21 @@
               </v-col>
               <v-col cols="12">
                 <span class="text-sutitle-1 grey--text">Tipos de Habitación: </span>
-                <v-chip
+                <span v-if="hospedaje.tipos_habitacion.lenght>0">
+                  <v-chip
                   class="ma-2"
                   color="pink"
                   outlined
                   small
                   v-for="hb in hospedaje.tipos_habitacion"
                   :key="hb.id"
-                >
-                  {{hb.tipo_habitacion}}
-                </v-chip>
+                  >
+                    {{hb.tipo_habitacion}}
+                  </v-chip>
+                </span>
+                <span v-else class="grey--text">
+                  Sin Información
+                </span>
               </v-col>
             </v-row>
             <v-row dense>
@@ -104,7 +109,7 @@
                     <v-list-item>
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="black lighten-1"
                           dark
                         >
                           mdi-phone
@@ -117,10 +122,10 @@
                     </v-list-item>    
                   </v-col>
                   <v-col cols="6" md="3" v-if="hospedaje.cel_whatsapp!='' && hospedaje.cel_whatsapp!=null">
-                    <v-list-item>
+                    <v-list-item :href="hospedaje.cel_whatsapp | enlace_whatsapp" target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="green lighten-1"
                           dark
                         >
                           mdi-whatsapp
@@ -136,7 +141,7 @@
                     <v-list-item :href="hospedaje.pagina_web" link target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="black lighten-1"
                           dark
                         >
                           mdi-web
@@ -144,7 +149,7 @@
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-subtitle>Pagina Web</v-list-item-subtitle>
-                        <v-list-item-title style="color: #2196F3 !important">{{hospedaje.pagina_web}}</v-list-item-title>
+                        <v-list-item-title>{{hospedaje.pagina_web}}</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>    
                   </v-col>
@@ -152,7 +157,7 @@
                     <v-list-item :href="hospedaje.facebook" link target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="blue lighten-1"
                           dark
                         >
                           mdi-facebook
@@ -160,7 +165,7 @@
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-subtitle>Facebook</v-list-item-subtitle>
-                        <v-list-item-title style="color: #2196F3 !important">{{hospedaje.facebook}}</v-list-item-title>
+                        <v-list-item-title>{{hospedaje.facebook}}</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>    
                   </v-col>
@@ -172,7 +177,10 @@
               <v-col cols="12">
                 <span class="title-box">Descripción</span><br>
 							  <hr class="separador-hr"><br>
-                <div v-html="hospedaje.informacion">
+                <div v-if="hospedaje.informacion" v-html="hospedaje.informacion">
+                </div>
+                <div v-else class="grey--text">
+                  Sin Informacion
                 </div>
                 <br>
               </v-col>
@@ -182,7 +190,8 @@
                 <v-divider></v-divider>
               </v-col>
             </v-row>
-            <v-row>
+            <div v-if="hospedaje.servicios.length>0">
+              <v-row>
               <v-col cols="12">
                 <br>
                 <span class="text-h5 font-weight-medium">Lo que este lugar ofrece</span><br><br>
@@ -209,6 +218,7 @@
                 </v-row>
               </v-col>
             </v-row>
+            </div>
 					</v-col>
 				</v-row>
 			</v-flex>
@@ -258,7 +268,7 @@
                             </v-img>
                             <v-card-text>
                               <div>
-                                <span class="text-subtitle-1 font-weight-bold">{{ho.nombre}}</span>	
+                                <span class="text-subtitle-1 font-weight-bold">{{ho.tipo}} {{ho.nombre}}</span>	
                               </div>
                               <div class="row">
                                 <div class="col-12">
@@ -279,7 +289,7 @@
                                   ></v-rating>
                                 </div>
                                 <div class="col-7" style="padding-top:0; padding-bottom:0;">
-                                  <div class="text-right">
+                                  <div class="text-right" v-if="ho.precio_min > 0">
                                     <span class="font-weight-bold">Desde ${{ho.precio_min}} </span>noche
                                   </div>
                                 </div>
@@ -362,32 +372,6 @@ export default {
       hospedaje:{},
       multimedia_data:[],
 	  drawer:false,
-	  imagenes: [
-        {
-          largeURL:
-            'https://www.hostallasolas.com/media/images/content/las-olas/las-olas-10.jpg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/media/images/content/las-olas/las-olas-10.jpg',
-          width: 1500,
-          height: 1500,
-        },
-        {
-          largeURL:
-            'https://www.hostallasolas.com/data/content/f911b04f41478a646be03c51db29ce3a.jpeg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/data/content/f911b04f41478a646be03c51db29ce3a.jpeg',
-          width: 1669,
-          height: 1669,
-        },
-        {
-          largeURL:
-            'https://www.hostallasolas.com/data/content/e388574b0d048161192dc61faee05b34.jpeg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/data/content/e388574b0d048161192dc61faee05b34.jpeg',
-          width: 2500,
-          height: 1666,
-        },
-      ],
       icons: [
         'mdi-facebook',
         'mdi-twitter',
@@ -414,6 +398,11 @@ export default {
     this.get_hospedajeId();
     this.get_hospedajes();
     this.getMultimediaGaleria();
+  },
+  filters:{
+    enlace_whatsapp(value){
+      return `https://wa.me/591${value}`;
+    },
   },
   methods:{
     getMultimediaGaleria(){
