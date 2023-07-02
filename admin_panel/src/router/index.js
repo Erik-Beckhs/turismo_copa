@@ -18,6 +18,10 @@ import Resenas from '@/views/Resenas.vue';
 import Perfil from '@/views/Perfil.vue';
 import Hospedajes from '@/views/Hospedajes.vue';
 import Hospedaje from '@/views/Hospedaje.vue';
+import Servicios from '@/views/Servicios.vue';
+import Servicio from '@/views/Servicio.vue';
+import Guias from '@/views/Guias.vue';
+import Guia from '@/views/Guia.vue';
 import Eventos from '@/views/Eventos.vue';
 import Evento from '@/views/Evento.vue';
 import Noticias from '@/views/Noticias.vue';
@@ -25,6 +29,9 @@ import Noticia from '@/views/Noticia.vue';
 import NotFound from '@/views/PageNotFound.vue';
 import HomeComoLlegar from '@/views/HomeComoLlegar.vue';
 import HomeConociendoCopacabana from '@/views/HomeConociendoCopacabana.vue';
+import HomeServices from '@/views/HomeServices.vue';
+import HomeService from '@/views/HomeService.vue';
+import HomeGuides from '@/views/HomeGuides.vue';
 
 Vue.use(VueRouter)
 
@@ -44,6 +51,10 @@ const routes = [
       { path: "/HomeResenas", name: "homeResenas", component: HomeResenas},
       { path: "/HomeComoLlegar", name: "homeLlegar", component: HomeComoLlegar},
       { path: "/HomeConociendoCopacabana", name: "homeConociendo", component: HomeConociendoCopacabana},
+      { path: "/HomeServices/:id", name:"homeServicio", component:HomeServices},
+      { path: "/HomeServices", name:"services", component:HomeServices},
+      { path: "/HomeService/:id", name:"service", component:HomeService},
+      { path: "/HomeGuides", name:"guides", component:HomeGuides}
     ]
   },
   {
@@ -62,6 +73,10 @@ const routes = [
       { path: "/resenas", name: "resenas", component: Resenas },
       { path: "/hospedajes", name: "hospedajes", component: Hospedajes },
       { path: "/hospedaje/:id", name: "hospedaje", component: Hospedaje },
+      { path: "/servicios", name: "servicios", component: Servicios },
+      { path: "/servicio/:id", name: "servicio", component: Servicio },
+      { path: "/guias", name: "guias", component: Guias },
+      { path: "/guia/:id", name: "guia", component: Guia },
       { path: "/eventos", name: "eventos", component: Eventos },
       { path: "/evento/:id", name: "evento", component: Evento },
       { path: "/noticias", name: "noticias", component: Noticias },

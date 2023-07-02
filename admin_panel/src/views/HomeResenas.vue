@@ -48,14 +48,22 @@
 							</v-file-input>
 						</v-col>
 					</v-col>
-					<v-col cols="12" md="8">
-						<v-col cols="12">
-							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Autor" v-model="resena.autor" />
+					<v-col cols="12" md="8" >
+						<v-col cols="12" class="py-0">
+							<v-text-field 
+							dense 
+							:rules="camposRules" 
+							outlined label="Autor" 
+							v-model="resena.autor" />
 						</v-col>
-						<v-col cols="12" class="py-3">
-							<v-text-field dense :rules="camposRules" hide-details="true" outlined label="Titulo" v-model="resena.titulo" />
+						<v-col cols="12" class="py-0">
+							<v-text-field 
+							dense 
+							:rules="camposRules" 
+							outlined label="Titulo" 
+							v-model="resena.titulo" />
 						</v-col>
-						<v-col cols="12">
+						<v-col cols="12" class="py-0">
 							<v-textarea
 							label="Contenido"
 							outlined
@@ -179,11 +187,14 @@ export default {
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:new Date().toISOString(),
-			rating:0, 
+			rating:3, 
 			estado:0, 
 			img_user:''
 		},
-      contenidoRules: [v => v.length <= 600 || 'Max. 600 caracteres'],
+      contenidoRules: [
+		v => !!v || 'El campo es requerido',
+		v => v.length <= 600 || 'Max. 600 caracteres'
+		],
       dialog_resena:false,
       valid:true,
       image_user:'',
@@ -252,14 +263,19 @@ export default {
 	},
   },
   methods:{
+	notification(title, icon){
+          this.$swal.fire({
+          position: 'top-end',
+          icon,
+          title,
+          showConfirmButton: false,
+          timer: 1500
+        })
+     },
     get_resenas(){
       ResenaService.getResenasAprobadas().then(response=>{
         this.resenas = response.data;
-        //ordenar por fecha de manera descendente
         this.resenas.sort((x, y) => y.fecha_publicacion.localeCompare(x.fecha_publicacion));
-        // this.resenas.forEach(element=>{
-        //   element.fecha_publicacion = this.fecha_literal(element.fecha_publicacion)
-        // })
       })
     },
   	limpiarResena(){
@@ -268,7 +284,7 @@ export default {
 			titulo:'',
 			contenido:'',
 			fecha_publicacion:new Date().toISOString(),
-			rating:5, 
+			rating:3, 
 			estado:0, 
 			img_user:''
 		};
@@ -300,7 +316,10 @@ export default {
     },
 	validateResena(){
 		if(this.$refs.form.validate()){
-			this.guardaResena()
+			this.guardaResena();
+		}
+		else{
+			this.notification("Debe llenar los campos", "warning");
 		}
 	},
 	 FormDataImage(id_element, nombre_archivo){

@@ -1,10 +1,10 @@
 <template>
-  <div class="noticias">
-    <v-card class="pa-5 mx-15 my-7">
+  <div class="hospedajes mx-15 my-7">
+    <v-card class="pa-5">
     <v-container>
       <v-card-title class="text-h5">
-        <v-icon>mdi-newspaper-variant-multiple</v-icon>
-        <span class="ms-3">Noticias</span>
+        <v-icon>mdi-star</v-icon>
+        <span class="ms-3">Servicios</span>
       </v-card-title>
       <hr class="line-blue">
     <v-row class="mx-3">
@@ -19,31 +19,30 @@
     </v-col>
     <v-col cols="12" md="6" lg="6" class="text-right">
       <v-btn 
-      @click="$router.push('noticia/0')"
+      @click="$router.push('servicio/0')"
       color="green" tile dark>
           <v-icon>mdi-plus</v-icon>
-          <span>Nueva Noticia</span>
+          <span>Nuevo Servicio</span>
       </v-btn>
     </v-col>
     </v-row>
       
     <v-data-table
       :headers="headers"
-      :items="noticias_list"
+      :items="servicios_list"
       :search="search"
       class="mt-7"
     >
-    <template v-slot:[`item.contenido`]="{ index }">
+    <template v-slot:[`item.descripcion`]="{ index }">
       <span>{{index + 1}}</span>
     </template>
-    
     <template v-slot:[`item.id`]="{ item }">
         <v-btn
         class="mx-1"
         fab
         dark
         small
-        @click="editarNoticia(item.id)"
+        @click="editarServicio(item.id)"
         color="primary"
         >
         <v-icon dark>
@@ -55,7 +54,7 @@
         fab
         dark
         small
-        @click="eliminarNoticia(item.id)"
+        @click="eliminarServicio(item.id)"
         color="red"
         >
         <v-icon dark>
@@ -69,11 +68,12 @@
   </div>
 </template>
 <script>
-
-import NoticiaService from '@/services/NoticiaService'
+//import axios from 'axios';
+import ServicioService from '@/services/ServicioService';
+import ItemService from '@/services/ItemService';
 
 export default {
-  name: 'Noticias',
+  name: 'Servicios',
   components: {
     //HospedajeService
   }, 
@@ -84,47 +84,47 @@ export default {
           {
             text: '#',
             align: 'start',
-            value: 'contenido',
+            value: 'descripcion',
           },
-          { text: 'Titulo', value: 'titulo' },
-          { text: 'Fecha de Publicación', value: 'fecha_publicacion' },
-          { text: 'Categoria', value: 'categoria' },
-          { text: 'Creado por', value: 'autor' },
+          { text: 'Tipo', value: 'tipo_literal' },
+          { text: 'Nombre', value: 'nombre' },
+          { text: 'Ubicación', value: 'ubicacion' },
+          { text: 'Direccion', value: 'direccion' },
+          { text: 'Telefono', value: 'telefono' },
+          { text: 'WhatsApp', value: 'whatsapp' },
           { text: 'Acciones', value: 'id' },
         ],
-        noticias_list:[],
+        servicios_list:[],
+        tipo_servicios:ItemService.listTipoServicios()
     }
   },
   mounted(){
-    //console.log('carga');
-      this.getNoticias();
+      this.getServicios();
   },
   methods:{
-     getNoticias(){
-      NoticiaService.getNoticias()
+     getServicios(){
+      ServicioService.getServicios()
       .then(response => {
-        this.noticias_list = response.data;
-        this.noticias_list.forEach(element=>{
-            element.fecha_publicacion = this.convierteFecha(element.fecha_publicacion);
-        })
+        this.servicios_list = response.data;
+        this.servicios_list.forEach(element => {
+            this.tipo_servicios.forEach(el=>{
+              if(element.tipo==el.value){
+                element.tipo_literal = el.text;
+              }
+            })
+        });
       })
       .catch(error => console.log(error))
       .finally(() => console.log('concluyó la petición'))
      },
-     convierteFecha(fecha){
-       let date = new Date(fecha);
-       let dia = date.getDate();
-       let mes = date.getMonth() + 1;
-       let anio = date.getFullYear();
-       return `${dia}-${mes}-${anio}`;
-    },
-     editarNoticia(id){
-        this.$router.replace('noticia/'+id);
+
+     editarServicio(id){
+        this.$router.replace('servicio/'+id);
      },
-     eliminarNoticia(id){
+     eliminarServicio(id){
         this.$swal.fire({
         title: 'Eliminar registro',
-        text: "Esta seguro que desea eliminar la noticia?",
+        text: "Esta seguro que desea eliminar el registro?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -133,15 +133,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           //this.eliminar(id)
-          NoticiaService.eliminarNoticia(id).then((response)=>{
+          ServicioService.eliminarServicio(id).then((response)=>{
             if(response.data.count>0){
-                  this.notification('Se eliminó la noticia de manera exitosa', 'success');
-                  this.getNoticias();
+                  this.notification('Se eliminó el registro de manera exitosa', 'success');
+                  this.getServicios();
             }
             else{
                 this.notification('No existe el registro', 'info');
             }
-
           })
         }
       })

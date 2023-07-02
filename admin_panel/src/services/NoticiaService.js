@@ -2,6 +2,7 @@ import Api from '@/services/Api';
 
 export default {
     saveImage(id, dataimage){
+        console.log(dataimage);
         return Api().post(`/noticias/${id}/image`, dataimage, {
             headers: {
               'Content-Type': 'multipart/form-data'
