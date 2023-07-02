@@ -16,7 +16,7 @@
     lazy-validation
     >
       <v-row>
-        <v-col cols="8">
+        <v-col cols="12" md="8" lg="8">
           <v-card-title class="text-subtitle-1">Información</v-card-title>
           <v-col cols="12" class="pa-0">
             <v-text-field
@@ -48,7 +48,7 @@
           </v-col>
 
         </v-col>
-        <v-col cols="4" class="pa-5">
+        <v-col cols="12" md="4" lg="4" class="pa-5">
             <v-card-title class="text-subtitle-1">
               Imagen
             </v-card-title>
@@ -100,12 +100,12 @@
       </v-row>
       <v-divider></v-divider>
       <v-col cols="12" class="text-right">
-        <v-btn tile color="primary" class="mx-1" @click="guardar">
+        <v-btn tile color="primary" class="mx-1 my-1" @click="guardar">
           <v-icon>mdi-content-save</v-icon>
           <span>Guardar</span>
         </v-btn>
         <router-link to="/noticias" class="underline-none">
-          <v-btn tile color="secondary" class="mx-1">
+          <v-btn tile color="secondary" class="mx-1 my-1">
           <v-icon>mdi-arrow-left-circle</v-icon>
             <span>Cancelar</span>
           </v-btn>

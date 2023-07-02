@@ -17,7 +17,7 @@
     >
 
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="8">
         <v-card-title class="text-subtitle-1">Datos del Hospedaje</v-card-title>
         <v-row>
           <v-col cols="12">
@@ -106,7 +106,7 @@
         </v-col>
         </v-row>
       </v-col>
-      <v-col cols="4" class="pa-5">
+      <v-col cols="12" class="pa-5" md="4" lg="4">
           <v-col cols="12">
             <v-card-title class="py-0 text-subtitle-1">
                 Imagen Principal
@@ -155,7 +155,7 @@
             Redes Sociales
           </v-card-title>
         <v-row>
-          <v-col cols="4" class="py-0">
+          <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="hospedaje.pagina_web"
             label="Pagina Web"
@@ -163,15 +163,16 @@
             prepend-inner-icon="mdi-web"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
+            type='number'
             v-model="hospedaje.cel_whatsapp"
             label="Whatsapp"
             outlined
             prepend-inner-icon="mdi-whatsapp"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="hospedaje.facebook"
             label="Facebook"
@@ -191,7 +192,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs3>
+                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs12 sm6 md3 lg3>
                       <v-checkbox light :label="category.tipo_habitacion" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -211,7 +212,7 @@
       <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs3>
+                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs12 sm6 md3 lg3>
                       <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -231,7 +232,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in servicios_habitacion" :key="servicios_habitacion[index].servicio" xs4>
+                    <v-flex v-for="(category,index) in servicios_habitacion" :key="servicios_habitacion[index].servicio" xs12 sm6 md4 lg4>
                       <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -242,13 +243,13 @@
     </v-row>
     <v-divider></v-divider>
     <v-col cols="12" class="text-right mt-5">
-      <v-btn tile color="primary" class="mx-1" @click='guardar'>
+      <v-btn tile color="primary" class="mx-1 my-1" @click='guardar'>
         <v-icon>mdi-content-save</v-icon>
         <span>Guardar</span>
       </v-btn>
       
         <router-link class="underline-none" to="/hospedajes">   
-          <v-btn tile color="secondary" class="mx-1">     
+          <v-btn tile color="secondary" class="mx-1 my-1">     
             <v-icon>mdi-arrow-left-circle</v-icon>
             <span>Cancelar</span>
           </v-btn>

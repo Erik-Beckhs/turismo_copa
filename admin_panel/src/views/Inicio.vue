@@ -4,7 +4,7 @@
         <span class="text-h5">Inicio</span>
         <hr class="line-blue" />
             <v-row class="pt-3">
-                            <v-col lg="4" cols="4">
+                            <v-col lg="4" md="4" sm="6" cols="12">
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
@@ -22,7 +22,7 @@
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
-                            <v-col lg="4" cols="4">
+                            <v-col lg="4" md="4" sm="6" cols="12">
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
@@ -41,7 +41,7 @@
                                     </v-card-actions>
                                     </v-card>
                             </v-col>
-                            <v-col lg="4" cols="4">
+                            <v-col lg="4" md="4" sm="6" cols="12">
                                  <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
@@ -59,7 +59,7 @@
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
-                            <v-col lg="4" cols="4" class="pt-10">
+                            <v-col lg="4" md="4" sm="6" cols="12" class="pt-10">
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
@@ -78,7 +78,7 @@
                                     </v-card-actions>
                                     </v-card>
                             </v-col>
-                            <v-col lg="4" cols="4" class="pt-10">
+                            <v-col lg="4" md="4" sm="6" cols="12" class="pt-10">
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>
@@ -97,8 +97,7 @@
                                     </v-card-actions>
                                     </v-card>
                             </v-col>
-                            
-                            <v-col lg="4" cols="4" class="pt-10">
+                            <v-col lg="4" md="4" sm="6" cols="12" class="pt-10">
                                 <v-card elevation="2" class="rounded-lg pa-3">
                                     <v-card-text class="d-flex justify-space-between align-center">
                                         <div>

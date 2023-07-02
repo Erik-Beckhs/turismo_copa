@@ -16,7 +16,7 @@
     lazy-validation
     >
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="8">
         <v-card-title class="text-subtitle-1">Datos del Servicio</v-card-title>
         <v-row>
           <v-col cols="12">
@@ -40,7 +40,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" md="6" lg="6">
             <v-select
               v-model="servicio.tipo"
               :items="tipos"
@@ -50,7 +50,7 @@
               outlined
             ></v-select>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6" lg="6">
             <v-select
               v-model="servicio.ubicacion"
               :items="comunidades"
@@ -63,7 +63,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" md="6" lg="6">
             <v-text-field
               v-model="servicio.direccion"
               hide-details="true"
@@ -72,7 +72,7 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6" lg="6">
               <v-text-field
               v-model="servicio.telefono"
               label="Telefono"
@@ -88,7 +88,7 @@
 
         </v-row>
       </v-col>
-      <v-col cols="4" class="pa-5">
+      <v-col cols="12" md="4" lg="4" class="pa-5">
           <v-col cols="12">
             <v-card-title class="py-0 text-subtitle-1">
                 Imagen Principal
@@ -137,7 +137,7 @@
             Redes Sociales
         </v-card-title>
         <v-row>
-        <v-col cols="4" class="py-0">
+        <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="servicio.pagina_web"
             label="Pagina Web"
@@ -145,7 +145,7 @@
             prepend-inner-icon="mdi-web"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="servicio.whatsapp"
             label="Whatsapp"
@@ -153,7 +153,7 @@
             prepend-inner-icon="mdi-whatsapp"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="servicio.facebook"
             label="Facebook"
@@ -174,7 +174,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in formas_pago" :key="formas_pago[index].pago" xs3>
+                    <v-flex v-for="(category,index) in formas_pago" :key="formas_pago[index].pago" xs12 sm6 md3 lg3>
                       <v-checkbox light :label="category.pago" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -781,13 +781,13 @@
       <v-divider></v-divider>
     <v-divider></v-divider>
     <v-col cols="12" class="text-right mt-5">
-      <v-btn tile color="primary" class="mx-1" @click='guardar'>
+      <v-btn tile color="primary" class="mx-1 my-1" @click='guardar'>
         <v-icon>mdi-content-save</v-icon>
         <span>Guardar</span>
       </v-btn>
       
         <router-link class="underline-none" to="/servicios">   
-          <v-btn tile color="secondary" class="mx-1">     
+          <v-btn tile color="secondary" class="mx-1 my-1">     
             <v-icon>mdi-arrow-left-circle</v-icon>
             <span>Cancelar</span>
           </v-btn>

@@ -8,7 +8,7 @@
       </v-card-title>
       <hr class="line-blue" />
     <v-row class="mx-3">
-    <v-col cols="6">
+    <v-col cols="12" md="6" lg="6">
     <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -17,7 +17,7 @@
         hide-details
       ></v-text-field>
     </v-col>
-    <v-col cols="6" class="text-right">
+    <v-col cols="12" md="6" lg="6" class="text-right">
       <router-link to="/atractivo/0" class="underline-none">
         <v-btn color="green" tile dark>
           <v-icon>mdi-plus</v-icon>

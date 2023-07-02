@@ -16,10 +16,10 @@
     lazy-validation
     >
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="8">
         <v-card-title class="text-subtitle-1">Información</v-card-title>
         <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6" lg="6">
             <v-text-field
                 v-model="guia.nombre"
                 :rules="nameRules"
@@ -28,7 +28,7 @@
                 outlined
             ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" md="6" lg="6">
             <v-text-field
                 v-model="guia.apellidos"
                 label="Apellidos"
@@ -57,7 +57,7 @@
           ></v-text-field>
         </v-col>
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6" lg="6">
             <v-text-field
                 v-model="guia.facebook"
                 label="Facebook"
@@ -65,7 +65,7 @@
                 outlined
             ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" md="6" lg="6">
             <v-text-field
                 type="number"
                 v-model="guia.whatsapp"
@@ -77,7 +77,7 @@
             </v-col>
         </v-row>
       </v-col>
-      <v-col cols="4" class="pa-5">
+      <v-col cols="12" md="4" lg="4" class="pa-5">
           <v-card-title class="text-subtitle-1 py-0">
             Imagen
           </v-card-title>
@@ -113,7 +113,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in tipos" :key="tipos[index].tipo" xs4>
+                    <v-flex v-for="(category,index) in tipos" :key="tipos[index].tipo" xs12 sm6 md4 lg4>
                       <v-checkbox light :label="category.tipo" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -127,7 +127,7 @@
             <v-flex xs12 md12 class="greyBorder">
                 <div class="mx-4">
                 <v-layout row wrap>
-                        <v-flex v-for="(category,index) in idiomas" :key="idiomas[index].idioma" xs4>
+                        <v-flex v-for="(category,index) in idiomas" :key="idiomas[index].idioma" xs12 sm6 md4 lg4>
                         <v-checkbox light :label="category.idioma" v-model="category.selected" class="mt-0">
                         </v-checkbox>
                         </v-flex>
@@ -137,12 +137,12 @@
         </v-container>
 
     <v-col cols="12" class="text-right">
-      <v-btn tile color="primary" class="mx-1" @click="guardar">
+      <v-btn tile color="primary" class="mx-1 my-1" @click="guardar">
         <v-icon>mdi-content-save</v-icon>
         <span>Guardar</span>
       </v-btn>
       <router-link to="/guias" class="underline-none">
-        <v-btn tile color="secondary" class="mx-1">
+        <v-btn tile color="secondary" class="mx-1 my-1">
         <v-icon>mdi-arrow-left-circle</v-icon>
           <span>Cancelar</span>
         </v-btn>

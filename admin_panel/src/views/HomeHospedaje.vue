@@ -109,7 +109,7 @@
                     <v-list-item>
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="black lighten-1"
                           dark
                         >
                           mdi-phone
@@ -122,10 +122,10 @@
                     </v-list-item>    
                   </v-col>
                   <v-col cols="6" md="3" v-if="hospedaje.cel_whatsapp!='' && hospedaje.cel_whatsapp!=null">
-                    <v-list-item>
+                    <v-list-item :href="hospedaje.cel_whatsapp | enlace_whatsapp" target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="green lighten-1"
                           dark
                         >
                           mdi-whatsapp
@@ -141,7 +141,7 @@
                     <v-list-item :href="hospedaje.pagina_web" link target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="black lighten-1"
                           dark
                         >
                           mdi-web
@@ -149,7 +149,7 @@
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-subtitle>Pagina Web</v-list-item-subtitle>
-                        <v-list-item-title style="color: #2196F3 !important">{{hospedaje.pagina_web}}</v-list-item-title>
+                        <v-list-item-title>{{hospedaje.pagina_web}}</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>    
                   </v-col>
@@ -157,7 +157,7 @@
                     <v-list-item :href="hospedaje.facebook" link target="_blank">
                       <v-list-item-avatar>
                         <v-icon
-                          class="grey lighten-1"
+                          class="blue lighten-1"
                           dark
                         >
                           mdi-facebook
@@ -165,7 +165,7 @@
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-subtitle>Facebook</v-list-item-subtitle>
-                        <v-list-item-title style="color: #2196F3 !important">{{hospedaje.facebook}}</v-list-item-title>
+                        <v-list-item-title>{{hospedaje.facebook}}</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>    
                   </v-col>
@@ -372,32 +372,6 @@ export default {
       hospedaje:{},
       multimedia_data:[],
 	  drawer:false,
-	  imagenes: [
-        {
-          largeURL:
-            'https://www.hostallasolas.com/media/images/content/las-olas/las-olas-10.jpg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/media/images/content/las-olas/las-olas-10.jpg',
-          width: 1500,
-          height: 1500,
-        },
-        {
-          largeURL:
-            'https://www.hostallasolas.com/data/content/f911b04f41478a646be03c51db29ce3a.jpeg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/data/content/f911b04f41478a646be03c51db29ce3a.jpeg',
-          width: 1669,
-          height: 1669,
-        },
-        {
-          largeURL:
-            'https://www.hostallasolas.com/data/content/e388574b0d048161192dc61faee05b34.jpeg',
-          thumbnailURL:
-            'https://www.hostallasolas.com/data/content/e388574b0d048161192dc61faee05b34.jpeg',
-          width: 2500,
-          height: 1666,
-        },
-      ],
       icons: [
         'mdi-facebook',
         'mdi-twitter',
@@ -424,6 +398,11 @@ export default {
     this.get_hospedajeId();
     this.get_hospedajes();
     this.getMultimediaGaleria();
+  },
+  filters:{
+    enlace_whatsapp(value){
+      return `https://wa.me/591${value}`;
+    },
   },
   methods:{
     getMultimediaGaleria(){
