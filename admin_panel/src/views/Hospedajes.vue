@@ -2,12 +2,13 @@
   <div class="hospedajes mx-15 my-7">
     <v-card class="pa-5">
     <v-container>
-      <v-card-title>
+      <v-card-title class="text-h5">
       <v-icon>mdi-bed</v-icon>
       <span class="ms-3">Establecimientos de Hospedaje</span>
       </v-card-title>
+      <hr class="line-blue" />
     <v-row class="mx-3">
-    <v-col cols="6">
+    <v-col cols="12" md="6" lg="6">
     <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -16,7 +17,7 @@
         hide-details
       ></v-text-field>
     </v-col>
-    <v-col cols="6" class="text-right">
+    <v-col cols="12" md="6" lg="6" class="text-right">
       <v-btn 
       @click="$router.push('hospedaje/0')"
       color="green" tile dark>

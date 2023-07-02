@@ -165,7 +165,7 @@ export default {
         ];
     },
     listComunidades(){
-        return ['Varias', 'Kusijata', 'Marca Kosco', 'Sampaya', 'Locka', 'Copacabana', 'Chisi'];
+        return ['Otros', 'Kusijata', 'Marca Kosco', 'Kasani', 'Sampaya', 'Locka', 'Copacabana', 'Chisi', 'Isla del Sol', 'Isla de la Luna'];
     },
     listTiposHabitacion(){
         return [
@@ -234,5 +234,49 @@ export default {
             'Científica',
             'Servicio Público'
           ];
-    }
+    },
+    listTipoServicios(){
+        return [
+            {value:1, text:'Transporte'},
+            {value:2, text:'Restaurante'},
+            {value:3, text:'Agencia de Viaje'}
+        ]
+    }, 
+    listFormasPago(){
+        return [
+            {pago:'Efectivo', selected:false},
+            {pago:'QR', selected:false},
+            {pago:'Depósito', selected:false},
+            {pago:'Transferencia', selected:false}
+        ];
+    },
+    listIdiomas(){
+        return [
+            {idioma:'Español', selected:false},
+            {idioma:'Inglés', selected:false},
+            {idioma:'Francés', selected:false},
+            {idioma:'Portugués', selected:false},
+            {idioma:'Alemán', selected:false},
+            {idioma:'Mandarín', selected:false},
+        ];
+    },
+    listTipoGuias(){
+        return [
+            {tipo:'Guía Nacional', selected:false},
+            {tipo:'Guía Comunitario o Local', selected:false},
+            {tipo:'Guía Fijo o de Sitio', selected:false},
+            {tipo:'Guía Departamental', selected:false},
+            {tipo:'Guía de Montaña', selected:false},
+            {tipo:'Guía de Trekking', selected:false},
+            {tipo:'Guía de Naturaleza', selected:false},
+            {tipo:'Guía de Deportes Extremos', selected:false},
+            {tipo:'Guía Cultural', selected:false}
+        ];
+    },
+    // listHoras(){
+    //     return ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+    // },
+    // listMinutos(){
+    //     return ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26'];
+    // }
 }

@@ -3,15 +3,21 @@
     <v-card class="pa-10">
     <v-container>
     <v-card-title>
-    <v-icon>mdi-bed</v-icon>
+    <v-icon class="text-h4">mdi-bed</v-icon>
     <span class="ms-2 text-h5">{{edicion}} Hospedaje</span>
     </v-card-title>
-    <v-card-subtitle class="grey--text">
+    <v-card-subtitle class="grey--text text-subtitle-1">
       A continuación ingrese información general del hospedaje, además de los tipos de habitación y los servicios que ofrece.
     </v-card-subtitle>
     <v-divider></v-divider>
+    <v-form
+    ref="form"
+    lazy-validation
+    v-model="valid"
+    >
+
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="8">
         <v-card-title class="text-subtitle-1">Datos del Hospedaje</v-card-title>
         <v-row>
           <v-col cols="12">
@@ -30,6 +36,7 @@
               v-model="hospedaje.direccion"
               hide-details="true"
               label="Direccion"
+              :rules="camposRules"
               outlined
             ></v-text-field>
           </v-col>
@@ -39,6 +46,7 @@
               label="Telefono"
               outlined
               hide-details="true"
+              :rules="camposRules"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -57,6 +65,7 @@
               v-model="hospedaje.tipo"
               :items="tipos"
               label="Tipo"
+              :rules="camposRules"
               hide-details="true"
               outlined
             ></v-select>
@@ -97,7 +106,7 @@
         </v-col>
         </v-row>
       </v-col>
-      <v-col cols="4" class="pa-5">
+      <v-col cols="12" class="pa-5" md="4" lg="4">
           <v-col cols="12">
             <v-card-title class="py-0 text-subtitle-1">
                 Imagen Principal
@@ -146,7 +155,7 @@
             Redes Sociales
           </v-card-title>
         <v-row>
-                   <v-col cols="4" class="py-0">
+          <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="hospedaje.pagina_web"
             label="Pagina Web"
@@ -154,15 +163,16 @@
             prepend-inner-icon="mdi-web"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
+            type='number'
             v-model="hospedaje.cel_whatsapp"
             label="Whatsapp"
             outlined
             prepend-inner-icon="mdi-whatsapp"
           ></v-text-field>
         </v-col>
-         <v-col cols="4" class="py-0">
+         <v-col cols="12" md="4" lg="4" class="py-0">
           <v-text-field
             v-model="hospedaje.facebook"
             label="Facebook"
@@ -182,7 +192,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mx-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs3>
+                    <v-flex v-for="(category,index) in tipos_habitacion" :key="tipos_habitacion[index].tipo_habitacion" xs12 sm6 md3 lg3>
                       <v-checkbox light :label="category.tipo_habitacion" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -202,7 +212,7 @@
       <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs3>
+                    <v-flex v-for="(category,index) in servicios_propiedad" :key="servicios_propiedad[index].servicio" xs12 sm6 md3 lg3>
                       <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -222,7 +232,7 @@
         <v-flex xs12 md12 class="greyBorder">
             <div class="mr-4 ml-4">
               <v-layout row wrap>
-                    <v-flex v-for="(category,index) in servicios_habitacion" :key="servicios_habitacion[index].servicio" xs4>
+                    <v-flex v-for="(category,index) in servicios_habitacion" :key="servicios_habitacion[index].servicio" xs12 sm6 md4 lg4>
                       <v-checkbox light :label="category.servicio" v-model="category.selected" class="mt-0">
                       </v-checkbox>
                     </v-flex>
@@ -233,19 +243,20 @@
     </v-row>
     <v-divider></v-divider>
     <v-col cols="12" class="text-right mt-5">
-      <v-btn tile color="primary" class="mx-1" @click='guardar'>
+      <v-btn tile color="primary" class="mx-1 my-1" @click='guardar'>
         <v-icon>mdi-content-save</v-icon>
         <span>Guardar</span>
       </v-btn>
       
         <router-link class="underline-none" to="/hospedajes">   
-          <v-btn tile color="secondary" class="mx-1">     
+          <v-btn tile color="secondary" class="mx-1 my-1">     
             <v-icon>mdi-arrow-left-circle</v-icon>
             <span>Cancelar</span>
           </v-btn>
         </router-link>
       
-    </v-col>  
+    </v-col> 
+    </v-form>
     </v-container>
   </v-card>
   </div>
@@ -302,6 +313,7 @@ export default {
       files_multimedia:[],
       multimedia_data:[],
       images_multi:[],
+      valid:true
     }
   },
   computed:{
@@ -391,17 +403,27 @@ export default {
         })
     },
     guardar(){
-      var thabitacion_seleccionados = this.tipos_habitacion.filter(element=>element.selected==true);
-      var spropiedad_seleccionados = this.servicios_propiedad.filter(element=>element.selected==true);
-      var shabitacion_seleccionados = this.servicios_habitacion.filter(element=>element.selected==true);
-      var servicios = spropiedad_seleccionados.concat(shabitacion_seleccionados);
+      if(this.$refs.form.validate()){
+        var thabitacion_seleccionados = this.tipos_habitacion.filter(element=>element.selected==true);
+        var spropiedad_seleccionados = this.servicios_propiedad.filter(element=>element.selected==true);
+        var shabitacion_seleccionados = this.servicios_habitacion.filter(element=>element.selected==true);
+        var servicios = spropiedad_seleccionados.concat(shabitacion_seleccionados);
 
-      if(this.id_hospedaje != 0){
-        this.editaHospedaje(thabitacion_seleccionados, servicios);
+        if(!this.view_image_hospedaje){
+          this.notification(`La imagen del hospedaje es obligatoria`, 'warning');
+          return;
+        }
+
+        if(thabitacion_seleccionados.length > 0){
+            this.id_hospedaje == 0?this.guardaHospedaje(thabitacion_seleccionados, servicios):this.editaHospedaje(thabitacion_seleccionados, servicios);
+        }
+        else{
+          this.notification("Debe elegir al menos un tipo de habitación", "warning");
+        }
       }
       else{
-        this.guardaHospedaje(thabitacion_seleccionados, servicios);
-      }
+        this.notification("Existen campos obligatorios","warning");
+      }  
     },
     guardaMultimedia(id_hospedaje, nombre_hospedaje){
       for (const key in this.files_multimedia) {
@@ -457,6 +479,7 @@ export default {
     },
     guardaHospedaje(list_hab, list_servicios){
       let dataimagen=this.FormDataImage('file_imagen_principal', this.hospedaje.img_principal);
+      //console.log(dataimagen);
       this.hospedaje.img_principal="";
       HospedajeService.guardaHospedaje(this.hospedaje).then(response=>{
         let id_hospedaje = response.data.id;
@@ -467,7 +490,9 @@ export default {
         list_servicios.forEach(element => {
           HospedajeService.saveServicios(id_hospedaje, element);
         });
-        if(dataimagen!=null) {this.guardaImagenHospedaje(id_hospedaje, dataimagen);}
+        if(dataimagen!=null) {
+          this.guardaImagenHospedaje(id_hospedaje, dataimagen);
+          }
         this.notification('El establecimiento de hospedaje ha sido registrado de manera correcta', 'success');
         this.$router.replace('/hospedajes');
         })

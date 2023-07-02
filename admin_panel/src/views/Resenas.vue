@@ -2,13 +2,14 @@
   <div class="resenas px-15 pt-10">
     <v-card class="px-5 py-3" v-if="resenas_new.length>0">
     <v-container>
-          <v-card-title>
+          <v-card-title class="text-h5">
           <v-icon>
           mdi-alert-circle-outline
           </v-icon>
           <span class="ms-2">Reseñas pendientes de Aprobación</span>
           </v-card-title>
-          <v-alert
+          <hr class="line-blue my-1"/>
+        <v-alert
           outlined
           type="warning"
           prominent
@@ -80,7 +81,7 @@
 
   <v-card class="pa-5 mt-5">
     <v-container>
-    <v-card-title>
+    <v-card-title class="text-h5">
        <v-icon>
          mdi-playlist-check
        </v-icon>

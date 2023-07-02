@@ -1,6 +1,6 @@
 {
-  "name": "hospedaje",
-  "plural": "hospedajes",
+  "name": "servicio",
+  "plural": "servicios",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -11,20 +11,24 @@
       "type": "number",
       "required": true
     },
+    "tipo": {
+      "type": "number",
+      "required": true
+    },
     "nombre": {
       "type": "string",
       "required": true
     },
-    "precio_max": {
-      "type": "number"
-    },
-    "precio_min": {
-      "type": "number"
-    },
-    "categoria": {
-      "type": "number"
+    "descripcion": {
+      "type": "string"
     },
     "direccion": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "img": {
       "type": "string"
     },
     "pagina_web": {
@@ -33,37 +37,27 @@
     "telefono": {
       "type": "string"
     },
-    "facebook": {
+    "referencia": {
       "type": "string"
     },
-    "cel_whatsapp": {
+    "ubicacion": {
       "type": "string"
     },
-    "informacion": {
-      "type": "string"
-    },
-    "img_principal": {
-      "type": "string",
-      "required": false
-    },
-    "titular": {
-      "type": "string"
-    },
-    "tipo": {
-      "type": "string"
+    "whatsapp": {
+      "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "servicios": {
+    "formas_pago": {
       "type": "hasMany",
-      "model": "hosped_servicio",
-      "foreignKey": "id_hospedaje"
+      "model": "servicio_pago",
+      "foreignKey": "id_servicio"
     },
-    "tipos_habitacion": {
+    "horarios": {
       "type": "hasMany",
-      "model": "hosped_thabitacion",
-      "foreignKey": "id_hospedaje"
+      "model": "horarios",
+      "foreignKey": "id_servicio"
     }
   },
   "acls": [],

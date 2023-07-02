@@ -23,7 +23,7 @@ export default {
   }),
   mounted(){	
 		this.altura_ini_p=(window.innerHeight)-64;
-    // this.verificaToken();
+    this.verificaToken();
   },
   methods: {
     verificaToken(){
