@@ -374,7 +374,7 @@ export default {
                     this.hora_atencion_hoy = `${horario.sabado_apertura.substr(0,5)} - ${horario.sabado_cierre.substr(0,5)}`;
                     this.color_sabado = 'primary lighten-5'
                     break;
-                case 7:
+                case 0:
                     if(horario.estado_domingo == true){
                         horario_apertura_aux = horario.domingo_apertura.split(":");
                         horario_cierre_aux = horario.domingo_cierre.split(":");
