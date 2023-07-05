@@ -596,7 +596,7 @@
 												</div>
 											</v-col>
 											<v-col cols="6" md="3">
-												<div class="text-center pointer">
+												<div class="text-center pointer" @click="openMapa">
 													<v-avatar size="128" tile>
 													<img
 														src="@/assets/flaticon/mapa.png"
@@ -1361,6 +1361,9 @@ export default {
 	},
   },
   methods:{
+	openMapa(){
+		window.open('http://drive.google.com/uc?export=view&id=1AFgAbsNQruV1mIHf78uRsJq034WocdnW', '_blank');
+	},
 	doOnce() {
 	if (!document.cookie.split("; ").find((row) => row.startsWith("gamcopacabana"))
 		) { 
